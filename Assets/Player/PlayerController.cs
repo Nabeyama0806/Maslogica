@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -56,12 +50,18 @@ public class PlayerController : MonoBehaviour
         //移動量の取得
         Vector2 inputMove = context.ReadValue<Vector2>();
         m_direction = new Vector3(inputMove.x, m_direction.y, inputMove.y);
+
+        //アニメーション
+        PlayerAnime.Run(true);
     }
 
     private void OnMoveCancel(InputAction.CallbackContext context)
     {
         //移動量をなくす
         m_direction = Vector3.zero;
+
+        //アニメーション
+        PlayerAnime.Run(false);
     }
 
     private void OnJump(InputAction.CallbackContext context)
