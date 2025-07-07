@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1371577647827289447}
   - component: {fileID: 1371577647827289450}
   - component: {fileID: 1371577647827289445}
-  - component: {fileID: 1371577647827289444}
   m_Layer: 0
   m_Name: Emblem
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1371577647827289444
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371577647827289446}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.7, y: 1, z: 0.7}
-  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &1371577648504815001
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,6 +175,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1371577648894294190}
+  - component: {fileID: -2642039391641447769}
+  - component: {fileID: 7358229400551079695}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -213,3 +201,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2642039391641447769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371577648894294185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e068987bf80b4d24e9a499ae4c76bc6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_tile: {fileID: 1371577647827289446}
+  m_defaultColor: {fileID: 2100000, guid: ddac23d301cbfca45bcbe217c05f0141, type: 2}
+  m_hitColor: {fileID: 2100000, guid: 48c12feeb614f8d439f1f0c476f145c8, type: 2}
+--- !u!65 &7358229400551079695
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371577648894294185}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 1, z: 0.7}
+  m_Center: {x: 0, y: 0.5, z: 0}

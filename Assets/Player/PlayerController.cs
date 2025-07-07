@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
         m_playerInput.actions["Move"].performed += OnMove;
         m_playerInput.actions["Move"].canceled += OnMoveCancel;
 
-        //m_playerInput.actions["Attack"].performed += OnAttack;
+        m_playerInput.actions["Attack"].performed += OnAttack;
 
-        //m_playerInput.actions["Jump"].performed += OnJump;
+        m_playerInput.actions["Jump"].performed += OnJump;
     }
 
     private void OnDisable()
@@ -40,9 +40,9 @@ public class PlayerController : MonoBehaviour
         m_playerInput.actions["Move"].performed -= OnMove;
         m_playerInput.actions["Move"].canceled -= OnMoveCancel;
 
-        //m_playerInput.actions["Attack"].performed -= OnAttack;
+        m_playerInput.actions["Attack"].performed -= OnAttack;
 
-        //m_playerInput.actions["Jump"].performed -= OnJump;
+        m_playerInput.actions["Jump"].performed -= OnJump;
     }
 
     private void OnMove(InputAction.CallbackContext context)
