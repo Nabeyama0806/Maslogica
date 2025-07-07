@@ -5,10 +5,8 @@ using UnityEngine;
 public class TileDate : MonoBehaviour
 {
     [SerializeField] GameObject m_tile;
-    [SerializeField] Material m_defaultColor;   //’Êí‚ÌF
-    [SerializeField] Material m_hitColor;       //ÚG‚ÌF
+    [SerializeField] GameObject m_effect;       
 
-    private MeshRenderer m_meshRenderer;
     private bool m_isActive;
 
     public bool IsActive
@@ -20,7 +18,7 @@ public class TileDate : MonoBehaviour
     private void Start()
     {
         m_isActive = false;
-        m_meshRenderer = m_tile.GetComponent<MeshRenderer>();
+        m_effect.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,7 +26,7 @@ public class TileDate : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             m_isActive = !m_isActive;
-            m_meshRenderer.material = m_isActive ? m_hitColor : m_defaultColor;
+            m_effect.SetActive(m_isActive);
         }
     }
 }

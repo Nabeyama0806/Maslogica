@@ -5,7 +5,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class TileGrid : MonoBehaviour
 {
-    private const int GridSize = 8;     //盤面の大きさ(半径)
+    private const int GridSize = 7;     //盤面の大きさ(半径)
 
     //盤面
     [SerializeField] private TileDate[] m_tile;
@@ -13,17 +13,19 @@ public class TileGrid : MonoBehaviour
 
     private void Start()
     {
+        int index = 0;
         for (int i = 0; i < GridSize; ++i)
         {
             for (int j = 0; j < GridSize; ++j)
             {
-                //m_tileGrid[i, j] = m_tile[i + j * GridSize];
+                m_tileGrid[i, j] = m_tile[index];
+                index++;
             }
         }
     }
 
     //踏まれたら
-    static public void IsActive(Vector2 panelPos)
+    public static void IsActive(Vector2 panelPos)
     {
         //盤面外なら何もしない
         if ((int)panelPos.x >= GridSize || (int)panelPos.y >= GridSize) return;
@@ -33,7 +35,7 @@ public class TileGrid : MonoBehaviour
     }
 
     //全てのフラグを折る
-    static public void PassiveAll()
+    public static void PassiveAll()
     {
         for (int y = 0; y < GridSize; ++y)
         {
@@ -43,5 +45,11 @@ public class TileGrid : MonoBehaviour
                 m_tileGrid[y, x].IsActive = false;
             }
         }
+    }
+
+    public static TileDate GetTile(Vector2 tilePos)
+    {
+        //タイルの情報を
+        return m_tileGrid[(int)tilePos.x, (int)tilePos.y];
     }
 }

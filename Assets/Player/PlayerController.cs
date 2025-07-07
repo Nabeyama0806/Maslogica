@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
     private Vector3 m_moveVelocity;     //移動量
-    private Vector3 m_direction;        //入力
-    private bool m_canMove;
+    private Vector3 m_inputValue;       //入力
+    private bool m_canMove;             //移動可能か
 
     void Awake()
     {
@@ -48,8 +48,8 @@ public class PlayerController : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         //移動量の取得
-        Vector2 inputMove = context.ReadValue<Vector2>();
-        m_direction = new Vector3(inputMove.x, m_direction.y, inputMove.y);
+        Vector2 input = context.ReadValue<Vector2>();
+        m_inputValue = new Vector3(input.x, m_inputValue.y, input.y);
 
         //アニメーション
         PlayerAnime.Run(true);
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     private void OnMoveCancel(InputAction.CallbackContext context)
     {
         //移動量をなくす
-        m_direction = Vector3.zero;
+        m_inputValue = Vector3.zero;
 
         //アニメーション
         PlayerAnime.Run(false);
@@ -71,24 +71,24 @@ public class PlayerController : MonoBehaviour
 
         //接地していれば上方向に速度を与える
         if (!m_characterController.isGrounded) return;
-        m_direction.y = m_jumpPower;
+        m_inputValue.y = m_jumpPower;
     }
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        //攻撃中は移動不可
-        m_canMove = false;
+        //盤面のリセット
+        TileGrid.PassiveAll();
     }
 
     void FixedUpdate()
     {
         //自由落下
-        m_direction.y -= m_gravity * Time.deltaTime;
+        m_inputValue.y -= m_gravity * Time.deltaTime;
 
         //カメラの向きを考慮した移動量
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        m_moveVelocity = cameraForward * m_direction.z + Camera.main.transform.right * m_direction.x;
-        m_moveVelocity = new Vector3(m_moveVelocity.x * m_moveSpeed, m_direction.y, m_moveVelocity.z * m_moveSpeed);
+        m_moveVelocity = cameraForward * m_inputValue.z + Camera.main.transform.right * m_inputValue.x;
+        m_moveVelocity = new Vector3(m_moveVelocity.x * m_moveSpeed, m_inputValue.y, m_moveVelocity.z * m_moveSpeed);
 
         //移動
         if (m_canMove)
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //回転
-        Vector3 move = new Vector3(m_direction.x, 0, m_direction.z);
+        Vector3 move = new Vector3(m_inputValue.x, 0, m_inputValue.z);
         if (move != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(
