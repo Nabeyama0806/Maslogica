@@ -13,6 +13,11 @@ public class TileGrid : MonoBehaviour
 
     private void Start()
     {
+        SetTileGrid();
+    }
+
+    private void SetTileGrid()
+    {
         int index = 0;
         for (int i = 0; i < GridSize; ++i)
         {
@@ -24,17 +29,17 @@ public class TileGrid : MonoBehaviour
         }
     }
 
-    //踏まれたら
-    public static void IsActive(Vector2 panelPos)
+    public static bool Flip(Vector2Int panelPos)
     {
         //盤面外なら何もしない
-        if ((int)panelPos.x >= GridSize || (int)panelPos.y >= GridSize) return;
+        if (panelPos.x >= GridSize || panelPos.y >= GridSize) return false;
 
         //状態の反転
-        m_tileGrid[(int)panelPos.x, (int)panelPos.y].IsActive = !m_tileGrid[(int)panelPos.x, (int)panelPos.y].IsActive;
+        m_tileGrid[panelPos.x, panelPos.y].IsActive = !m_tileGrid[panelPos.x, panelPos.y].IsActive;
+
+        return m_tileGrid[panelPos.x, panelPos.y].IsActive;
     }
 
-    //全てのフラグを折る
     public static void PassiveAll()
     {
         for (int y = 0; y < GridSize; ++y)
@@ -45,11 +50,5 @@ public class TileGrid : MonoBehaviour
                 m_tileGrid[y, x].IsActive = false;
             }
         }
-    }
-
-    public static TileDate GetTile(Vector2 tilePos)
-    {
-        //タイルの情報を
-        return m_tileGrid[(int)tilePos.x, (int)tilePos.y];
     }
 }
