@@ -5,22 +5,24 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float m_moveSpeed;         //移動速度
     [SerializeField] float m_jumpPower;         //ジャンプ力
-    [SerializeField] float m_gravity;           //重力
-    [SerializeField] float m_initFallSpeed;     //落下の初速
+    [SerializeField] float MoveingTime = 8.0f;     //移動可能時間
 
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
-    private Vector3 m_moveVelocity;     //移動量
-    private Vector3 m_inputValue;       //入力
-    private bool m_canMove;             //移動可能か
+    private Vector3 m_inputValue;      //入力
+    private bool m_isMove;             //移動可能か
+    private bool m_isPlay;             //行動中か
+    private float m_moveingTime;       //残りの移動可能時間
 
     void Awake()
     {
-        m_canMove = true;
-
         //コンポーネントの取得
         m_characterController = GetComponent<CharacterController>();
         m_playerInput = GetComponent<PlayerInput>();
+
+        m_moveingTime = MoveingTime;
+        m_isMove = false;
+        m_isPlay = false;
     }
 
     private void OnEnable()
@@ -47,6 +49,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context)
     {
+        if (!m_isPlay) return;
+
         //移動量の取得
         Vector2 input = context.ReadValue<Vector2>();
         m_inputValue = new Vector3(input.x, m_inputValue.y, input.y);
@@ -66,8 +70,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        //攻撃中はジャンプ不可
-        if (!m_canMove) return;
+        if (m_moveingTime <= 0) return;
 
         //接地していれば上方向に速度を与える
         if (!m_characterController.isGrounded) return;
@@ -76,35 +79,53 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        //盤面のリセット
-        TileGrid.PassiveAll();
+        Debug.Log("プレイヤーの攻撃!!!");
     }
 
-    void FixedUpdate()
+    private void Update()
     {
         //自由落下
-        m_inputValue.y -= m_gravity * Time.deltaTime;
+        m_inputValue.y += Physics.gravity.y * Time.deltaTime;
+    }
+
+    public bool IsPlay()    
+    {
+        m_isPlay = true;
+
+        //動いてから計測
+        if (m_isMove) m_moveingTime -= Time.deltaTime;
 
         //カメラの向きを考慮した移動量
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        m_moveVelocity = cameraForward * m_inputValue.z + Camera.main.transform.right * m_inputValue.x;
-        m_moveVelocity = new Vector3(m_moveVelocity.x * m_moveSpeed, m_inputValue.y, m_moveVelocity.z * m_moveSpeed);
+        Vector3 moveVelocity = cameraForward * m_inputValue.z + Camera.main.transform.right * m_inputValue.x;
+        moveVelocity = new Vector3(moveVelocity.x * m_moveSpeed, m_inputValue.y, moveVelocity.z * m_moveSpeed);
 
         //移動
-        if (m_canMove)
-        {
-            m_characterController.Move(m_moveVelocity * Time.deltaTime);
-        }
+        m_characterController.Move(moveVelocity * Time.deltaTime);
 
         //回転
         Vector3 move = new Vector3(m_inputValue.x, 0, m_inputValue.z);
         if (move != Vector3.zero)
         {
+            m_isMove = true;
+
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 Quaternion.LookRotation(move.normalized),
                 0.2f
                 );
         }
+
+        //時間が無くなればターン終了
+        if (m_moveingTime <= 0)
+        {
+            m_isPlay = false;
+
+            //次のターンの準備
+            m_moveingTime = MoveingTime;
+            m_isMove = false;
+        }
+
+        return m_isPlay;
     }
 }

@@ -46,8 +46,8 @@ public class TileGrid : MonoBehaviour
         {
             for (int x = 0; x < GridSize; ++x)
             {
-                //Å‰‚Í‘S‚ÄOFF‚Ìó‘Ô
-                m_tileGrid[y, x].IsActive = false;
+                //‘S‚ÄOFF‚Ìó‘Ô
+                if (m_tileGrid[y, x].IsActive) m_tileGrid[y, x].Passive();
             }
         }
     }

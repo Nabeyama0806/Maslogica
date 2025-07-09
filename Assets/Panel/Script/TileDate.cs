@@ -41,4 +41,10 @@ public class TileDate : MonoBehaviour
             m_effect.SetActive(m_isActive);
         }
     }
+
+    public void Passive()
+    {
+        m_isActive = false;
+        m_effect.SetActive(m_isActive);
+    }
 }
