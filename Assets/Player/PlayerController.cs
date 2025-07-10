@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_jumpPower;         //ジャンプ力
     [SerializeField] float MoveingTime = 8.0f;  //移動可能時間
     [SerializeField] GameObject m_snapEffect;   //移動後のエフェクト
+    [SerializeField] AudioClip m_turnEnd;
 
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
@@ -138,6 +139,9 @@ public class PlayerController : MonoBehaviour
 
         //攻撃アニメーション
         PlayerAnime.Attack();
+
+        //効果音
+        SoundManager.Play2D(m_turnEnd);
 
         return m_isTurnEnd;
     }

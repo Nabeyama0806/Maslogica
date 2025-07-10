@@ -8,6 +8,7 @@ public class TileDate : MonoBehaviour
     [SerializeField] GameObject[] m_effects;
     [SerializeField] GameObject m_frame;
     [SerializeField] Material m_material;
+    [SerializeField] AudioClip m_active;
 
     private Vector2Int m_tilePos;
     private bool m_isActive;
@@ -43,6 +44,9 @@ public class TileDate : MonoBehaviour
             //èÛë‘ÇÃîΩì]
             m_isActive = TileGrid.Flip(m_tilePos);
             m_effects[(int)EffectType.Active].SetActive(m_isActive);
+
+            //å¯â âπ
+            SoundManager.Play2D(m_active, 0.4f);
         }
     }
 

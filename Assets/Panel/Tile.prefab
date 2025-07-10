@@ -221,6 +221,7 @@ MonoBehaviour:
   - {fileID: 5318777413192851941}
   m_frame: {fileID: 1371577648504815001}
   m_material: {fileID: 2100000, guid: f1400042c78904243a6cc3e899d76d11, type: 2}
+  m_active: {fileID: 8300000, guid: 25012698e7f7ff944a80bfe6f98b51a9, type: 3}
 --- !u!65 &7358229400551079695
 BoxCollider:
   m_ObjectHideFlags: 0

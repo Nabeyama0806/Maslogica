@@ -4,6 +4,7 @@ public class PlayerAnime : MonoBehaviour
 {
     [SerializeField] GameObject m_player;
     [SerializeField] GameObject m_effect;
+    [SerializeField] AudioClip m_attack;
 
     static GameObject m_auraEffect;
     static private Animator m_animator;
@@ -39,5 +40,8 @@ public class PlayerAnime : MonoBehaviour
 
         //”Õ–Ê‚ÌƒŠƒZƒbƒg
         TileGrid.PassiveAll();
+
+        //Œø‰Ê‰¹
+        SoundManager.Play2D(m_attack);
     }
 }
