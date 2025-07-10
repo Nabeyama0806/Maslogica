@@ -41,10 +41,13 @@ public class GameSceneManager : MonoBehaviour
         case Phase.Start:
                 Debug.Log("ゲームスタート");
                 m_phase = Phase.PlayerTurn;
-            break;
+                break;
 
         case Phase.PlayerTurn:
                 if (m_player.IsPlay()) return;
+                if (!m_player.IsTurnEnd()) return;
+
+                //フェーズ切り替え
                 m_nextPhase = Phase.EnemyTurn;
                 m_phase = Phase.Check;
                 break;
@@ -56,13 +59,12 @@ public class GameSceneManager : MonoBehaviour
                 break;
 
         case Phase.Check:
-                TileGrid.PassiveAll();
                 m_phase = m_nextPhase;
-            break;
+                break;
 
         case Phase.Finish:            
-                //SceneManager.Load(m_nextScene);
-            break;
+                //ChengeScene.Load(m_nextScene);
+                break;
         }
     }
 

@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TileDate : MonoBehaviour
 {
-    [SerializeField] GameObject m_effect;
+    [SerializeField] GameObject[] m_effects;
+    [SerializeField] GameObject m_frame;
+    [SerializeField] Material m_material;
 
     private Vector2Int m_tilePos;
     private bool m_isActive;
 
-    enum Type
-    {   
-        Normal, //通常マス
-        Damage, //エネミーの攻撃予告マス
+    public enum EffectType
+    {
+        Active,
+        PlayerAttack,
+        EnemyAttack,
 
         Length,
     }
@@ -24,12 +28,12 @@ public class TileDate : MonoBehaviour
     }
 
     private void Start()
-    {
-        m_isActive = false;
-        m_effect.SetActive(false);
-
+    {        
         //盤面座標
         m_tilePos = new Vector2Int((int)transform.localPosition.x, (int)transform.localPosition.z);
+
+        //状態のリセット
+        Passive();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,13 +42,31 @@ public class TileDate : MonoBehaviour
         {
             //状態の反転
             m_isActive = TileGrid.Flip(m_tilePos);
-            m_effect.SetActive(m_isActive);
+            m_effects[(int)EffectType.Active].SetActive(m_isActive);
         }
     }
 
     public void Passive()
     {
         m_isActive = false;
-        m_effect.SetActive(m_isActive);
+        m_effects[(int)EffectType.Active].SetActive(false);
+    }
+
+    public void PlayEffect(EffectType type)
+    {
+        //エフェクトの生成と削除
+        GameObject effect = Instantiate(
+            m_effects[(int)type],
+            transform.position,
+            Quaternion.identity
+        );
+
+        Destroy(effect, 1.0f);
+    }
+
+    public void EnemyAttack()
+    {
+        m_frame.GetComponent<MeshRenderer>().material = m_material;
+        m_effects[(int)EffectType.EnemyAttack].SetActive(true);
     }
 }

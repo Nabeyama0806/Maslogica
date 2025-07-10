@@ -22,6 +22,9 @@ public class EnemyController : MonoBehaviour
             //次のターンの準備
             m_moveingTime = MovingTime;
 
+            //攻撃マスをランダムで選択
+            TileGrid.RandomSelect();
+
             //ターン終了
             return false;
         }

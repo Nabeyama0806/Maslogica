@@ -5,14 +5,21 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float m_moveSpeed;         //移動速度
     [SerializeField] float m_jumpPower;         //ジャンプ力
-    [SerializeField] float MoveingTime = 8.0f;     //移動可能時間
+    [SerializeField] float MoveingTime = 8.0f;  //移動可能時間
+    [SerializeField] GameObject m_snapEffect;   //移動後のエフェクト
 
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
     private Vector3 m_inputValue;      //入力
-    private bool m_isMove;             //移動可能か
+    private bool m_isMove;             //移動したか
     private bool m_isPlay;             //行動中か
+    private bool m_isTurnEnd;          //ターン終了か 
     private float m_moveingTime;       //残りの移動可能時間
+
+    public bool IsTurnEndFlag
+    { 
+        set {   m_isTurnEnd = value; }
+    }
 
     void Awake()
     {
@@ -23,6 +30,7 @@ public class PlayerController : MonoBehaviour
         m_moveingTime = MoveingTime;
         m_isMove = false;
         m_isPlay = false;
+        m_isTurnEnd = true;
     }
 
     private void OnEnable()
@@ -30,8 +38,6 @@ public class PlayerController : MonoBehaviour
         //入力時のイベントを設定
         m_playerInput.actions["Move"].performed += OnMove;
         m_playerInput.actions["Move"].canceled += OnMoveCancel;
-
-        m_playerInput.actions["Attack"].performed += OnAttack;
 
         m_playerInput.actions["Jump"].performed += OnJump;
     }
@@ -41,8 +47,6 @@ public class PlayerController : MonoBehaviour
         //設定したイベントの除外
         m_playerInput.actions["Move"].performed -= OnMove;
         m_playerInput.actions["Move"].canceled -= OnMoveCancel;
-
-        m_playerInput.actions["Attack"].performed -= OnAttack;
 
         m_playerInput.actions["Jump"].performed -= OnJump;
     }
@@ -77,11 +81,6 @@ public class PlayerController : MonoBehaviour
         m_inputValue.y = m_jumpPower;
     }
 
-    private void OnAttack(InputAction.CallbackContext context)
-    {
-        Debug.Log("プレイヤーの攻撃!!!");
-    }
-
     private void Update()
     {
         //自由落下
@@ -103,7 +102,7 @@ public class PlayerController : MonoBehaviour
         //移動
         m_characterController.Move(moveVelocity * Time.deltaTime);
 
-        //回転
+        //移動していれば回転させる
         Vector3 move = new Vector3(m_inputValue.x, 0, m_inputValue.z);
         if (move != Vector3.zero)
         {
@@ -113,19 +112,33 @@ public class PlayerController : MonoBehaviour
                 transform.rotation,
                 Quaternion.LookRotation(move.normalized),
                 0.2f
-                );
+            );
         }
 
-        //時間が無くなればターン終了
+        //移動可能時間が無くなれば終了
         if (m_moveingTime <= 0)
         {
-            m_isPlay = false;
-
             //次のターンの準備
-            m_moveingTime = MoveingTime;
+            m_isPlay = false;
             m_isMove = false;
+            m_moveingTime = MoveingTime;
         }
 
         return m_isPlay;
+    }
+
+    public bool IsTurnEnd()
+    {
+        //座標の調整
+        transform.position = TileGrid.ToGridPos(transform.position);
+
+        //エフェクトの生成と削除
+        GameObject effect = Instantiate(m_snapEffect, transform);
+        Destroy(effect, 1.0f);
+
+        //攻撃アニメーション
+        PlayerAnime.Attack();
+
+        return m_isTurnEnd;
     }
 }

@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Value: 1
   scatter:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.8
   clamp:
     m_OverrideState: 1
     m_Value: 65472
@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Value: 0
   skipIterations:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   dirtTexture:
     m_OverrideState: 1
     m_Value: {fileID: 0}
@@ -84,7 +84,7 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.8536603, z: 0.8679428, w: -0.18819505}
+    m_Value: {x: 1, y: 0.82440317, z: 0.8315342, w: -0.18819505}
   midtones:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0.051325917}

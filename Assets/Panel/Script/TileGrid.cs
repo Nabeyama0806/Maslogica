@@ -29,6 +29,19 @@ public class TileGrid : MonoBehaviour
         }
     }
 
+    //盤面座標に変換
+    public static Vector3 ToGridPos(Vector3 position)
+    {
+        int posX = Mathf.RoundToInt(position.x);
+        int posZ = Mathf.RoundToInt(position.z);
+
+        //盤面外なら左上に修正
+        if (posX >= GridSize || posZ >= GridSize) return new Vector3();
+
+        return new Vector3(posX, position.y, posZ);
+    }
+
+    //状態の反転
     public static bool Flip(Vector2Int panelPos)
     {
         //盤面外なら何もしない
@@ -40,6 +53,16 @@ public class TileGrid : MonoBehaviour
         return m_tileGrid[panelPos.x, panelPos.y].IsActive;
     }
 
+    //ランダムで一マス選択
+    static public void RandomSelect()
+    {
+        int randX = Random.Range(0, GridSize);
+        int randY = Random.Range(0, GridSize);
+
+        m_tileGrid[randX, randY].EnemyAttack();
+    }
+
+    //盤面のリセット
     public static void PassiveAll()
     {
         for (int y = 0; y < GridSize; ++y)
@@ -48,6 +71,18 @@ public class TileGrid : MonoBehaviour
             {
                 //全てOFFの状態
                 if (m_tileGrid[y, x].IsActive) m_tileGrid[y, x].Passive();
+            }
+        }
+    }
+
+    static public void PlayEffect()
+    {
+        for (int y = 0; y < GridSize; ++y)
+        {
+            for (int x = 0; x < GridSize; ++x)
+            {
+                //アクティブの盤面はエフェクトを表示
+                if (m_tileGrid[y, x].IsActive) m_tileGrid[y, x].PlayEffect(TileDate.EffectType.PlayerAttack);
             }
         }
     }
