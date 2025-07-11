@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private const float MovingTime = 3.0f;
+    [SerializeField] float MovingTime = 3.0f;
     private float m_moveingTime;
 
     private void Start()
@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
         m_moveingTime = MovingTime;
     }
 
-    public bool IsPlay()
+    public bool Play()
     {
         m_moveingTime -= Time.deltaTime;
 

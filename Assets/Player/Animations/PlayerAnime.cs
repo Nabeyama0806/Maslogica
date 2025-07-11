@@ -38,9 +38,6 @@ public class PlayerAnime : MonoBehaviour
         //盤面のエフェクトを表示
         TileGrid.PlayEffect();
 
-        //盤面のリセット
-        TileGrid.PassiveAll();
-
         //効果音
         SoundManager.Play2D(m_attack);
     }

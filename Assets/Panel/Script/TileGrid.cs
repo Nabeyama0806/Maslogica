@@ -19,14 +19,64 @@ public class TileGrid : MonoBehaviour
     private void SetTileGrid()
     {
         int index = 0;
-        for (int i = 0; i < GridSize; ++i)
+        for (int y = 0; y < GridSize; ++y)
         {
-            for (int j = 0; j < GridSize; ++j)
+            for (int x = 0; x < GridSize; ++x)
             {
-                m_tileGrid[i, j] = m_tile[index];
+                m_tileGrid[x, y] = m_tile[index];
                 index++;
             }
         }
+    }
+
+    static public bool Check()
+    {
+        for (int y = 0; y < GridSize; ++y)
+        {
+            for (int x = 0; x < GridSize; ++x)
+            {
+                //非アクティブの盤面はスキップ
+                if (!m_tileGrid[x, y].IsActive) continue;
+
+                //列の判定
+                if (IsLine(x, y)) return true;
+            }
+        }
+
+        return false;
+    }
+
+    static private bool IsLine(int x, int y)
+    {
+        int count = 0;
+
+        //横の列
+        for (int i = 0; i < GridSize; ++i)
+        {
+            if (!m_tileGrid[i, y].IsActive) break;
+            count++;
+        }
+        if (count == GridSize)
+        {
+            Debug.Log("横列 : Damage!!!!");
+            return true;
+        }
+
+        count = 0;
+
+        //縦の列
+        for (int i = 0; i < GridSize; ++i)
+        {
+            if (!m_tileGrid[x, i].IsActive) break;
+            count++;
+        }
+        if (count == GridSize)
+        {
+            Debug.Log("縦列 : Damage!!!!");
+            return true;
+        }
+
+        return false;
     }
 
     //盤面座標に変換
@@ -70,7 +120,7 @@ public class TileGrid : MonoBehaviour
             for (int x = 0; x < GridSize; ++x)
             {
                 //全てOFFの状態
-                if (m_tileGrid[y, x].IsActive) m_tileGrid[y, x].Passive();
+                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].Passive();
             }
         }
     }
@@ -82,7 +132,7 @@ public class TileGrid : MonoBehaviour
             for (int x = 0; x < GridSize; ++x)
             {
                 //アクティブの盤面はエフェクトを表示
-                if (m_tileGrid[y, x].IsActive) m_tileGrid[y, x].PlayEffect(TileDate.EffectType.PlayerAttack);
+                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].PlayEffect(TileDate.Type.PlayerAttack);
             }
         }
     }

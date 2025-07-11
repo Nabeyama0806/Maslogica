@@ -215,7 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e068987bf80b4d24e9a499ae4c76bc6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveType: 0
   m_effects:
+  - {fileID: 0}
   - {fileID: 8858542144222850714}
   - {fileID: 6379339175288392204, guid: 5eb3349f9a915b0469910cea9f49b627, type: 3}
   - {fileID: 5318777413192851941}

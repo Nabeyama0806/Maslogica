@@ -13,14 +13,17 @@ public class TileDate : MonoBehaviour
     private Vector2Int m_tilePos;
     private bool m_isActive;
 
-    public enum EffectType
+    public enum Type
     {
+        Normal,
         Active,
         PlayerAttack,
         EnemyAttack,
 
         Length,
     }
+
+    Type m_type;
 
     public bool IsActive
     {
@@ -31,9 +34,11 @@ public class TileDate : MonoBehaviour
     private void Start()
     {        
         //盤面座標
-        m_tilePos = new Vector2Int((int)transform.localPosition.x, (int)transform.localPosition.z);
+        //左上基準のため、xとzが反転
+        m_tilePos = new Vector2Int((int)transform.localPosition.z, (int)transform.localPosition.x);
 
         //状態のリセット
+        m_type = Type.Normal;
         Passive();
     }
 
@@ -42,21 +47,28 @@ public class TileDate : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //状態の反転
-            m_isActive = TileGrid.Flip(m_tilePos);
-            m_effects[(int)EffectType.Active].SetActive(m_isActive);
+            //m_isActive = TileGrid.Flip(m_tilePos);
+            m_isActive = !m_isActive;
+            m_effects[(int)Type.Active].SetActive(m_isActive);
 
             //効果音
             SoundManager.Play2D(m_active, 0.4f);
+
+            //エネミーの攻撃マスならダメージを与える
+            if (m_type == Type.EnemyAttack)
+            {
+                other.GetComponent<Health>().Damage(20);
+            }
         }
     }
 
     public void Passive()
     {
         m_isActive = false;
-        m_effects[(int)EffectType.Active].SetActive(false);
+        m_effects[(int)Type.Active].SetActive(false);
     }
 
-    public void PlayEffect(EffectType type)
+    public void PlayEffect(Type type)
     {
         //エフェクトの生成と削除
         GameObject effect = Instantiate(
@@ -71,6 +83,7 @@ public class TileDate : MonoBehaviour
     public void EnemyAttack()
     {
         m_frame.GetComponent<MeshRenderer>().material = m_material;
-        m_effects[(int)EffectType.EnemyAttack].SetActive(true);
+        m_effects[(int)Type.EnemyAttack].SetActive(true);
+        m_type = Type.EnemyAttack;
     }
 }
