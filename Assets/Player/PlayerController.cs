@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
         m_playerInput.actions["Move"].canceled += OnMoveCancel;
 
         m_playerInput.actions["Jump"].performed += OnJump;
+
+        m_playerInput.actions["Attack"].performed += OnAttack;
     }
 
     private void OnDisable()
@@ -50,6 +52,8 @@ public class PlayerController : MonoBehaviour
         m_playerInput.actions["Move"].canceled -= OnMoveCancel;
 
         m_playerInput.actions["Jump"].performed -= OnJump;
+
+        m_playerInput.actions["Attack"].performed -= OnAttack;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -80,6 +84,11 @@ public class PlayerController : MonoBehaviour
         //ê⁄ínÇµÇƒÇ¢ÇÍÇŒè„ï˚å¸Ç…ë¨ìxÇó^Ç¶ÇÈ
         if (!m_characterController.isGrounded) return;
         m_inputValue.y = m_jumpPower;
+    }
+
+    private void OnAttack(InputAction.CallbackContext context)
+    {
+        m_moveingTime = 0;
     }
 
     private void Update()
