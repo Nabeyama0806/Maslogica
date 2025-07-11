@@ -1861,7 +1861,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.2
-  m_Radius: 0.2
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -7806,7 +7806,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8d2bd02229b30bf46afd6b829a2aea06, type: 3}
+  m_audioClip: {fileID: 8300000, guid: aaf1fe5b0b15cde4a83bf31edf067900, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

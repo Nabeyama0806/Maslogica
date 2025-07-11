@@ -28,8 +28,8 @@ public class GameSceneManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        m_phase = Phase.Start;
-        m_nextPhase = Phase.Start;
+        m_phase = Phase.Check;
+        m_nextPhase = Phase.PlayerTurn;
     }
 
     private void FixedUpdate()
@@ -44,15 +44,14 @@ public class GameSceneManager : MonoBehaviour
                 break;
 
         case Phase.PlayerTurn:
-                if (m_player.IsPlay()) return;
+                //プレイヤーの操作が終了するまで待機
                 if (!m_player.IsTurnEnd()) return;
-
-                //フェーズ切り替え
                 m_nextPhase = Phase.EnemyTurn;
                 m_phase = Phase.Check;
                 break;
 
         case Phase.EnemyTurn:
+                //エネミーの行動が終了するまで待機
                 if (m_enemy.IsPlay()) return;
                 m_nextPhase = Phase.PlayerTurn;
                 m_phase = Phase.Check;
@@ -60,6 +59,7 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.Check:
                 m_phase = m_nextPhase;
+                if(m_phase == Phase.PlayerTurn) m_player.Play();
                 break;
 
         case Phase.Finish:            

@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
     private Vector3 m_inputValue;      //入力
+    private bool m_canMove;            //移動可能か
     private bool m_isMove;             //移動したか
-    private bool m_isPlay;             //行動中か
     private bool m_isTurnEnd;          //ターン終了か 
     private float m_moveingTime;       //残りの移動可能時間
 
@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
 
         m_moveingTime = MoveingTime;
         m_isMove = false;
-        m_isPlay = false;
-        m_isTurnEnd = true;
+        m_isTurnEnd = false;
+        m_canMove = false;
     }
 
     private void OnEnable()
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        if (!m_isPlay) return;
+        if (!m_canMove) return;
 
         //移動量の取得
         Vector2 input = context.ReadValue<Vector2>();
@@ -88,9 +88,19 @@ public class PlayerController : MonoBehaviour
         m_inputValue.y += Physics.gravity.y * Time.deltaTime;
     }
 
-    public bool IsPlay()    
+    public void Play()
     {
-        m_isPlay = true;
+        //ターン開始の準備
+        m_isMove = false;
+        m_isTurnEnd = false;
+        m_canMove = true;
+        m_moveingTime = MoveingTime;
+    }
+
+    public bool IsTurnEnd()
+    {
+        //移動不可ならターン終了まで何もしない
+        if (!m_canMove) return m_isTurnEnd;
 
         //動いてから計測
         if (m_isMove) m_moveingTime -= Time.deltaTime;
@@ -119,29 +129,21 @@ public class PlayerController : MonoBehaviour
         //移動可能時間が無くなれば終了
         if (m_moveingTime <= 0)
         {
-            //次のターンの準備
-            m_isPlay = false;
-            m_isMove = false;
-            m_moveingTime = MoveingTime;
+            m_canMove = false;
+
+            //盤面座標に調整
+            transform.position = TileGrid.ToGridPos(transform.position);
+
+            //エフェクトの生成と削除
+            GameObject effect = Instantiate(m_snapEffect, transform);
+            Destroy(effect, 1.0f);
+
+            //攻撃アニメーション
+            PlayerAnime.Attack();
+
+            //効果音
+            SoundManager.Play2D(m_turnEnd);
         }
-
-        return m_isPlay;
-    }
-
-    public bool IsTurnEnd()
-    {
-        //座標の調整
-        transform.position = TileGrid.ToGridPos(transform.position);
-
-        //エフェクトの生成と削除
-        GameObject effect = Instantiate(m_snapEffect, transform);
-        Destroy(effect, 1.0f);
-
-        //攻撃アニメーション
-        PlayerAnime.Attack();
-
-        //効果音
-        SoundManager.Play2D(m_turnEnd);
 
         return m_isTurnEnd;
     }

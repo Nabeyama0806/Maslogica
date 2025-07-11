@@ -38,7 +38,7 @@ public class TileGrid : MonoBehaviour
         //î’ñ äOÇ»ÇÁç∂è„Ç…èCê≥
         if (posX >= GridSize || posZ >= GridSize) return new Vector3();
 
-        return new Vector3(posX, position.y, posZ);
+        return new Vector3(posX, 0.0f, posZ);
     }
 
     //èÛë‘ÇÃîΩì]
