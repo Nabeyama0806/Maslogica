@@ -31,14 +31,14 @@ public class PlayerAnime : MonoBehaviour
     }
     public void AttackEnd()
     {
-        //ターン終了
-        m_auraEffect.SetActive(false);
-        m_controller.GetComponent<PlayerController>().IsTurnEndFlag = true;
-
         //盤面のエフェクトを表示
         TileGrid.PlayEffect();
 
         //効果音
         SoundManager.Play2D(m_attack);
+
+        //ターン終了
+        m_auraEffect.SetActive(false);
+        m_controller.GetComponent<PlayerController>().IsTurnEndFlag = true;
     }
 }

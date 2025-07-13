@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
-using static GameSceneManager;
 
 public class GameSceneManager : MonoBehaviour
 {
@@ -45,6 +43,11 @@ public class GameSceneManager : MonoBehaviour
         case Phase.PlayerTurn:
                 //プレイヤーの操作が終了するまで待機
                 if (!m_player.IsTurnEnd()) return;
+
+                //敵にダメージを与える
+                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(10);
+
+                //次のフェーズへ
                 m_nextPhase = Phase.EnemyTurn;
                 m_phase = Phase.Check;
                 break;
@@ -52,6 +55,12 @@ public class GameSceneManager : MonoBehaviour
         case Phase.EnemyTurn:
                 //エネミーの行動が終了するまで待機
                 if (m_enemy.Play()) return;
+
+                //プレイヤーにダメージを与える
+                Vector2Int pos = new Vector2Int((int)m_player.transform.position.x, (int)m_player.transform.position.x);
+                if (TileGrid.IsEnemyAttack(pos)) m_player.GetComponent<Health>().Damage(10);
+
+                //次のフェーズへ
                 m_nextPhase = Phase.PlayerTurn;
                 m_phase = Phase.Check;
                 break;
@@ -59,25 +68,17 @@ public class GameSceneManager : MonoBehaviour
         case Phase.Check:
                 //次のターンを取得
                 m_phase = m_nextPhase;
-
-                //盤面の確認
-                if (m_phase == Phase.PlayerTurn)
-                {
-                    if (TileGrid.IsEnemyAttack(new Vector2Int((int)m_player.transform.position.x, (int)m_player.transform.position.x))) m_player.GetComponent<Health>().Damage(10);
-                    m_player.Play();
-                }
-                else
-                {
-                    if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(10);
-                    m_enemy.Play();
-                }
+                
+                //次のターンの準備
+                if (m_phase == Phase.PlayerTurn) m_player.Play();
+                if (m_phase == Phase.EnemyTurn) m_enemy.Play();
 
                 //盤面のリセット
-                TileGrid.PassiveAll();
+                TileGrid.AllReset();
                 break;
 
         case Phase.Finish:            
-                //ChengeScene.Load(m_nextScene);
+                //SceneController.Load(m_nextScene);
                 break;
         }
     }

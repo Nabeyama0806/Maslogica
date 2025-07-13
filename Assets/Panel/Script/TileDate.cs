@@ -1,30 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static TileEffects;
 
 public class TileDate : MonoBehaviour
 {
-    [SerializeField] GameObject[] m_effects;
-    [SerializeField] GameObject m_enemyAttackEffect;
-    [SerializeField] GameObject m_frame;
-    [SerializeField] Material m_material;
-    [SerializeField] AudioClip m_active;
+    [SerializeField] GameObject m_frame;            //タイルの淵
+    [SerializeField] Material m_damageMaterial;     //エネミーの攻撃マスのマテリアル
+    [SerializeField] AudioClip m_active;            //アクティブ時の効果音
 
-    private Vector2Int m_tilePos;
-    private bool m_isActive;
-
-    public enum Type
-    {
-        Normal,
-        Active,
-        PlayerAttack,
-        EnemyAttack,
-
-        Length,
-    }
-
-    Type m_type;
+    private TileEffects m_effects;  //エフェクト管理クラス
+    private bool m_isActive;        //アクティブかどうか
+    private bool m_isEnemyAttack;   //エネミーの攻撃マスかどうか
 
     public bool IsActive
     {
@@ -32,20 +21,17 @@ public class TileDate : MonoBehaviour
         set { m_isActive = value; }
     }
 
-    public Type GetTileType
+    public bool IsEnemyAttack
     {
-        get { return m_type; }
+        get { return m_isEnemyAttack; }
+        set { m_isEnemyAttack = value; }
     }
 
     private void Start()
     {        
-        //盤面座標
-        //左上基準のため、xとzが反転
-        m_tilePos = new Vector2Int((int)transform.localPosition.z, (int)transform.localPosition.x);
-
         //状態のリセット
-        m_type = Type.Normal;
-        Passive();
+        m_effects = GetComponent<TileEffects>();
+        Inactive();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,53 +39,34 @@ public class TileDate : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //状態の反転
-            //m_isActive = TileGrid.Flip(m_tilePos);
             m_isActive = !m_isActive;
-            m_effects[(int)Type.Active].SetActive(m_isActive);
+
+            //エフェクト
+            m_effects.Show(EffectType.Active, m_isActive);
 
             //効果音
             SoundManager.Play2D(m_active, 0.4f);
 
             //エネミーの攻撃マスならダメージを与える
-            if (m_type == Type.EnemyAttack)
+            if (m_isEnemyAttack)
             {
                 other.GetComponent<Health>().Damage(20);
             }
         }
     }
 
-    public void Passive()
+    //非アクティブにする
+    public void Inactive()
     {
         m_isActive = false;
-        m_effects[(int)Type.Active].SetActive(false);
+        m_effects.Inactive();
     }
 
-    public void PlayEffect(Type type)
-    {
-        //エフェクトの生成と削除
-        GameObject effect = Instantiate(
-            m_effects[(int)type],
-            transform.position,
-            Quaternion.identity
-        );
-
-        Destroy(effect, 1.2f);
-    }
-
+    //エネミーの攻撃マス
     public void EnemyAttack()
     {
-        m_frame.GetComponent<MeshRenderer>().material = m_material;
-        m_effects[(int)Type.EnemyAttack].SetActive(true);
-        m_type = Type.EnemyAttack;
-    }
-    public void EnemyEffect()
-    {
-        GameObject effect = Instantiate(
-            m_enemyAttackEffect,
-            transform.position,
-            Quaternion.identity
-        );
-
-        Destroy(effect, 1.2f);
+        m_isEnemyAttack = true;
+        m_frame.GetComponent<MeshRenderer>().material = m_damageMaterial;
+        m_effects.Show(EffectType.EnemyAttack);
     }
 }

@@ -1,99 +1,77 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-//メモ : switch移植をする場合はObjectPoolを要検討
 
 public class TileEffects : MonoBehaviour
 {
-    //Typeとエフェクトを紐づけるためのクラス
     [Serializable]
-    public class Effects
+    public class Effects           //Typeとエフェクトを紐づけるためのクラス
     {
-        public Type type;                   //自身がどのエフェクトか
-        public GameObject effectPrefab;     //エフェクト
-        public float destroyTime;           //削除する時間    
+        public EffectType type;    //自身がどのエフェクトか
+        public GameObject effect;  
+        public float destroyTime;  //削除する時間    
     }
 
-    [SerializeField]  List<Effects> m_effects2DList;
+    [SerializeField]  List<Effects> m_effectList;
 
-    public enum Type
+    public enum EffectType
     { 
-        Passive,        //非アクティブ
         Active,         //アクティブ
         PlayerAttack,   //プレイヤーの攻撃
         EnemyAttack,    //敵の攻撃
     }
 
-    public void Play(Type type)
+    //エフェクトの表示
+    public void Show(EffectType type, bool active = false)
     {
-        switch(type)
+        switch (type)
         {
-            case Type.Passive:
-                PlayPassive();
+            case EffectType.Active:
+                PlayActive(active);
                 break;
 
-            case Type.Active:
-                PlayActive();
-                break;
-
-            case Type.PlayerAttack:
+            case EffectType.PlayerAttack:
                 PlayPlayerAttack();
                 break;
 
-            case Type.EnemyAttack:
+            case EffectType.EnemyAttack:
                 PlayEnemyAttack();
                 break;
-
         }
     }
 
-    private void PlayPassive()
+    //エフェクトを非表示にする
+    public void Inactive()
     {
-        //エフェクトの生成と削除
-       GameObject effect =  Instantiate(
-            m_effects2DList[(int)Type.Passive].effectPrefab,
-            transform.position,
-            Quaternion.identity
-            );
-
-        Destroy(effect, m_effects2DList[(int)Type.Passive].destroyTime);
+        PlayActive(false);
     }
 
-    private void PlayActive()
+    private void PlayActive(bool active)
     {
-        //エフェクトの生成と削除
-        GameObject effect = Instantiate(
-             m_effects2DList[(int)Type.Active].effectPrefab,
-             transform.position,
-             Quaternion.identity
-             );
-
-        Destroy(effect, m_effects2DList[(int)Type.Active].destroyTime);
+        //エフェクトの表示
+        m_effectList[(int)EffectType.Active].effect.SetActive(active);
     }
 
     private void PlayPlayerAttack()
     {
         //エフェクトの生成と削除
         GameObject effect = Instantiate(
-             m_effects2DList[(int)Type.PlayerAttack].effectPrefab,
+             m_effectList[(int)EffectType.PlayerAttack].effect,
              transform.position,
              Quaternion.identity
              );
+        
+        Destroy(effect, m_effectList[(int)EffectType.PlayerAttack].destroyTime);
 
-        Destroy(effect, m_effects2DList[(int)Type.Active].destroyTime);
+        //エフェクトを表示
+        effect.SetActive(true);
     }
 
     private void PlayEnemyAttack()
     {
-        //エフェクトの生成と削除
-        GameObject effect = Instantiate(
-             m_effects2DList[(int)Type.EnemyAttack].effectPrefab,
-             transform.position,
-             Quaternion.identity
-             );
-
-        Destroy(effect, m_effects2DList[(int)Type.EnemyAttack].destroyTime);
+        //エフェクトの表示
+        m_effectList[(int)EffectType.EnemyAttack].effect.SetActive(true);
     }
-
 }
