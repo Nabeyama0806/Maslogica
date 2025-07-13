@@ -7,20 +7,20 @@ public class HealtSlider : MonoBehaviour
 {
     [SerializeField] Health m_health;
     private float m_maxHealth;
-    private Slider m_helathSlider;
+    private Slider m_healthSlider;
 
     private void Start()
     {
-        m_helathSlider = GetComponent<Slider>();
+        m_healthSlider = GetComponent<Slider>();
 
         //�̗͂̎擾
-        m_helathSlider.maxValue = m_health.Value;
-        m_helathSlider.value = m_maxHealth;
+        m_healthSlider.maxValue = m_health.Value;
+        m_healthSlider.value = m_maxHealth;
 
     }
 
     private void Update()
     {
-        m_helathSlider.value = m_health.Value;
+        m_healthSlider.value = m_health.Value;
     }
 }
