@@ -63,6 +63,7 @@ public class GameSceneManager : MonoBehaviour
                 //”Õ–Ê‚ÌŠm”F
                 if (m_phase == Phase.PlayerTurn)
                 {
+                    if (TileGrid.IsEnemyAttack(new Vector2Int((int)m_player.transform.position.x, (int)m_player.transform.position.x))) m_player.GetComponent<Health>().Damage(10);
                     m_player.Play();
                 }
                 else

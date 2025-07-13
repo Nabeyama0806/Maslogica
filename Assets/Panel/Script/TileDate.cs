@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class TileDate : MonoBehaviour
 {
     [SerializeField] GameObject[] m_effects;
+    [SerializeField] GameObject m_enemyAttackEffect;
     [SerializeField] GameObject m_frame;
     [SerializeField] Material m_material;
     [SerializeField] AudioClip m_active;
@@ -29,6 +30,11 @@ public class TileDate : MonoBehaviour
     {
         get { return m_isActive; }
         set { m_isActive = value; }
+    }
+
+    public Type GetTileType
+    {
+        get { return m_type; }
     }
 
     private void Start()
@@ -77,7 +83,7 @@ public class TileDate : MonoBehaviour
             Quaternion.identity
         );
 
-        Destroy(effect, 1.0f);
+        Destroy(effect, 1.2f);
     }
 
     public void EnemyAttack()
@@ -85,5 +91,15 @@ public class TileDate : MonoBehaviour
         m_frame.GetComponent<MeshRenderer>().material = m_material;
         m_effects[(int)Type.EnemyAttack].SetActive(true);
         m_type = Type.EnemyAttack;
+    }
+    public void EnemyEffect()
+    {
+        GameObject effect = Instantiate(
+            m_enemyAttackEffect,
+            transform.position,
+            Quaternion.identity
+        );
+
+        Destroy(effect, 1.2f);
     }
 }

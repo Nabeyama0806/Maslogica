@@ -6,21 +6,21 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] float MovingTime = 3.0f;
-    private float m_moveingTime;
+    private float m_movingTime;
 
     private void Start()
     {
-        m_moveingTime = MovingTime;
+        m_movingTime = MovingTime;
     }
 
     public bool Play()
     {
-        m_moveingTime -= Time.deltaTime;
+        m_movingTime -= Time.deltaTime;
 
-        if(m_moveingTime <= 0)
+        if(m_movingTime <= 0)
         {
             //次のターンの準備
-            m_moveingTime = MovingTime;
+            m_movingTime = MovingTime;
 
             //攻撃マスをランダムで選択
             TileGrid.RandomSelect();
