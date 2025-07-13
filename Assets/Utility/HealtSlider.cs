@@ -19,7 +19,7 @@ public class HealtSlider : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         m_healthSlider.value = m_health.Value;
     }
