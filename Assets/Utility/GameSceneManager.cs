@@ -77,8 +77,8 @@ public class GameSceneManager : MonoBehaviour
                 TileGrid.AllReset();
                 break;
 
-        case Phase.Finish:            
-                //SceneController.Load(m_nextScene);
+        case Phase.Finish:
+                SceneController.Transition("Result");
                 break;
         }
     }
