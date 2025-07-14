@@ -25,6 +25,8 @@ public class GameSceneManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        //開始のフェード
+        Fade.FadeIn(1.5f);
         m_phase = Phase.Start;
     }
 
@@ -42,7 +44,7 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.PlayerTurn:
                 //プレイヤーの操作が終了するまで待機
-                if (!m_player.IsTurnEnd()) return;
+                if (!m_player.IsTurnEnd()) break;
 
                 //敵にダメージを与える
                 if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(10);
@@ -54,7 +56,7 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.EnemyTurn:
                 //エネミーの行動が終了するまで待機
-                if (m_enemy.Play()) return;
+                if (m_enemy.Play()) break;
 
                 //プレイヤーにダメージを与える
                 Vector2Int pos = new Vector2Int((int)m_player.transform.position.x, (int)m_player.transform.position.x);
@@ -66,6 +68,14 @@ public class GameSceneManager : MonoBehaviour
                 break;
 
         case Phase.Check:
+                //勝敗の確認
+                if (m_player.GetComponent<Health>().Value <= 0
+                ||  m_enemy.GetComponent<Health>().Value <= 0)
+                {
+                    m_phase = Phase.Finish;
+                    break;
+                }
+
                 //次のターンを取得
                 m_phase = m_nextPhase;
                 
@@ -78,7 +88,6 @@ public class GameSceneManager : MonoBehaviour
                 break;
 
         case Phase.Finish:
-                SceneController.Transition("Result");
                 break;
         }
     }

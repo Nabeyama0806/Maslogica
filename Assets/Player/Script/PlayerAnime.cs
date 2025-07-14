@@ -41,4 +41,14 @@ public class PlayerAnime : MonoBehaviour
         m_auraEffect.SetActive(false);
         m_controller.GetComponent<PlayerController>().IsTurnEndFlag = true;
     }
+
+    static public void Death()
+    {
+        m_animator.SetBool("Death", true);
+    }
+    public void DeathEnd()
+    {
+        //ƒV[ƒ“‘JˆÚ
+        SceneController.Transition("Result");
+    }
 }

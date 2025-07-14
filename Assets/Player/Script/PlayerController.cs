@@ -162,4 +162,13 @@ public class PlayerController : MonoBehaviour
 
         return m_isTurnEnd;
     }
+
+    public void OnDeath()
+    {
+        //死亡アニメーション
+        PlayerAnime.Death();
+
+        m_canMove = false;
+        m_isTurnEnd = true;
+    }
 }
