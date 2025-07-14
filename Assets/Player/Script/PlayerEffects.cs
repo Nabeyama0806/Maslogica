@@ -33,6 +33,7 @@ public class PlayerEffects : MonoBehaviour
         Snup,   
         Aura,   
         Damage,
+        Death,
     }
 
     //エフェクトの表示

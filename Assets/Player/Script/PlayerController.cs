@@ -166,6 +166,9 @@ public class PlayerController : MonoBehaviour
         //死亡アニメーション
         PlayerAnime.Death();
 
+        //エフェクトの再生
+        StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Death));
+
         m_canMove = false;
         m_isTurnEnd = true;
     }

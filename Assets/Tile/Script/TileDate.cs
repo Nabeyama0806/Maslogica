@@ -49,6 +49,9 @@ public class TileDate : MonoBehaviour
             if (m_isEnemyAttack)
             {
                 other.GetComponent<Health>().Damage(20);
+
+                //エフェクト
+               StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
             }
         }
     }

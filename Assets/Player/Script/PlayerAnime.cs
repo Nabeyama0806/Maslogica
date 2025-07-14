@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnime : MonoBehaviour
@@ -48,6 +49,6 @@ public class PlayerAnime : MonoBehaviour
     public void DeathEnd()
     {
         //ƒV[ƒ“‘JˆÚ
-        SceneController.Transition("Result");
+        SceneController.Transition("Game");
     }
 }
