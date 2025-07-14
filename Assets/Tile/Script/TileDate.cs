@@ -1,4 +1,5 @@
 using UnityEngine;
+using static PlayerEffects;
 using static TileEffects;
 
 public class TileDate : MonoBehaviour
@@ -38,7 +39,8 @@ public class TileDate : MonoBehaviour
             m_isActive = !m_isActive;
 
             //エフェクト
-            m_effects.Show(EffectType.Active, m_isActive);
+            if (m_isActive) m_effects.Play(TileEffects.EffectType.Active);
+            else m_effects.Stop(TileEffects.EffectType.Active);
 
             //効果音
             SoundManager.Play2D(m_active, 0.4f);
@@ -55,7 +57,7 @@ public class TileDate : MonoBehaviour
     public void Inactive()
     {
         m_isActive = false;
-        m_effects.Inactive();
+        m_effects.Stop(TileEffects.EffectType.Active);
     }
 
     //エネミーの攻撃マス
@@ -63,6 +65,6 @@ public class TileDate : MonoBehaviour
     {
         m_isEnemyAttack = true;
         m_frame.GetComponent<MeshRenderer>().material = m_damageMaterial;
-        m_effects.Show(EffectType.EnemyAttack);
+        m_effects.Play(TileEffects.EffectType.EnemyAttack);
     }
 }

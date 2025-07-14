@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_moveSpeed;         //移動速度
     [SerializeField] float m_jumpPower;         //ジャンプ力
     [SerializeField] float m_movingTime;       //移動可能時間
-    [SerializeField] GameObject m_snapEffect;   //移動後のエフェクト
     [SerializeField] AudioClip m_turnEnd;
 
     private CharacterController m_characterController;
@@ -149,9 +148,8 @@ public class PlayerController : MonoBehaviour
             //盤面座標に調整
             transform.position = TileGrid.ToGridPos(transform.position);
 
-            //エフェクトの生成と削除
-            GameObject effect = Instantiate(m_snapEffect, transform);
-            Destroy(effect, 1.0f);
+            //エフェクトの再生
+            StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Snup));
 
             //攻撃アニメーション
             PlayerAnime.Attack();

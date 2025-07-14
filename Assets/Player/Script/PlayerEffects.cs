@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class TileEffects : MonoBehaviour
+public class PlayerEffects : MonoBehaviour
 {
-    static private TileEffects m_instance;
+    static private PlayerEffects m_instance;
 
-    static public TileEffects Instance
-    {
+    static public PlayerEffects Instance
+    { 
         get { return m_instance; }
     }
 
@@ -21,17 +22,17 @@ public class TileEffects : MonoBehaviour
     public class Effects            //Typeとエフェクトを紐づけるためのクラス
     {
         public EffectType type;     //自身がどのエフェクトか
-        public GameObject effect;  
-        public float playTime;      //削除する時間    
+        public GameObject effect;
+        public float playTime;      //再生する時間  
     }
 
-    [SerializeField]  List<Effects> m_effectList;
+    [SerializeField] List<Effects> m_effectList;
 
     public enum EffectType
-    { 
-        Active,         //アクティブ
-        PlayerAttack,   //プレイヤーの攻撃
-        EnemyAttack,    //敵の攻撃
+    {
+        Snup,   
+        Aura,   
+        Damage,
     }
 
     //エフェクトの表示

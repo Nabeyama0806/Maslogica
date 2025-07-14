@@ -144,7 +144,10 @@ public class TileGrid : MonoBehaviour
             for (int x = 0; x < GridSize; ++x)
             {
                 //アクティブの盤面はエフェクトを表示
-                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].GetComponent<TileEffects>().Show(TileEffects.EffectType.PlayerAttack);
+                if (m_tileGrid[x, y].IsActive)
+                {
+                    m_tileGrid[x, y].GetComponent<TileEffects>().StartCoroutine(m_tileGrid[x, y].GetComponent<TileEffects>().AutoPlay(TileEffects.EffectType.PlayerAttack));
+                }
             }
         }
     }
