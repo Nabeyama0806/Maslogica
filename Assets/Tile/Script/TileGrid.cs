@@ -84,11 +84,8 @@ public class TileGrid : MonoBehaviour
             if (!m_tileGrid[i, y].IsActive) break;
             count++;
         }
-        if (count == GridSize)
-        {
-            Debug.Log("â°óÒ : Damage!!!!");
-            return true;
-        }
+
+        if (count == GridSize) return true;
 
         count = 0;
 
@@ -98,11 +95,8 @@ public class TileGrid : MonoBehaviour
             if (!m_tileGrid[x, i].IsActive) break;
             count++;
         }
-        if (count == GridSize)
-        {
-            Debug.Log("ècóÒ : Damage!!!!");
-            return true;
-        }
+
+        if (count == GridSize) return true;
 
         return false;
     }

@@ -17,21 +17,22 @@ public class TileEffects : MonoBehaviour
         m_instance = this;
     }
 
+    //Typeとエフェクトを紐づけるためのクラス
     [Serializable]
-    public class Effects            //Typeとエフェクトを紐づけるためのクラス
+    public class Effects           
     {
-        public EffectType type;     //自身がどのエフェクトか
+        public EffectType type;     
         public GameObject effect;  
-        public float playTime;      //削除する時間    
+        public float playTime;         
     }
 
     [SerializeField]  List<Effects> m_effectList;
 
     public enum EffectType
     { 
-        Active,         //アクティブ
-        PlayerAttack,   //プレイヤーの攻撃
-        EnemyAttack,    //敵の攻撃
+        Active,         
+        PlayerAttack,   
+        EnemyAttack,    
     }
 
     //エフェクトの表示
