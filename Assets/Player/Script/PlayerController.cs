@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         m_inputValue = new Vector3(input.x, m_inputValue.y, input.y);
 
         //アニメーション
-        PlayerAnime.Run(true);
+        PlayerAnime.Instance.Run(true);
     }
 
     private void OnMoveCancel(InputAction.CallbackContext context)
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         m_inputValue = Vector3.zero;
 
         //アニメーション
-        PlayerAnime.Run(false);
+        PlayerAnime.Instance.Run(false);
     }
 
     private void OnJump(InputAction.CallbackContext context)
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Snup));
 
             //攻撃アニメーション
-            PlayerAnime.Attack();
+            PlayerAnime.Instance.Attack();
 
             //効果音
             SoundManager.Play2D(m_turnEnd);
@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
     public void OnDeath()
     {
         //死亡アニメーション
-        PlayerAnime.Death();
+        PlayerAnime.Instance.Death();
 
         //エフェクトの再生
         StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Death));

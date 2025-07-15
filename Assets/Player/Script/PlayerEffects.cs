@@ -18,8 +18,9 @@ public class PlayerEffects : MonoBehaviour
         m_instance = this;
     }
 
+    //Typeとエフェクトを紐づけるためのクラス
     [Serializable]
-    public class Effects            //Typeとエフェクトを紐づけるためのクラス
+    public class Effects            
     {
         public EffectType type;     //自身がどのエフェクトか
         public GameObject effect;

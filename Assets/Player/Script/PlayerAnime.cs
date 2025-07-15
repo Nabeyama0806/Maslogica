@@ -1,26 +1,36 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerAnime : MonoBehaviour
 {
+    static private PlayerAnime m_instance;
+
+    static public PlayerAnime Instance
+    {
+        get { return m_instance; }
+    }
+
     [SerializeField] GameObject m_player;
     [SerializeField] AudioClip m_attack;
 
-    static private Animator m_animator;
-    static private PlayerController m_controller;
+    private Animator m_animator;
+    private PlayerController m_controller;
 
-    private void Start()
+    private void Awake()
     {
+        m_instance = this;
+
         m_animator = GetComponent<Animator>();
         m_controller = m_player.GetComponent<PlayerController>();
     }
 
-    static public void Run(bool isMove)
+    public void Run(bool isMove)
     {
         m_animator.SetBool("Run", isMove);
     }
 
-    static public void Attack()
+    public void Attack()
     {
         m_animator.SetTrigger("Attack");
 
@@ -42,7 +52,7 @@ public class PlayerAnime : MonoBehaviour
         m_controller.GetComponent<PlayerController>().IsTurnEndFlag = true;
     }
 
-    static public void Death()
+    public void Death()
     {
         m_animator.SetBool("Death", true);
     }
