@@ -15,6 +15,9 @@ public class Cards : MonoBehaviour
 
     private IEnumerator AllFlip()
     {
+        //子オブジェクトが全てアクティブになるまで少し待機
+        yield return new WaitForSeconds(0.1f);
+
         //全てのカードを反転させる
         foreach (Transform card in transform)
         {
