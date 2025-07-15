@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
@@ -21,23 +23,18 @@ public class GameSceneManager : MonoBehaviour
 
     private void Awake()
     {
-        //マウスカーソルを非表示にする
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        //開始のフェード
-        Fade.FadeIn(1.5f);
         m_phase = Phase.Start;
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(m_phase);
+        //Debug.Log(m_phase);
 
         switch (m_phase)
         {
         case Phase.Start:
-                Debug.Log("ゲームスタート");
+                Debug.Log("!!!!!ゲームスタート!!!!!!!");
+
                 m_phase = Phase.Check;
                 m_nextPhase = Phase.PlayerTurn;
                 break;
@@ -59,7 +56,7 @@ public class GameSceneManager : MonoBehaviour
                 if (m_enemy.Play()) break;
 
                 //プレイヤーにダメージを与える
-                Vector2Int pos = new Vector2Int((int)m_player.transform.position.x, (int)m_player.transform.position.x);
+                Vector2Int pos = new Vector2Int((int)m_player.transform.localPosition.x, (int)m_player.transform.localPosition.x);
                 if (TileGrid.IsEnemyAttack(pos)) m_player.GetComponent<Health>().Damage(10);
 
                 //次のフェーズへ
@@ -76,12 +73,19 @@ public class GameSceneManager : MonoBehaviour
                     break;
                 }
 
-                //次のターンを取得
-                m_phase = m_nextPhase;
-                
                 //次のターンの準備
-                if (m_phase == Phase.PlayerTurn) m_player.Play();
-                if (m_phase == Phase.EnemyTurn) m_enemy.Play();
+                m_phase = m_nextPhase;
+                if (m_phase == Phase.PlayerTurn)
+                {
+                    //カード選択
+                    SceneController.Load("CardSelect");
+
+                    m_player.Play();
+                }
+                if (m_phase == Phase.EnemyTurn)
+                {
+                    m_enemy.Play();
+                }
 
                 //盤面のリセット
                 TileGrid.AllReset();

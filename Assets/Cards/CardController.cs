@@ -1,20 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardController : MonoBehaviour
 {
     [SerializeField] Sprite m_cardFront;
+    [SerializeField] Sprite m_cardBack;
     [SerializeField] float m_flipSpeed;
 
     private Image m_image;
     private RectTransform m_rectTransform;
+    private bool m_isFront;
 
     private void Awake()
     {
         m_image = GetComponent<Image>();
         m_rectTransform = GetComponent<RectTransform>();
+        m_isFront = false;
+    }
+
+    private void OnEnable()
+    {
+        m_image.sprite = m_cardBack;
     }
 
     public IEnumerator Flip()

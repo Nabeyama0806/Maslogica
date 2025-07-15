@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        m_moveElapsedTime = 0;
+        //m_moveElapsedTime = 0;
     }
 
     private void Update()

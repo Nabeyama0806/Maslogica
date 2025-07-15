@@ -6,13 +6,12 @@ using UnityEngine.UI;
 
 public class Cards : MonoBehaviour
 {
-    private List<CardController> m_cards;
-
-    private void Start()
+    private void OnEnable()
     {
         //カードを全て反転
         StartCoroutine(AllFlip());
     }
+
 
     private IEnumerator AllFlip()
     {
