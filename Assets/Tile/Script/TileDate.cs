@@ -1,6 +1,4 @@
 using UnityEngine;
-using static PlayerEffects;
-using static TileEffects;
 
 public class TileDate : MonoBehaviour
 {

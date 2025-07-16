@@ -5,7 +5,6 @@ public class TileGrid : MonoBehaviour
     private const int GridSize = 7;     //盤面の大きさ(半径)
 
     //盤面
-    [SerializeField] private TileDate[] m_tile;
     private static TileDate[,] m_tileGrid = new TileDate[GridSize, GridSize];
 
     private void Start()
@@ -20,7 +19,8 @@ public class TileGrid : MonoBehaviour
         {
             for (int x = 0; x < GridSize; ++x)
             {
-                m_tileGrid[x, y] = m_tile[index];
+                //自身の子オブジェクトを二次元配列に変換
+                m_tileGrid[x, y] = transform.GetChild(index).gameObject.GetComponent<TileDate>();
                 index++;
             }
         }
