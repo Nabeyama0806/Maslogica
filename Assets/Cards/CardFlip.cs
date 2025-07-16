@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardController : MonoBehaviour
+public class CardFlip : MonoBehaviour
 {
     [SerializeField] Sprite m_cardFront;
     [SerializeField] Sprite m_cardBack;
@@ -29,7 +29,7 @@ public class CardController : MonoBehaviour
         m_rectTransform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
-    public IEnumerator Flip()
+    public IEnumerator Play()
     {
         float tick = 0;
         Vector3 endRotate = new Vector3(0, 90, 0);
