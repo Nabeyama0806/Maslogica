@@ -21,7 +21,7 @@ public class Cards : MonoBehaviour
         //全てのカードを反転させる
         foreach (Transform card in transform)
         {
-            yield return StartCoroutine(card.GetComponent<CardController>().Flip());
+            yield return StartCoroutine(card.GetComponent<CardFlip>().Play());
         }
     }
 }
