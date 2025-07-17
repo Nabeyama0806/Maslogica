@@ -75,9 +75,6 @@ public class GameSceneManager : MonoBehaviour
                 m_phase = m_nextPhase;
                 if (m_phase == Phase.PlayerTurn)
                 {
-                    //カード選択
-                    SceneController.Load("CardSelect");
-
                     m_player.Play();
                 }
                 if (m_phase == Phase.EnemyTurn)

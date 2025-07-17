@@ -59,6 +59,6 @@ public class PlayerAnime : MonoBehaviour
     public void DeathEnd()
     {
         //ƒV[ƒ“‘JˆÚ
-        SceneController.Transition("Result", "Game");
+        SceneController.Transition("Game");
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class HealtSlider : MonoBehaviour
 {
     [SerializeField] Health m_health;
-    private float m_maxHealth;
     private Slider m_healthSlider;
 
     private void Start()
@@ -13,7 +12,7 @@ public class HealtSlider : MonoBehaviour
 
         //�̗͂̎擾
         m_healthSlider.maxValue = m_health.Value;
-        m_healthSlider.value = m_maxHealth;
+        m_healthSlider.value = m_health.Value;
 
     }
 
