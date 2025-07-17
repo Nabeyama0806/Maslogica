@@ -10,6 +10,7 @@ public class CardFlip : MonoBehaviour
 
     private Image m_image;
     private RectTransform m_rectTransform;
+    private bool m_isFront;
 
     private void Awake()
     {
@@ -17,16 +18,23 @@ public class CardFlip : MonoBehaviour
         m_rectTransform = GetComponent<RectTransform>();
 
         //裏面から開始する
+        m_isFront = false;
         m_image.sprite = m_cardBack;
     }
 
     private void OnDisable()
     {
         //裏面から開始する
+        m_isFront = false;
         m_image.sprite = m_cardBack;
 
         //途中で非表示にした場合も角度を初期位置に戻す
         m_rectTransform.rotation = Quaternion.Euler(Vector3.zero);
+    }
+
+    public void OnClick()
+    {
+        StartCoroutine(Play());
     }
 
     public IEnumerator Play()
@@ -48,7 +56,8 @@ public class CardFlip : MonoBehaviour
         }
 
         //カードの画像を変更する
-        m_image.sprite = m_cardFront;
+        m_isFront = !m_isFront;
+        m_image.sprite = m_isFront ? m_cardFront : m_cardBack;
 
         tick = 0f;
 
