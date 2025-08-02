@@ -403,6 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 1457323292}
+  m_se: {fileID: 8300000, guid: 10dca0f5e7011a947b3d098674ed7067, type: 3}
 --- !u!114 &47486497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -980,7 +981,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
@@ -16629,6 +16630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 1457323292}
+  m_se: {fileID: 8300000, guid: 10dca0f5e7011a947b3d098674ed7067, type: 3}
 --- !u!1001 &2147098253
 PrefabInstance:
   m_ObjectHideFlags: 0

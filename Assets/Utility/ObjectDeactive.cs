@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class ObjectDeactive : MonoBehaviour
 {
     [SerializeField] GameObject obj;
+    [SerializeField] AudioClip m_se;
 
     public void OnClick()
     {
+        SoundManager.Play2D(m_se);
         obj.SetActive(false);
     }
 }

@@ -3,9 +3,11 @@ using UnityEngine;
 public class ObjectActive : MonoBehaviour
 {
     [SerializeField] GameObject obj;
+    [SerializeField] AudioClip m_se;
 
     public void OnClick()
     {
+        SoundManager.Play2D(m_se);
         obj.SetActive(true);
     }
 }
