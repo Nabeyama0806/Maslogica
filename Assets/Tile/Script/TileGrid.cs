@@ -145,4 +145,9 @@ public class TileGrid : MonoBehaviour
             }
         }
     }
+
+    static public bool IsTileActive(Vector2 pos)
+    { 
+        return m_tileGrid[(int)pos.x, (int)pos.y].IsActive;
+    }
 }
