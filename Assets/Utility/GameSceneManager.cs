@@ -38,7 +38,7 @@ public class GameSceneManager : MonoBehaviour
                 if (!m_player.IsTurnEnd()) break;
 
                 //敵にダメージを与える
-                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(50);
+                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(100);
 
                 //次のフェーズへ
                 m_nextPhase = Phase.EnemyTurn;

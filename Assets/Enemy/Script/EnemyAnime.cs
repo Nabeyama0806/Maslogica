@@ -1,26 +1,26 @@
 using UnityEngine;
 
-public class PlayerAnime : MonoBehaviour
+public class EnemyAnime : MonoBehaviour
 {
-    static private PlayerAnime m_instance;
+    static private EnemyAnime m_instance;
 
-    static public PlayerAnime Instance
+    static public EnemyAnime Instance
     {
         get { return m_instance; }
     }
 
-    [SerializeField] GameObject m_player;
+    [SerializeField] GameObject m_enemy;
     [SerializeField] AudioClip m_attack;
 
     private Animator m_animator;
-    private PlayerController m_controller;
+    private EnemyController m_controller;
 
     private void Awake()
     {
         m_instance = this;
 
         m_animator = GetComponent<Animator>();
-        m_controller = m_player.GetComponent<PlayerController>();
+        m_controller = m_enemy.GetComponent<EnemyController>();
     }
 
     public void Run(bool isMove)
@@ -33,7 +33,6 @@ public class PlayerAnime : MonoBehaviour
         m_animator.SetTrigger("Attack");
 
         //攻撃エフェクト
-        PlayerEffects.Instance.Play(PlayerEffects.EffectType.Aura);
     }
     public void AttackEnd()
     {
@@ -43,11 +42,21 @@ public class PlayerAnime : MonoBehaviour
         //効果音
         SoundManager.Play2D(m_attack);
 
-        //攻撃エフェクト
-        PlayerEffects.Instance.Stop(PlayerEffects.EffectType.Aura);
+        //次の攻撃アニメーション
+        NextAttack();
+    }
 
-        //ターン終了
-        m_controller.IsTurnEndFlag = true;
+    public void NextAttack()
+    {
+        //アニメーションの再生
+        m_animator.SetTrigger("NextAttack");
+
+        //次の攻撃マスをランダムで選択
+        TileGrid.RandomSelect();
+    }
+    public void NextAttackEnd()
+    {
+        m_controller.IsTurnEnd = true;
     }
 
     public void Death()
@@ -57,6 +66,6 @@ public class PlayerAnime : MonoBehaviour
     public void DeathEnd()
     {
         //シーン遷移
-        SceneController.Transition("Title");
+        SceneController.Transition("Select");
     }
 }

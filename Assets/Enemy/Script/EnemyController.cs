@@ -2,31 +2,35 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] float MovingTime = 3.0f;
-    private float m_movingTime;
+    private bool m_isAttack;
+    private bool m_isTurnEnd;
+
+    public bool IsAttack
+    {
+        set { m_isAttack = value; }
+    }
+    public bool IsTurnEnd
+    {
+        set { m_isTurnEnd = value; }
+    }
 
     private void Start()
     {
-        m_movingTime = MovingTime;
+        m_isAttack = false;
+        m_isTurnEnd = false;
     }
 
     public bool Play()
     {
-        m_movingTime -= Time.deltaTime;
-
-        if(m_movingTime <= 0)
-        {
-            //次のターンの準備
-            m_movingTime = MovingTime;
-
-            //攻撃マスをランダムで選択
-            TileGrid.RandomSelect();
-
-            //ターン終了
-            return false;
-        }
+        //攻撃
+        EnemyAnime.Instance.Attack();
         
-        //行動中
-        return true;
+        return m_isTurnEnd;
+    }
+
+    public void OnDeath()
+    {
+        //死亡アニメーション
+        EnemyAnime.Instance.Death();
     }
 }
