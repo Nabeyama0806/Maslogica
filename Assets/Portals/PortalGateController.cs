@@ -10,33 +10,18 @@ public class PortalGateController : MonoBehaviour
         Shop,
     }
 
-    [Serializable]
-    public class GateData
-    {
-        public GateType gateType;
-        public GameObject effect;
-        public AudioClip se;
-    }
-
-    [SerializeField] GateData m_gateData;
-
-    private void Start()
-    {
-        //m_gateData.effect.SetActive(false);
-    }
+    [SerializeField] GateType m_gateType;
+    [SerializeField] AudioClip m_se;
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
         //効果音
-        //SoundManager.Play2D(m_gateData.se);
-
-        //エフェクトの表示
-        //m_gateData.effect.SetActive(true);
+        //SoundManager.Play2D(m_se);
 
         //シーン遷移
-        switch (m_gateData.gateType)
+        switch (m_gateType)
         {
             case GateType.Battle:
                 SceneController.Transition("Battle");
