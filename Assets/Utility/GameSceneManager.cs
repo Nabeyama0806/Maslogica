@@ -26,13 +26,9 @@ public class GameSceneManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log(m_phase);
-
         switch (m_phase)
         {
         case Phase.Start:
-                Debug.Log("!!!!!ゲームスタート!!!!!!!");
-
                 m_phase = Phase.Check;
                 m_nextPhase = Phase.PlayerTurn;
                 break;
@@ -42,7 +38,7 @@ public class GameSceneManager : MonoBehaviour
                 if (!m_player.IsTurnEnd()) break;
 
                 //敵にダメージを与える
-                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(10);
+                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(50);
 
                 //次のフェーズへ
                 m_nextPhase = Phase.EnemyTurn;
