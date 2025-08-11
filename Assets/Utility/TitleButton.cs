@@ -7,6 +7,6 @@ public class TitleButton : MonoBehaviour
     public void OnClick()
     { 
         SoundManager.Play2D(m_se);
-        SceneController.Transition("Battle");
+        SceneController.Transition("Select");
     }
 }

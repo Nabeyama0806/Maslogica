@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18382867, g: 0.22910154, b: 0.30386978, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1d458fb0bf17a294cbd5f59b354825f7,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1065,7 +1066,7 @@ PrefabInstance:
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
@@ -1075,7 +1076,7 @@ PrefabInstance:
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
@@ -1116,6 +1117,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chest_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200720779111275133, guid: 1083f87f08232f541942f4a22a00127e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1083f87f08232f541942f4a22a00127e, type: 3}
@@ -3496,7 +3502,7 @@ PrefabInstance:
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000655651
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
@@ -3506,7 +3512,7 @@ PrefabInstance:
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.5
+      value: 5.75
       objectReference: {fileID: 0}
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
@@ -3547,6 +3553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chest_C
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200720779111275133, guid: 1083f87f08232f541942f4a22a00127e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1083f87f08232f541942f4a22a00127e, type: 3}
@@ -3977,7 +3988,7 @@ PrefabInstance:
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000003278255
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6200720779110778461, guid: 1083f87f08232f541942f4a22a00127e,
         type: 3}
@@ -4028,6 +4039,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chest_B
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200720779111275133, guid: 1083f87f08232f541942f4a22a00127e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1083f87f08232f541942f4a22a00127e, type: 3}
@@ -5968,7 +5984,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591116231}
   m_LocalRotation: {x: 0.12886, y: -0.6952662, z: 0.12886, w: 0.6952662}
-  m_LocalPosition: {x: 10.5, y: 4.25, z: 2.75}
+  m_LocalPosition: {x: 6, y: 4.25, z: 2.7499995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

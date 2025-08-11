@@ -14771,7 +14771,6 @@ GameObject:
   - component: {fileID: 2071948539686941843}
   - component: {fileID: 3129669333553445686}
   - component: {fileID: 903577438904258556}
-  - component: {fileID: 4822937392638381404}
   m_Layer: 0
   m_Name: PortalGate
   m_TagString: Untagged
@@ -14845,20 +14844,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4822937392638381404
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696408541102714409}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8135252656049991650, guid: 186cbdaa5349eb94b89b6cfc66dc4ed3, type: 3}
 --- !u!1 &1902173872729179706
 GameObject:
   m_ObjectHideFlags: 0
@@ -29677,6 +29662,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 445949265887670515}
+  - component: {fileID: -5222110850282692704}
+  - component: {fileID: 4629108951068763777}
+  - component: {fileID: 1771394598641167631}
   m_Layer: 0
   m_Name: PortalGate
   m_TagString: Untagged
@@ -29702,6 +29690,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5222110850282692704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510851606040464202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffdd1044ec58261429d1d1904056833b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gateData:
+    gateType: 0
+    effect: {fileID: 0}
+    se: {fileID: 0}
+--- !u!65 &4629108951068763777
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510851606040464202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 4.7, z: 4}
+  m_Center: {x: 0, y: 2.3, z: 0}
+--- !u!65 &1771394598641167631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510851606040464202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.412668, y: 0.3, z: 5.9853067}
+  m_Center: {x: 0.008168936, y: 0, z: -0.0057046413}
 --- !u!1 &7833780600195391715
 GameObject:
   m_ObjectHideFlags: 0
