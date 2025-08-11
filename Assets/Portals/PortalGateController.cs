@@ -29,8 +29,6 @@ public class PortalGateController : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        Debug.Log("!!!!!!!!!");
-
         //Œø‰Ê‰¹
         //SoundManager.Play2D(m_gateData.se);
 
