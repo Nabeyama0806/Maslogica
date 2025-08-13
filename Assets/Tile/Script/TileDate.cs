@@ -46,7 +46,7 @@ public class TileDate : MonoBehaviour
             //エネミーの攻撃マスならダメージを与える
             if (m_isEnemyAttack)
             {
-                other.GetComponent<Health>().Damage(20);
+                other.GetComponent<Health>().Damage(15);
 
                 //エフェクト
                StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
@@ -59,6 +59,12 @@ public class TileDate : MonoBehaviour
     {
         m_isActive = false;
         m_effects.Stop(TileEffects.EffectType.Active);
+    }
+
+    //プレイヤーの攻撃マス
+    public void PlayerAttack()
+    {
+        StartCoroutine(m_effects.AutoPlay(TileEffects.EffectType.PlayerAttack));
     }
 
     //エネミーの攻撃マス

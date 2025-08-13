@@ -26,37 +26,6 @@ public class TileGrid : MonoBehaviour
         }
     }
 
-    static public bool IsEnemyAttack(Vector2Int playerPos)
-    {
-        for (int y = 0; y < GridSize; ++y)
-        {
-            for (int x = 0; x < GridSize; ++x)
-            {
-                //攻撃マス以外はスキップ
-                if (!m_tileGrid[x, y].IsEnemyAttack) continue;
-
-                //横の列
-                for (int i = 0; i < GridSize; ++i)
-                {
-                    //エネミーの攻撃範囲
-                }
-
-                //縦の列
-                for (int i = 0; i < GridSize; ++i)
-                {
-                    //エネミーの攻撃範囲
-                }
-
-                //縦も横も範囲外の時は当たらない
-                if (x != playerPos.x && y != playerPos.y) continue;
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     static public bool Check()
     {
         for (int y = 0; y < GridSize; ++y)
@@ -138,16 +107,15 @@ public class TileGrid : MonoBehaviour
             for (int x = 0; x < GridSize; ++x)
             {
                 //アクティブの盤面はエフェクトを表示
-                if (m_tileGrid[x, y].IsActive)
-                {
-                    m_tileGrid[x, y].GetComponent<TileEffects>().StartCoroutine(m_tileGrid[x, y].GetComponent<TileEffects>().AutoPlay(TileEffects.EffectType.PlayerAttack));
-                }
+                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].PlayerAttack();
+               
             }
         }
     }
 
-    static public bool IsTileActive(Vector2 pos)
-    { 
-        return m_tileGrid[(int)pos.x, (int)pos.y].IsActive;
+    static public void DrawShape(int cardIndex)
+    {
+        //選択されたカードの形状を盤面に表示
+
     }
 }

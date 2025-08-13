@@ -9,23 +9,15 @@ public class EnemyAnime : MonoBehaviour
         get { return m_instance; }
     }
 
-    [SerializeField] GameObject m_enemy;
+    [SerializeField] EnemyController m_controller;
     [SerializeField] AudioClip m_attack;
 
     private Animator m_animator;
-    private EnemyController m_controller;
 
     private void Awake()
     {
         m_instance = this;
-
         m_animator = GetComponent<Animator>();
-        m_controller = m_enemy.GetComponent<EnemyController>();
-    }
-
-    public void Run(bool isMove)
-    {
-        m_animator.SetBool("Run", isMove);
     }
 
     public void Attack()
@@ -37,26 +29,18 @@ public class EnemyAnime : MonoBehaviour
     public void AttackEnd()
     {
         //盤面のエフェクトを表示
-        TileGrid.PlayEffect();
 
         //効果音
         SoundManager.Play2D(m_attack);
-
-        //次の攻撃アニメーション
-        NextAttack();
     }
 
-    public void NextAttack()
-    {
-        //アニメーションの再生
-        m_animator.SetTrigger("NextAttack");
-
-        //次の攻撃マスをランダムで選択
-        TileGrid.RandomSelect();
-    }
     public void NextAttackEnd()
     {
-        m_controller.IsTurnEnd = true;
+        //次の攻撃マスをランダムで選択
+        TileGrid.RandomSelect();
+
+        //ターン終了
+        m_controller.IsTurnEndFlag = true;
     }
 
     public void Death()
@@ -67,5 +51,10 @@ public class EnemyAnime : MonoBehaviour
     {
         //シーン遷移
         SceneController.Transition("Select");
+    }
+
+    public void Damage()
+    {
+        m_animator.SetTrigger("Damage");
     }
 }

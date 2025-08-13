@@ -1,44 +1,52 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PortalGateController : MonoBehaviour
 {
     public enum GateType
-    { 
+    {
+        None,          
         Battle,
         AddCard,
         Shop,
     }
 
+    [Serializable]
+    public class GateData
+    {
+        public GateType gateType;       //ゲートの種類
+        public GameObject effect;       
+    }
+
     [SerializeField] GateType m_gateType;
+    [SerializeField] int m_spawnProbability; 
+    [SerializeField] List<GateData> m_gateDataList;
     [SerializeField] AudioClip m_se;
 
     private void Start()
     {
-        //バトルゲート以外は、ランダム出現にする
-        if (m_gateType == GateType.Battle) return;
-
-        //40%の確率で出現
-        if (UnityEngine.Random.Range(0, 100) < 30) 
-        {
-            gameObject.SetActive(true);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        //ランダムでゲートの種類を決定
+        int rand = UnityEngine.Random.Range(0, 100);
+        if (rand > m_spawnProbability) m_gateType = GateType.Battle;
+        m_gateDataList[(int)m_gateType].effect.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        //プレイヤー以外は何もしない
         if (!other.CompareTag("Player")) return;
 
         //効果音
-        //SoundManager.Play2D(m_se);
+        SoundManager.Play2D(m_se);
 
         //シーン遷移
         switch (m_gateType)
         {
+            case GateType.None:
+                SceneController.Transition("Select");
+                break;
+
             case GateType.Battle:
                 SceneController.Transition("Battle");
                 break;

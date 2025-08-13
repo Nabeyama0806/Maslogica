@@ -38,7 +38,7 @@ public class GameSceneManager : MonoBehaviour
                 if (!m_player.IsTurnEnd()) break;
 
                 //敵にダメージを与える
-                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(100);
+                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(50);
 
                 //次のフェーズへ
                 m_nextPhase = Phase.EnemyTurn;
@@ -47,11 +47,10 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.EnemyTurn:
                 //エネミーの行動が終了するまで待機
-                if (m_enemy.Play()) break;
+                if (!m_enemy.IsTurnEnd()) break;
 
                 //プレイヤーにダメージを与える
-                Vector2Int pos = new Vector2Int((int)m_player.transform.localPosition.x, (int)m_player.transform.localPosition.x);
-                if (TileGrid.IsEnemyAttack(pos)) m_player.GetComponent<Health>().Damage(10);
+                m_player.GetComponent<Health>().Damage(10);
 
                 //次のフェーズへ
                 m_nextPhase = Phase.PlayerTurn;
@@ -72,10 +71,6 @@ public class GameSceneManager : MonoBehaviour
                 if (m_phase == Phase.PlayerTurn)
                 {
                     m_player.Play();
-                }
-                if (m_phase == Phase.EnemyTurn)
-                {
-                    m_enemy.Play();
                 }
 
                 //盤面のリセット

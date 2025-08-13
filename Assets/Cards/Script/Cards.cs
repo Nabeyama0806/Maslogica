@@ -12,7 +12,6 @@ public class Cards : MonoBehaviour
         StartCoroutine(AllFlip());
     }
 
-
     private IEnumerator AllFlip()
     {
         //子オブジェクトが全てアクティブになるまで少し待機

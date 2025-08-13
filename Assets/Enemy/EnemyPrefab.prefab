@@ -4137,6 +4137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8804779999679719368}
   - component: {fileID: 3229344910291402162}
+  - component: {fileID: -1482823030108364811}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -4183,6 +4184,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1482823030108364811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8177143215358475634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33672ef897c7a534fa4c8a4cc20ddbe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemy: {fileID: 0}
+  m_attack: {fileID: 8300000, guid: c3628c0ff6c97c54d9d6933731417f46, type: 3}
 --- !u!1 &8487551633489326845
 GameObject:
   m_ObjectHideFlags: 0

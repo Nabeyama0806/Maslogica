@@ -146,6 +146,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981a1d4c8177ad445b432655c40b8a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_cardFront: {fileID: 21300000, guid: 8028e8aca96fec449bc939d94ee4a6ab, type: 3}
+  m_cardFrontList:
+  - {fileID: 21300000, guid: f310df44854c4694cbcdc62785e642d4, type: 3}
+  - {fileID: 21300000, guid: 83a96e583610287439b60639787587d6, type: 3}
+  - {fileID: 21300000, guid: 20870f4b1e9fa1a448a92334403f8bb8, type: 3}
+  - {fileID: 21300000, guid: eeabfad99cb5a7344b4607bf2aeb3fe0, type: 3}
+  - {fileID: 21300000, guid: 579e5748a8bd8e94192ab4a4fa9b4e60, type: 3}
+  - {fileID: 21300000, guid: 843795ed55447864d899f50dad4da883, type: 3}
+  - {fileID: 21300000, guid: ab3206d1ee89ed44c87815b1ebbb68b2, type: 3}
+  - {fileID: 21300000, guid: 407461a8e035b8c4384aac20c38b6ffd, type: 3}
+  - {fileID: 21300000, guid: 0a501c1b10c7a4f47a5095e5ca138a18, type: 3}
+  - {fileID: 21300000, guid: 7bec75e3d2f370746a42732d1f3d3601, type: 3}
+  - {fileID: 21300000, guid: 993b6fc922a9e9d47999da0b0586f166, type: 3}
+  - {fileID: 21300000, guid: 0c857a4bf9c88d34ab64205bf0ef9af6, type: 3}
+  - {fileID: 21300000, guid: 48ae353d36a24a4408f0001b7fd1a9eb, type: 3}
+  - {fileID: 21300000, guid: a15a6169d59c3864f9239ed141bc8b4c, type: 3}
+  - {fileID: 21300000, guid: 2861b232932cd364c92981b484542200, type: 3}
+  - {fileID: 21300000, guid: bd34699d190349346b941a689644b89e, type: 3}
+  - {fileID: 21300000, guid: dc960379b77fbbf49802c6729ddea87f, type: 3}
+  - {fileID: 21300000, guid: 520eac5aa427044408d8d74e8bc0eeaf, type: 3}
+  - {fileID: 21300000, guid: 4e7cc86c31b64074d8b66cea19a2a36e, type: 3}
+  - {fileID: 21300000, guid: e38ff43cfc249794d834087ce097e5fc, type: 3}
+  - {fileID: 21300000, guid: 57c05514fd7992b41be9037044b7d11c, type: 3}
+  - {fileID: 21300000, guid: 9f72cdd74ac7de34a8128a8f165441f0, type: 3}
+  - {fileID: 21300000, guid: ffe41be25b0909242aa3a490b0466e2f, type: 3}
+  - {fileID: 21300000, guid: 4091dc8ba9fe7db46a968510c053e871, type: 3}
+  - {fileID: 21300000, guid: 7dbc160cd5b0378469cacec8bb0f0e8a, type: 3}
+  - {fileID: 21300000, guid: 2a39ff3aaa349e5418a5e09a8816fdc4, type: 3}
+  - {fileID: 21300000, guid: 5f850bea115882240852fa9efb761e08, type: 3}
+  - {fileID: 21300000, guid: a81e44f3a988f6b47a93c14a7e86277d, type: 3}
+  - {fileID: 21300000, guid: 110968ad106904f468950fc103e31980, type: 3}
+  - {fileID: 21300000, guid: 0aeb1dacfa0f1e84aab071bd6d01aa67, type: 3}
   m_cardBack: {fileID: 21300000, guid: 9410486b89bf3fc47950ad4bc7a46a5a, type: 3}
   m_flipSpeed: 16

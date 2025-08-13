@@ -1,14 +1,16 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CardFlip : MonoBehaviour
 {
-    [SerializeField] Sprite m_cardFront;
+    [SerializeField] List<Sprite> m_cardFrontList;
     [SerializeField] Sprite m_cardBack;
     [SerializeField] float m_flipSpeed;
 
     private Image m_image;
+    private int  m_cardFrontIndex;
     private RectTransform m_rectTransform;
     private bool m_isFront;
 
@@ -20,6 +22,9 @@ public class CardFlip : MonoBehaviour
         //裏面から開始する
         m_isFront = false;
         m_image.sprite = m_cardBack;
+
+        //表面をランダム選択
+        m_cardFrontIndex = Random.Range(0, m_cardFrontList.Count);
     }
 
     private void OnDisable()
@@ -28,6 +33,9 @@ public class CardFlip : MonoBehaviour
         m_isFront = false;
         m_image.sprite = m_cardBack;
 
+        //表面をランダム選択
+        m_cardFrontIndex = Random.Range(0, m_cardFrontList.Count);
+
         //途中で非表示にした場合も角度を初期位置に戻す
         m_rectTransform.rotation = Quaternion.Euler(Vector3.zero);
     }
@@ -35,6 +43,9 @@ public class CardFlip : MonoBehaviour
     public void OnClick()
     {
         StartCoroutine(Play());
+
+        //盤面に選択された形状を表示する
+
     }
 
     public IEnumerator Play()
@@ -57,7 +68,7 @@ public class CardFlip : MonoBehaviour
 
         //カードの画像を変更する
         m_isFront = !m_isFront;
-        m_image.sprite = m_isFront ? m_cardFront : m_cardBack;
+        m_image.sprite = m_isFront ? m_cardFrontList[m_cardFrontIndex] : m_cardBack;
 
         tick = 0f;
 
