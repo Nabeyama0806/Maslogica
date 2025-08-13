@@ -12,7 +12,7 @@ public class HealthSlider : MonoBehaviour
 
         //�̗͂̎擾
         m_healthSlider.maxValue = m_status.Value.MaxHealth;
-        m_healthSlider.value = m_healthSlider.maxValue;
+        m_healthSlider.value = m_status.Health;
     }
 
     private void FixedUpdate()

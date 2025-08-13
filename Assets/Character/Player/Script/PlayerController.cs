@@ -33,6 +33,12 @@ public class PlayerController : MonoBehaviour
         m_canMove = false;
     }
 
+    private void Start()
+    {
+        //‘Ì—Í‚Ìİ’è
+        GetComponent<CharacterStatus>().Health = PlayerPrefs.GetInt("PlayerHealth", GetComponent<CharacterStatus>().Value.MaxHealth);
+    }
+
     private void OnEnable()
     {
         //“ü—Í‚ÌƒCƒxƒ“ƒg‚ğİ’è

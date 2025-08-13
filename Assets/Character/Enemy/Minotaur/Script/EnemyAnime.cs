@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class EnemyAnime : MonoBehaviour
 {
@@ -28,7 +29,8 @@ public class EnemyAnime : MonoBehaviour
     }
     public void AttackEnd()
     {
-        //盤面のエフェクトを表示
+        //次の攻撃マスをランダムで選択
+        TileGrid.RandomSelect();
 
         //効果音
         SoundManager.Play2D(m_attack);
@@ -36,9 +38,6 @@ public class EnemyAnime : MonoBehaviour
 
     public void NextAttackEnd()
     {
-        //次の攻撃マスをランダムで選択
-        TileGrid.RandomSelect();
-
         //ターン終了
         m_controller.IsTurnEndFlag = true;
     }

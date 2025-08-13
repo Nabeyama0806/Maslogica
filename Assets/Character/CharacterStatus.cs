@@ -17,6 +17,7 @@ public class CharacterStatus : MonoBehaviour
     public int Health
     {
         get => m_health;
+        set => m_health = value;
     }
 
     private void Awake()
