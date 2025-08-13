@@ -13,11 +13,14 @@ public class EnemyController : MonoBehaviour
         m_isTurnEnd = false;
     }
 
+    public void Play()
+    {
+        //攻撃の開始
+        EnemyAnime.Instance.Attack();
+    }
+
     public bool IsTurnEnd()
     {
-        //攻撃
-        EnemyAnime.Instance.Attack();
-
         //ターン終了
         return m_isTurnEnd;
     }

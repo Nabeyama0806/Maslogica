@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b0dd6675961f242871e6e2b1d0b74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_health: {fileID: 2073291018}
+  m_status: {fileID: 2073291018}
 --- !u!1 &82860449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,8 +1138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385fb5dc32fbe2b46a79d6e7a488b4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_player: {fileID: 276860354}
-  m_enemy: {fileID: 2073291017}
+  m_player: {fileID: 276860352}
+  m_enemy: {fileID: 2073291015}
 --- !u!1001 &138438862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2409,7 +2409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4b5ffb82d5b17419d2f97bdf171f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_health: 100
+  m_characterData: {fileID: 11400000, guid: f7b02be897ce6cc479d1e169d58cbb7d, type: 2}
   m_onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -14441,7 +14441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b0dd6675961f242871e6e2b1d0b74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_health: {fileID: 276860358}
+  m_status: {fileID: 276860358}
 --- !u!1001 &1854084994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15912,7 +15912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4b5ffb82d5b17419d2f97bdf171f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_health: 100
+  m_characterData: {fileID: 11400000, guid: f13a49605881166478471b35da657c53, type: 2}
   m_onDeath:
     m_PersistentCalls:
       m_Calls:

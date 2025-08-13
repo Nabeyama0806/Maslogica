@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class GameSceneManager : MonoBehaviour
 {
-    [SerializeField] PlayerController m_player;
-    [SerializeField] EnemyController m_enemy;
+    [SerializeField] GameObject m_player;
+    [SerializeField] GameObject m_enemy;
 
     public enum Phase
     {
@@ -35,10 +35,10 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.PlayerTurn:
                 //プレイヤーの操作が終了するまで待機
-                if (!m_player.IsTurnEnd()) break;
+                if (!m_player.GetComponent<PlayerController>().IsTurnEnd()) break;
 
                 //敵にダメージを与える
-                if (TileGrid.Check()) m_enemy.GetComponent<Health>().Damage(50);
+                if (TileGrid.Check()) m_enemy.GetComponent<CharacterStatus>().Damage(m_player.GetComponent<CharacterStatus>().Value.Power);
 
                 //次のフェーズへ
                 m_nextPhase = Phase.EnemyTurn;
@@ -47,10 +47,10 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.EnemyTurn:
                 //エネミーの行動が終了するまで待機
-                if (!m_enemy.IsTurnEnd()) break;
+                if (!m_enemy.GetComponent<EnemyController>().IsTurnEnd()) break;
 
                 //プレイヤーにダメージを与える
-                m_player.GetComponent<Health>().Damage(10);
+                m_player.GetComponent<CharacterStatus>().Damage(m_enemy.GetComponent<CharacterStatus>().Value.Power);
 
                 //次のフェーズへ
                 m_nextPhase = Phase.PlayerTurn;
@@ -59,8 +59,8 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.Check:
                 //勝敗の確認
-                if (m_player.GetComponent<Health>().Value <= 0
-                ||  m_enemy.GetComponent<Health>().Value <= 0)
+                if (m_player.GetComponent<CharacterStatus>().Value.Power <= 0
+                ||  m_enemy.GetComponent<CharacterStatus>().Value.Power <= 0)
                 {
                     m_phase = Phase.Finish;
                     break;
@@ -70,7 +70,11 @@ public class GameSceneManager : MonoBehaviour
                 m_phase = m_nextPhase;
                 if (m_phase == Phase.PlayerTurn)
                 {
-                    m_player.Play();
+                    m_player.GetComponent<PlayerController>().Play();
+                }
+                else 
+                {
+                    m_enemy.GetComponent<EnemyController>().Play();
                 }
 
                 //盤面のリセット

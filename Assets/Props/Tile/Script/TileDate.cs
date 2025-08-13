@@ -46,7 +46,7 @@ public class TileDate : MonoBehaviour
             //エネミーの攻撃マスならダメージを与える
             if (m_isEnemyAttack)
             {
-                other.GetComponent<Health>().Damage(15);
+                other.GetComponent<CharacterStatus>().Damage(15);
 
                 //エフェクト
                StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
