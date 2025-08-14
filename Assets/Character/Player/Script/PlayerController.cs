@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
         m_characterController = GetComponent<CharacterController>();
         m_playerInput = GetComponent<PlayerInput>();
 
+        //開始時は移動制限を有効にする
+        GetComponent<PlayerMove>().enabled = false;
+
+        //入力値の初期化
         m_moveElapsedTime = m_movingTime;
         m_isMove = false;
         m_isTurnEnd = false;

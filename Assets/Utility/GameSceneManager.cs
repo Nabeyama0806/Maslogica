@@ -93,6 +93,10 @@ public class GameSceneManager : MonoBehaviour
                 //現在のプレイヤーの体力を保持
                 PlayerPrefs.SetInt("PlayerHealth", m_playerStatus.Health);
                 PlayerPrefs.Save();
+
+                //プレイヤーの移動制限を解除
+                m_player.GetComponent<PlayerController>().enabled = false;
+                m_player.GetComponent<PlayerMove>().enabled = true;
                 break;
         }
     }

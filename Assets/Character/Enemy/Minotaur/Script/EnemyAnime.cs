@@ -11,6 +11,8 @@ public class EnemyAnime : MonoBehaviour
     }
 
     [SerializeField] EnemyController m_controller;
+    [SerializeField] GameObject m_wall;
+    [SerializeField] GameObject m_gatePortal;
     [SerializeField] AudioClip m_attack;
 
     private Animator m_animator;
@@ -19,6 +21,8 @@ public class EnemyAnime : MonoBehaviour
     {
         m_instance = this;
         m_animator = GetComponent<Animator>();
+        m_gatePortal.SetActive(false);
+        m_wall.SetActive(true);
     }
 
     public void Attack()
@@ -48,8 +52,14 @@ public class EnemyAnime : MonoBehaviour
     }
     public void DeathEnd()
     {
-        //シーン遷移
-        SceneController.Transition("Select");
+        //シーン遷移用のゲートを表示
+        m_gatePortal.SetActive(true);
+
+        //移動制限用の壁を非表示
+        m_wall.SetActive(false);
+
+        //自身の削除
+        Destroy(gameObject);
     }
 
     public void Damage()
