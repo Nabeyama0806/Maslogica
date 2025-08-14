@@ -22,6 +22,7 @@ public class PortalGateController : MonoBehaviour
     [SerializeField] GateType m_gateType;
     [SerializeField] int m_spawnProbability; 
     [SerializeField] List<GateData> m_gateDataList;
+    [SerializeField] GameObject m_gateInEffect; 
     [SerializeField] AudioClip m_se;
 
     private void Start()
@@ -36,6 +37,9 @@ public class PortalGateController : MonoBehaviour
     {
         //プレイヤー以外は何もしない
         if (!other.CompareTag("Player")) return;
+
+        //エフェクトの再生
+        m_gateInEffect.SetActive(true);
 
         //効果音
         SoundManager.Play2D(m_se);
@@ -66,5 +70,8 @@ public class PortalGateController : MonoBehaviour
                 SceneController.Transition("Shop");
                 break;
         }
+
+        //プレイヤーを非表示にする
+        other.gameObject.SetActive(false); 
     }
 }
