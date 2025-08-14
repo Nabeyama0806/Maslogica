@@ -11,8 +11,10 @@ public class EnemyAnime : MonoBehaviour
     }
 
     [SerializeField] EnemyController m_controller;
+    [SerializeField] GameObject m_ui;
     [SerializeField] GameObject m_wall;
     [SerializeField] GameObject m_gatePortal;
+    [SerializeField] GameObject m_deathEffect;
     [SerializeField] AudioClip m_attack;
 
     private Animator m_animator;
@@ -49,9 +51,17 @@ public class EnemyAnime : MonoBehaviour
     public void Death()
     {
         m_animator.SetBool("Death", true);
+
+        m_ui.SetActive(false);
     }
     public void DeathEnd()
     {
+        //盤面のリセット
+        TileGrid.AllReset();
+
+        //死亡エフェクトを生成
+        Instantiate(m_deathEffect, m_gatePortal.transform.position, Quaternion.identity);
+
         //シーン遷移用のゲートを表示
         m_gatePortal.SetActive(true);
 

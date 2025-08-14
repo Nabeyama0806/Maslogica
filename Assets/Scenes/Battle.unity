@@ -17354,6 +17354,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
         type: 3}
+      propertyPath: m_ui
+      value: 
+      objectReference: {fileID: 267690416}
+    - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
+        type: 3}
       propertyPath: m_wall
       value: 
       objectReference: {fileID: 1833309606}
@@ -17372,6 +17377,12 @@ PrefabInstance:
       propertyPath: m_gatePortal
       value: 
       objectReference: {fileID: 1497150477}
+    - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
+        type: 3}
+      propertyPath: m_deathEffect
+      value: 
+      objectReference: {fileID: 7772674746869871541, guid: d814f2011526ab847b624cf47c67c272,
+        type: 3}
     - target: {fileID: 3229344910291402162, guid: aef9a3e063e740f4d8100584de73ceb4,
         type: 3}
       propertyPath: m_Controller

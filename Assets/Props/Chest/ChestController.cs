@@ -1,21 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static PortalGateController;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class ChestController : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] GameObject m_chestOpenEffect; 
+    [SerializeField] AudioClip m_openSe;
+    [SerializeField] AudioClip m_itemGetSe;
+
+    private Animator m_animator;
+
+    private void Awake()
     {
-        if (!other.CompareTag("Player")) return;
+        m_animator = GetComponent<Animator>();
+    }
 
-        //効果音
-        //SoundManager.Play2D(m_gateData.se);
-
+    public void Open()
+    {
         //エフェクトの表示
-        //m_gateData.effect.SetActive(true);
+        m_chestOpenEffect.SetActive(true);
+    }
+    public void OpenEnd()
+    {
+        //効果音の再生
+        SoundManager.Play2D(m_itemGetSe);
 
         //シーン遷移
         SceneController.Transition("Select");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            //効果音
+            SoundManager.Play2D(m_openSe);
+
+            //アニメーションの再生
+            m_animator.SetTrigger("Open");
+        }
     }
 }

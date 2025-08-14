@@ -4196,7 +4196,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33672ef897c7a534fa4c8a4cc20ddbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemy: {fileID: 0}
+  m_controller: {fileID: 0}
+  m_ui: {fileID: 0}
+  m_wall: {fileID: 0}
+  m_gatePortal: {fileID: 0}
+  m_deathEffect: {fileID: 0}
   m_attack: {fileID: 8300000, guid: c3628c0ff6c97c54d9d6933731417f46, type: 3}
 --- !u!1 &8487551633489326845
 GameObject:
