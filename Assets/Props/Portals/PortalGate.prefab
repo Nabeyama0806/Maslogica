@@ -5077,7 +5077,7 @@ MonoBehaviour:
   - gateType: 3
     effect: {fileID: 1941275818125340243}
   m_gateInEffect: {fileID: 4744564756790646143}
-  m_se: {fileID: 8300000, guid: 57266daf8b5479549ac7756a0eafe7b2, type: 3}
+  m_se: {fileID: 8300000, guid: 25012698e7f7ff944a80bfe6f98b51a9, type: 3}
 --- !u!65 &4629108951068763777
 BoxCollider:
   m_ObjectHideFlags: 0

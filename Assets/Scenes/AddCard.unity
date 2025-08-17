@@ -6320,7 +6320,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -6580,6 +6580,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_player: {fileID: 587500876}
   m_attack: {fileID: 8300000, guid: c675d0b32c3291142b790a6fb02d9da0, type: 3}
+  m_death: {fileID: 0}
+  m_gameBgm: {fileID: 0}
 --- !u!1001 &1610645829
 PrefabInstance:
   m_ObjectHideFlags: 0
