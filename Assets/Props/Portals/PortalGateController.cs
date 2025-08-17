@@ -42,7 +42,7 @@ public class PortalGateController : MonoBehaviour
         m_gateInEffect.SetActive(true);
 
         //Œø‰Ê‰¹
-        SoundManager.Play2D(m_se);
+        SoundManager.Play2D(m_se, 0.5f);
 
         //ƒV[ƒ“‘JˆÚ
         switch (m_gateType)

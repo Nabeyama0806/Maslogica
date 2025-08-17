@@ -37,6 +37,10 @@ public class ChestController : MonoBehaviour
 
             //アニメーションの再生
             m_animator.SetTrigger("Open");
+            PlayerAnime.Instance.Open();
+
+            //プレイヤーの移動を停止
+            other.GetComponent<PlayerMove>().enabled = false; 
         }
     }
 }

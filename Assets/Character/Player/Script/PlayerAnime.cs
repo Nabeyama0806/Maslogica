@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnime : MonoBehaviour
@@ -48,6 +49,11 @@ public class PlayerAnime : MonoBehaviour
 
         //É^Å[ÉìèIóπ
         m_controller.IsTurnEndFlag = true;
+    }
+
+    public void Open()
+    {
+        m_animator.SetTrigger("Open");
     }
 
     public void Death()
