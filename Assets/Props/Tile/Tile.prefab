@@ -231,8 +231,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_frame: {fileID: 1371577648504815001}
+  m_normalMaterial: {fileID: 2100000, guid: 8f6f9b3ffeb5f8943842a4e2d73561fe, type: 2}
   m_damageMaterial: {fileID: 2100000, guid: f1400042c78904243a6cc3e899d76d11, type: 2}
-  m_active: {fileID: 8300000, guid: 25012698e7f7ff944a80bfe6f98b51a9, type: 3}
+  m_active: {fileID: 8300000, guid: 57266daf8b5479549ac7756a0eafe7b2, type: 3}
+  m_enemyAttack: {fileID: 8300000, guid: 30d304e3a3aab0e42b5acedfef1600e4, type: 3}
 --- !u!114 &-2044417686272899813
 MonoBehaviour:
   m_ObjectHideFlags: 0

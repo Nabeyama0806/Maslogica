@@ -3,8 +3,10 @@ using UnityEngine;
 public class TileDate : MonoBehaviour
 {
     [SerializeField] GameObject m_frame;            //タイルの淵
+    [SerializeField] Material m_normalMaterial;
     [SerializeField] Material m_damageMaterial;     //エネミーの攻撃マスのマテリアル
-    [SerializeField] AudioClip m_active;            //アクティブ時の効果音
+    [SerializeField] AudioClip m_active;            
+    [SerializeField] AudioClip m_enemyAttack;       //エネミーの攻撃マスの効果音
 
     private TileEffects m_effects;  //エフェクト管理クラス
     private bool m_isActive;        //アクティブかどうか
@@ -41,15 +43,18 @@ public class TileDate : MonoBehaviour
             else m_effects.Stop(TileEffects.EffectType.Active);
 
             //効果音
-            SoundManager.Play2D(m_active, 0.5f);
+            SoundManager.Play2D(m_active, 0.6f);
 
             //エネミーの攻撃マスならダメージを与える
             if (m_isEnemyAttack)
             {
                 other.GetComponent<CharacterStatus>().Damage(15);
 
+                //効果音
+                SoundManager.Play2D(m_enemyAttack, 0.5f);
+
                 //エフェクト
-               StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
+                StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
             }
         }
     }
@@ -73,5 +78,20 @@ public class TileDate : MonoBehaviour
         m_isEnemyAttack = true;
         m_frame.GetComponent<MeshRenderer>().material = m_damageMaterial;
         m_effects.Play(TileEffects.EffectType.EnemyAttack);
+    }
+
+    public void EffectReset()
+    {
+        //状態のリセット
+        m_isActive = false;
+        m_isEnemyAttack = false;
+
+        //エフェクトの停止
+        m_effects.Stop(TileEffects.EffectType.Active);
+        m_effects.Stop(TileEffects.EffectType.EnemyAttack);
+
+        // 元のマテリアルに戻す
+        m_frame.GetComponent<MeshRenderer>().material = m_normalMaterial; 
+
     }
 }

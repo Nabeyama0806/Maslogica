@@ -11,6 +11,8 @@ public class PlayerAnime : MonoBehaviour
 
     [SerializeField] GameObject m_player;
     [SerializeField] AudioClip m_attack;
+    [SerializeField] AudioClip m_death;
+    [SerializeField] GameObject m_gameBgm;
 
     private Animator m_animator;
     private PlayerController m_controller;
@@ -58,6 +60,12 @@ public class PlayerAnime : MonoBehaviour
     public void Death()
     {
         m_animator.SetBool("Death", true);
+
+        //å¯â âπ
+        SoundManager.Play2D(m_death);
+
+        //ÉQÅ[ÉÄBGMÇí‚é~
+        m_gameBgm.SetActive(false);
     }
     public void DeathEnd()
     {

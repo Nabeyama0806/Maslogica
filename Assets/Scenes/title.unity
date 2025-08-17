@@ -3000,6 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fdd4c3933870b4c8a6f907b9ab32dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_titleBgm: {fileID: 2117561577}
   m_se: {fileID: 8300000, guid: 10dca0f5e7011a947b3d098674ed7067, type: 3}
 --- !u!114 &810219604
 MonoBehaviour:
@@ -4176,6 +4177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fdd4c3933870b4c8a6f907b9ab32dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_titleBgm: {fileID: 0}
   m_se: {fileID: 8300000, guid: 10dca0f5e7011a947b3d098674ed7067, type: 3}
 --- !u!1 &1135953241
 GameObject:

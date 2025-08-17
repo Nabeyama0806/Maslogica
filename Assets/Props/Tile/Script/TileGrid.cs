@@ -95,7 +95,7 @@ public class TileGrid : MonoBehaviour
         {
             for (int x = 0; x < GridSize; ++x)
             {
-                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].Inactive();
+                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].EffectReset();
             }
         }
     }

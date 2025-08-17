@@ -6477,6 +6477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_player: {fileID: 276860352}
   m_attack: {fileID: 8300000, guid: c675d0b32c3291142b790a6fb02d9da0, type: 3}
+  m_death: {fileID: 8300000, guid: b4077905b1df60f4bbcc836373be5d1a, type: 3}
+  m_gameBgm: {fileID: 1188140642}
 --- !u!1 &785152873
 GameObject:
   m_ObjectHideFlags: 0
