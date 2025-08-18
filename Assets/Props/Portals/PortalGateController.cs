@@ -60,13 +60,6 @@ public class PortalGateController : MonoBehaviour
                 break;
 
             case GateType.Shop:
-                //これまで保存していたプレイヤーの体力データを削除
-                PlayerPrefs.DeleteKey("PlayerHealth");
-
-                //プレイヤーの体力を全回復して保存
-                PlayerPrefs.SetInt("PlayerHealth", other.GetComponent<CharacterStatus>().Value.MaxHealth);
-                PlayerPrefs.Save();
-
                 SceneController.Transition("Shop");
                 break;
         }

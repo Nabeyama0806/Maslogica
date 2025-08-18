@@ -10,13 +10,16 @@ public class EnemyAnime : MonoBehaviour
     }
 
     [SerializeField] EnemyController m_controller;
+    [SerializeField] CharacterStatus m_status;
     [SerializeField] GameObject m_ui;
     [SerializeField] GameObject m_wall;
     [SerializeField] GameObject m_gatePortal;
     [SerializeField] GameObject m_deathEffect;
-    [SerializeField] AudioClip m_attack;
+    [SerializeField] AudioClip m_tileAttack;
+    [SerializeField] AudioClip m_slash;
 
     private Animator m_animator;
+    private GameObject m_player;
 
     private void Awake()
     {
@@ -24,21 +27,30 @@ public class EnemyAnime : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_gatePortal.SetActive(false);
         m_wall.SetActive(true);
+
+        m_player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Attack()
     {
+        //攻撃アニメーション
         m_animator.SetTrigger("Attack");
-
-        //攻撃エフェクト
     }
     public void AttackEnd()
+    {
+        //効果音
+        SoundManager.Play2D(m_slash);
+
+        //プレイヤーにダメージを与える
+        m_player.GetComponent<CharacterStatus>().Damage(m_status.Value.Power);
+    }
+    public void NextAttack()
     {
         //次の攻撃マスをランダムで選択
         TileGrid.RandomSelect();
 
         //効果音
-        SoundManager.Play2D(m_attack);
+        SoundManager.Play2D(m_tileAttack);
     }
 
     public void NextAttackEnd()
@@ -49,15 +61,14 @@ public class EnemyAnime : MonoBehaviour
 
     public void Death()
     {
+        //死亡アニメーション
         m_animator.SetBool("Death", true);
 
+        //UIを非表示にする
         m_ui.SetActive(false);
     }
     public void DeathEnd()
     {
-        //盤面のリセット
-        TileGrid.AllReset();
-
         //死亡エフェクトを生成
         Instantiate(m_deathEffect, m_gatePortal.transform.position, Quaternion.identity);
 

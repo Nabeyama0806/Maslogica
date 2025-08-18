@@ -54,9 +54,6 @@ public class GameSceneManager : MonoBehaviour
                 //エネミーの行動が終了するまで待機
                 if (!m_enemy.GetComponent<EnemyController>().IsTurnEnd()) break;
 
-                //プレイヤーにダメージを与える
-                m_playerStatus.Damage(m_enemyStatus.Value.Power);
-
                 //次のフェーズへ
                 m_nextPhase = Phase.PlayerTurn;
                 m_phase = Phase.Check;
@@ -64,9 +61,15 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.Check:
                 //勝敗の確認
-                if (m_playerStatus.Health <= 0
-                || m_enemyStatus.Health <= 0)
+                if (m_enemyStatus.Health <= 0)
                 {
+                    //プレイヤーの移動制限を解除
+                    m_player.GetComponent<PlayerController>().enabled = false;
+                    m_player.GetComponent<PlayerMove>().enabled = true;
+
+                    //盤面のリセット
+                    TileGrid.AllReset();
+
                     m_phase = Phase.Finish;
                     break;
                 }
@@ -82,21 +85,10 @@ public class GameSceneManager : MonoBehaviour
                     m_enemy.GetComponent<EnemyController>().Play();
                 }
 
-                //盤面のリセット
-                TileGrid.AllReset();
+                TileGrid.AllInactive();
                 break;
 
         case Phase.Finish:
-                //これまで保存していたプレイヤーの体力データを削除
-                PlayerPrefs.DeleteKey("PlayerHealth");
-
-                //現在のプレイヤーの体力を保持
-                PlayerPrefs.SetInt("PlayerHealth", m_playerStatus.Health);
-                PlayerPrefs.Save();
-
-                //プレイヤーの移動制限を解除
-                m_player.GetComponent<PlayerController>().enabled = false;
-                m_player.GetComponent<PlayerMove>().enabled = true;
                 break;
         }
     }

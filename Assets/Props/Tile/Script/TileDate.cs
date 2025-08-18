@@ -80,7 +80,7 @@ public class TileDate : MonoBehaviour
         m_effects.Play(TileEffects.EffectType.EnemyAttack);
     }
 
-    public void EffectReset()
+    public void Close()
     {
         //状態のリセット
         m_isActive = false;
@@ -92,6 +92,5 @@ public class TileDate : MonoBehaviour
 
         // 元のマテリアルに戻す
         m_frame.GetComponent<MeshRenderer>().material = m_normalMaterial; 
-
     }
 }

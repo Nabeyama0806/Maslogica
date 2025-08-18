@@ -17363,6 +17363,21 @@ PrefabInstance:
       objectReference: {fileID: 2073291015}
     - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
         type: 3}
+      propertyPath: m_slash
+      value: 
+      objectReference: {fileID: 8300000, guid: 8dd0a0815cc0ac745b7752c720705040, type: 3}
+    - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
+        type: 3}
+      propertyPath: m_attack
+      value: 
+      objectReference: {fileID: 8300000, guid: dc6b0395d601d9b4594e2b426ab18a01, type: 3}
+    - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
+        type: 3}
+      propertyPath: m_status
+      value: 
+      objectReference: {fileID: 2073291018}
+    - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
+        type: 3}
       propertyPath: m_controller
       value: 
       objectReference: {fileID: 2073291017}
@@ -17371,6 +17386,11 @@ PrefabInstance:
       propertyPath: m_gatePortal
       value: 
       objectReference: {fileID: 1497150477}
+    - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
+        type: 3}
+      propertyPath: m_tileAttack
+      value: 
+      objectReference: {fileID: 8300000, guid: dc6b0395d601d9b4594e2b426ab18a01, type: 3}
     - target: {fileID: -1482823030108364811, guid: aef9a3e063e740f4d8100584de73ceb4,
         type: 3}
       propertyPath: m_deathEffect

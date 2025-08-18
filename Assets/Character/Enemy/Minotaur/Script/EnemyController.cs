@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     {
         //UŒ‚‚ÌŠJn
         EnemyAnime.Instance.Attack();
+        m_isTurnEnd = false;
     }
 
     public bool IsTurnEnd()

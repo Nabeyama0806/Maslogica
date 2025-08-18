@@ -95,7 +95,7 @@ public class TileGrid : MonoBehaviour
         {
             for (int x = 0; x < GridSize; ++x)
             {
-                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].EffectReset();
+                m_tileGrid[x, y].Close();
             }
         }
     }
@@ -109,6 +109,17 @@ public class TileGrid : MonoBehaviour
                 //アクティブの盤面はエフェクトを表示
                 if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].PlayerAttack();
                
+            }
+        }
+    }
+
+    static public void AllInactive()
+    {
+        for (int y = 0; y < GridSize; ++y)
+        {
+            for (int x = 0; x < GridSize; ++x)
+            {
+                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].Inactive();
             }
         }
     }

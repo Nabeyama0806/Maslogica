@@ -66,6 +66,10 @@ public class PlayerAnime : MonoBehaviour
 
         //ƒQ[ƒ€BGM‚ğ’â~
         m_gameBgm.SetActive(false);
+
+        //ƒvƒŒƒCƒ„[‚ÌˆÚ“®‚ğ’â~
+        m_player.GetComponent<PlayerController>().enabled = false;
+        m_player.GetComponent<PlayerMove>().enabled = false;
     }
     public void DeathEnd()
     {

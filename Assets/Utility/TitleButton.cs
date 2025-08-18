@@ -10,9 +10,6 @@ public class TitleButton : MonoBehaviour
         //タイトルBGMを停止
         m_titleBgm.SetActive(false);
 
-        //これまで保存していたプレイヤーの体力データを削除
-        PlayerPrefs.DeleteKey("PlayerHealth");
-
         SoundManager.Play2D(m_se);
         SceneController.Transition("Select");
     }
