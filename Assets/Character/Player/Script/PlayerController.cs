@@ -14,11 +14,16 @@ public class PlayerController : MonoBehaviour
     private bool m_canMove;            //移動可能か
     private bool m_isMove;             //移動したか
     private bool m_isTurnEnd;          //ターン終了か 
+    private bool m_isBattle;           //戦闘中か   
     private float m_moveElapsedTime;   //残りの移動可能時間
 
     public bool IsTurnEndFlag
     { 
         set {   m_isTurnEnd = value; }
+    }
+    public bool IsBattle
+    {
+        set { m_isBattle = value; }
     }
 
     void Awake()
@@ -27,14 +32,12 @@ public class PlayerController : MonoBehaviour
         m_characterController = GetComponent<CharacterController>();
         m_playerInput = GetComponent<PlayerInput>();
 
-        //開始時は移動制限を有効にする
-        GetComponent<PlayerMove>().enabled = false;
-
         //入力値の初期化
         m_moveElapsedTime = m_movingTime;
         m_isMove = false;
         m_isTurnEnd = false;
         m_canMove = false;
+        m_isBattle = false;
     }
 
     private void OnEnable()
@@ -61,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        if (!m_canMove) return;
+        if (!m_canMove && m_isBattle) return;
 
         //移動量の取得
         Vector2 input = context.ReadValue<Vector2>();
@@ -82,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (m_moveElapsedTime <= 0) return;
+        if (m_moveElapsedTime <= 0 && m_isBattle) return;
 
         //接地していれば上方向に速度を与える
         if (!m_characterController.isGrounded) return;
@@ -91,14 +94,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if (!m_isMove) return;
+        if (!m_isMove && m_isBattle) return;
         m_moveElapsedTime = 0;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //自由落下
         m_inputValue.y += Physics.gravity.y * Time.deltaTime;
+
+        //戦闘時以外は移動制限を解除
+        if (!m_isBattle) Move();
     }
 
     public void Play()
@@ -113,17 +119,8 @@ public class PlayerController : MonoBehaviour
         PlayerMPSlider.SetMaxMP(m_movingTime);
     }
 
-    public bool IsTurnEnd()
+    private void Move()
     {
-        //移動不可ならターン終了まで何もしない
-        if (!m_canMove) return m_isTurnEnd;
-
-        //動いてから計測
-        if (m_isMove) m_moveElapsedTime -= Time.deltaTime;
-
-        //移動可能時間の表示
-        PlayerMPSlider.SetMP(m_moveElapsedTime);
-
         //カメラの向きを考慮した移動量
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveVelocity = cameraForward * m_inputValue.z + Camera.main.transform.right * m_inputValue.x;
@@ -144,6 +141,21 @@ public class PlayerController : MonoBehaviour
 
             m_isMove = true;
         }
+    }
+
+    public bool IsTurnEnd()
+    {
+        //移動不可ならターン終了まで何もしない
+        if (!m_canMove) return m_isTurnEnd;
+
+        //動いてから計測
+        if (m_isMove) m_moveElapsedTime -= Time.deltaTime;
+
+        //移動可能時間の表示
+        PlayerMPSlider.SetMP(m_moveElapsedTime);
+
+        //移動
+        Move();
 
         //移動可能時間が無くなれば終了
         if (m_moveElapsedTime <= 0)

@@ -1,17 +1,41 @@
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneController
 {
     static private bool m_isTransition = false;
 
-    //シーン遷移
-    static public void Transition(string sceneName)
+    //シーンの追加
+    static public void Load(string sceneName)
     {
         //既に遷移中なら受け付けない
         if (m_isTransition) return;
 
         //既に追加済みなら何もしない
         if (SceneManager.GetSceneByName(sceneName).isLoaded) return;
+
+        //シーンの追加読み込み
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+
+    //シーンの除外
+    static public void UnLoad(string sceneName)
+    {
+        //既に遷移中なら受け付けない
+        if (m_isTransition) return;
+
+        //シーンの除外
+        SceneManager.UnloadSceneAsync(sceneName);
+    }
+
+    //シーン遷移
+    static public void Transition(string prevSceneName, string nextSceneName)
+    {
+        //既に遷移中なら受け付けない
+        if (m_isTransition) return;
+
+        //既に追加済みなら何もしない
+        if (SceneManager.GetSceneByName(nextSceneName).isLoaded) return;
 
         //シーン遷移開始
         m_isTransition = true;
@@ -20,7 +44,10 @@ public class SceneController
         Fade.FadeOut(1.0f, () =>
         {
             //次のシーンを読み込む
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(nextSceneName, LoadSceneMode.Additive);
+
+            //前のシーンを除外する
+            SceneManager.UnloadSceneAsync(prevSceneName);
 
             //シーン遷移完了
             m_isTransition = false;

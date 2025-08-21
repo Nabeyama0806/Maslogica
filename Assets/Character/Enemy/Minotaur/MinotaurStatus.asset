@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96a2e60d5cdc72488d3aac621fdda68, type: 3}
   m_Name: MinotaurStatus
   m_EditorClassIdentifier: 
-  Name: Minotaur
-  MaxHealth: 100
-  Power: 40
-  Defense: 20
-  Gold: 100
+  baseHealth: 100
+  basePower: 40
+  baseDefense: 10

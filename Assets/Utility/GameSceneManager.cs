@@ -4,7 +4,6 @@ public class GameSceneManager : MonoBehaviour
 {
     public enum Phase
     {
-        Start,
         PlayerTurn, 
         EnemyTurn,
         Check,
@@ -13,37 +12,41 @@ public class GameSceneManager : MonoBehaviour
         Length,
     }
 
-    [SerializeField] GameObject m_player;
     [SerializeField] GameObject m_enemy;
 
+    private GameObject m_player;
     private Phase m_phase;
     private Phase m_nextPhase;
     private CharacterStatus m_playerStatus;
     private CharacterStatus m_enemyStatus;
+
     private void Awake()
     {
-        m_phase = Phase.Start;
+        //フェースの初期化
+        m_phase = Phase.Check;
+        m_nextPhase = Phase.PlayerTurn;
 
+        //ヒエラルキー上のプレイヤーを取得
+        m_player = GameObject.FindGameObjectWithTag("Player");
+
+        //プレイヤーとエネミーのステータスを取得
         m_playerStatus = m_player.GetComponent<CharacterStatus>();
         m_enemyStatus = m_enemy.GetComponent<CharacterStatus>();
+
+        //バトル中はプレイヤーの移動を制限 
+        m_player.GetComponent<PlayerController>().IsBattle = true;
     }
 
     private void FixedUpdate()
     {
         switch (m_phase)
         {
-        case Phase.Start:
-                Debug.Log(m_playerStatus.Health);
-                m_phase = Phase.Check;
-                m_nextPhase = Phase.PlayerTurn;
-                break;
-
         case Phase.PlayerTurn:
                 //プレイヤーの操作が終了するまで待機
                 if (!m_player.GetComponent<PlayerController>().IsTurnEnd()) break;
 
                 //敵にダメージを与える
-                if (TileGrid.Check()) m_enemyStatus.Damage(m_playerStatus.Value.Power);
+                if (TileGrid.Check()) m_enemyStatus.Damage(m_playerStatus.Power);
 
                 //次のフェーズへ
                 m_nextPhase = Phase.EnemyTurn;
@@ -61,11 +64,10 @@ public class GameSceneManager : MonoBehaviour
 
         case Phase.Check:
                 //勝敗の確認
-                if (m_enemyStatus.Health <= 0)
+                if (m_enemyStatus.CurrentHealth <= 0)
                 {
                     //プレイヤーの移動制限を解除
-                    m_player.GetComponent<PlayerController>().enabled = false;
-                    m_player.GetComponent<PlayerMove>().enabled = true;
+                    m_player.GetComponent<PlayerController>().IsBattle = false;
 
                     //盤面のリセット
                     TileGrid.AllReset();

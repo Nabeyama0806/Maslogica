@@ -3,41 +3,60 @@ using UnityEngine.Events;
 
 public class CharacterStatus : MonoBehaviour
 {
-    [SerializeField] CharacterData m_characterData;
+    [SerializeField] StatusData m_status;
     [SerializeField] UnityEvent m_onDeath;
     [SerializeField] UnityEvent m_onDamage;
-    
-    private int m_health;
 
-    public CharacterData Value
+    public StatusData Value
     {
-        get => m_characterData;
+        get => m_status;
     }
 
-    public int Health
+    public int MaxHealth
     {
-        get => m_health;
-        set => m_health = value;
+        get => m_status.baseHealth;
+        set => m_status.baseHealth = value;
+    }
+    public int CurrentHealth
+    {
+        get => m_status.currentHealth;
+        set => m_status.currentHealth = value;
     }
 
-    private void Awake()
+    public int Power
     {
-        m_health = m_characterData.MaxHealth;
+        get => m_status.currentPower;
+        set => m_status.currentPower = value;
+    }
+
+    public int Defense
+    {
+        get => m_status.currentDefense;
+        set => m_status.currentDefense = value;
+    }
+
+    private void Start()
+    {
+        //ステータスの初期化
+        m_status.Init();
     }
 
     public void Damage(int power)
     {
         //ダメージ計算(乱数)
-        int damage = (power - m_characterData.Defense); 
+        int damage = (power - m_status.currentDefense);
 
-        if (damage <= 0) return;     //負のダメージは回復してしまう
-        if (m_health <= 0) return;   //死体蹴りはしない
+        //マイナスのダメージは与えない
+        if (damage <= 0) return;
+
+        //体力がマイナスならダメージを与えない
+        if (m_status.currentHealth <= 0) return;
 
         //ダメージ
-        m_health -= damage;
+        m_status.currentHealth -= damage;
 
         //体力の確認
-        if (m_health <= 0)
+        if (m_status.currentHealth <= 0)
         {
             //死亡通知
             m_onDeath?.Invoke();

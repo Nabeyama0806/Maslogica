@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAnime : MonoBehaviour
 {
@@ -69,11 +70,10 @@ public class PlayerAnime : MonoBehaviour
 
         //プレイヤーの移動を停止
         m_player.GetComponent<PlayerController>().enabled = false;
-        m_player.GetComponent<PlayerMove>().enabled = false;
     }
     public void DeathEnd()
     {
         //シーン遷移
-        SceneController.Transition("Title");
+        SceneController.Transition(SceneManager.GetActiveScene().name, "Title");
     }
 }

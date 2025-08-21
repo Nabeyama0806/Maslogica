@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChestController : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class ChestController : MonoBehaviour
         SoundManager.Play2D(m_itemGetSe);
 
         //シーン遷移
-        SceneController.Transition("Select");
+        SceneController.Transition("AddCard", "Select");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,9 +38,6 @@ public class ChestController : MonoBehaviour
             //アニメーションの再生
             m_animator.SetTrigger("Open");
             PlayerAnime.Instance.Open();
-
-            //プレイヤーの移動を停止
-            other.GetComponent<PlayerMove>().enabled = false; 
         }
     }
 }

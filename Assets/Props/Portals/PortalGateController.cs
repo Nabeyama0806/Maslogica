@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PortalGateController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PortalGateController : MonoBehaviour
     }
 
     [SerializeField] GateType m_gateType;
+    [SerializeField] string m_sceneName;
     [SerializeField] int m_spawnProbability; 
     [SerializeField] List<GateData> m_gateDataList;
     [SerializeField] GameObject m_gateInEffect; 
@@ -48,23 +50,20 @@ public class PortalGateController : MonoBehaviour
         switch (m_gateType)
         {
             case GateType.None:
-                SceneController.Transition("Select");
+                SceneController.Transition(m_sceneName, "Select");
                 break;
 
             case GateType.Battle:
-                SceneController.Transition("Battle");
+                SceneController.Transition(m_sceneName, "Battle");
                 break;
 
             case GateType.AddCard:
-                SceneController.Transition("AddCard");
+                SceneController.Transition(m_sceneName, "AddCard");
                 break;
 
             case GateType.Shop:
-                SceneController.Transition("Shop");
+                SceneController.Transition(m_sceneName, "Shop");
                 break;
         }
-
-        //プレイヤーを非表示にする
-        other.gameObject.SetActive(false); 
     }
 }

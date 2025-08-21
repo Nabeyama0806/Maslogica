@@ -5066,15 +5066,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gateType: 0
+  m_sceneName: 
   m_spawnProbability: 0
   m_gateDataList:
   - gateType: 0
+    playerSpawnPos: {x: 4, y: 0, z: 3}
     effect: {fileID: 2642871762757505368}
   - gateType: 1
+    playerSpawnPos: {x: 5, y: 0, z: 3}
     effect: {fileID: 734402416354927677}
   - gateType: 2
+    playerSpawnPos: {x: 2.5, y: 0, z: 3}
     effect: {fileID: 3700235638775322700}
   - gateType: 3
+    playerSpawnPos: {x: 5.5, y: 0, z: 3}
     effect: {fileID: 1941275818125340243}
   m_gateInEffect: {fileID: 4744564756790646143}
   m_se: {fileID: 8300000, guid: 25012698e7f7ff944a80bfe6f98b51a9, type: 3}

@@ -11,6 +11,7 @@ public class EnemyAnime : MonoBehaviour
 
     [SerializeField] EnemyController m_controller;
     [SerializeField] CharacterStatus m_status;
+    [SerializeField] GameObject m_player;
     [SerializeField] GameObject m_ui;
     [SerializeField] GameObject m_wall;
     [SerializeField] GameObject m_gatePortal;
@@ -19,7 +20,6 @@ public class EnemyAnime : MonoBehaviour
     [SerializeField] AudioClip m_slash;
 
     private Animator m_animator;
-    private GameObject m_player;
 
     private void Awake()
     {
@@ -27,8 +27,6 @@ public class EnemyAnime : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_gatePortal.SetActive(false);
         m_wall.SetActive(true);
-
-        m_player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Attack()
@@ -42,7 +40,7 @@ public class EnemyAnime : MonoBehaviour
         SoundManager.Play2D(m_slash);
 
         //プレイヤーにダメージを与える
-        m_player.GetComponent<CharacterStatus>().Damage(m_status.Value.Power);
+        m_player.GetComponent<CharacterStatus>().Damage(m_status.Power);
     }
     public void NextAttack()
     {
