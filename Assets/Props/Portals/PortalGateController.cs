@@ -1,38 +1,40 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 public class PortalGateController : MonoBehaviour
 {
-    public enum GateType
-    {
-        None,          
-        Battle,
-        AddCard,
-        Shop,
-    }
-
     [Serializable]
-    public class GateData
+    public class GateEffectData
     {
-        public GateType gateType;       //ゲートの種類
+        public SceneController.Type gateType;     
         public GameObject effect;       
     }
 
-    [SerializeField] GateType m_gateType;
-    [SerializeField] string m_sceneName;
-    [SerializeField] int m_spawnProbability; 
-    [SerializeField] List<GateData> m_gateDataList;
+    [SerializeField] SceneController.Type m_scene;
+    [SerializeField] SceneController.Type m_nextScene;
+    [SerializeField] int m_spawnProbability;        
     [SerializeField] GameObject m_gateInEffect; 
     [SerializeField] AudioClip m_se;
+    [SerializeField] List<GateEffectData> m_gateEffectDataList;
+
+    private Dictionary<SceneController.Type, GameObject> m_gateEffects;
 
     private void Start()
     {
         //ランダムでゲートの種類を決定
         int rand = UnityEngine.Random.Range(0, 100);
-        if (rand > m_spawnProbability) m_gateType = GateType.Battle;
-        m_gateDataList[(int)m_gateType].effect.SetActive(true);
+        if (rand > m_spawnProbability) m_nextScene = SceneController.Type.Battle;
+
+        //ゲートエフェクトとステージを紐づけるための連想配列リストを作成
+        m_gateEffects = new Dictionary<SceneController.Type, GameObject>();
+        foreach (var effectDate in m_gateEffectDataList)
+        {
+            m_gateEffects.Add(effectDate.gateType, effectDate.effect);
+        }
+
+        //指定したゲートエフェクトを表示
+        m_gateEffects[m_nextScene].SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,23 +49,6 @@ public class PortalGateController : MonoBehaviour
         SoundManager.Play2D(m_se, 0.5f);
 
         //シーン遷移
-        switch (m_gateType)
-        {
-            case GateType.None:
-                SceneController.Transition(m_sceneName, "Select");
-                break;
-
-            case GateType.Battle:
-                SceneController.Transition(m_sceneName, "Battle");
-                break;
-
-            case GateType.AddCard:
-                SceneController.Transition(m_sceneName, "AddCard");
-                break;
-
-            case GateType.Shop:
-                SceneController.Transition(m_sceneName, "Shop");
-                break;
-        }
+        SceneController.Transition(m_scene, m_nextScene);
     }
 }

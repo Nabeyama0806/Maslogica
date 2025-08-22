@@ -51,7 +51,7 @@ public class TileDate : MonoBehaviour
                 other.GetComponent<CharacterStatus>().Damage(15);
 
                 //効果音
-                SoundManager.Play2D(m_enemyAttack, 0.5f);
+                SoundManager.Play2D(m_enemyAttack, 0.3f);
 
                 //エフェクト
                 StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));

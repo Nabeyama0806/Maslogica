@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class SystemSceneManager : MonoBehaviour
 {
-    [SerializeField] string m_firstSceneName;
+    [SerializeField] SceneController.Type m_firstScene;
 
     void Start()
     {
-        SceneController.Load(m_firstSceneName);
+        //タイトルシーンのBGMを再生
+        BGM.Instance.Play(SceneController.Type.Title);
+
+        //タイトルシーンの読み込み
+        SceneController.Load(m_firstScene);
     }
 }

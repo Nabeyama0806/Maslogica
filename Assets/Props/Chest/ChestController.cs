@@ -25,7 +25,7 @@ public class ChestController : MonoBehaviour
         SoundManager.Play2D(m_itemGetSe);
 
         //ƒV[ƒ“‘JˆÚ
-        SceneController.Transition("AddCard", "Select");
+        SceneController.Transition(SceneController.Type.AddCard, SceneController.Type.Select);
     }
 
     private void OnTriggerEnter(Collider other)

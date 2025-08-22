@@ -33942,7 +33942,7 @@ GameObject:
   - component: {fileID: 5293681276811087433}
   - component: {fileID: 1302782664284535893}
   m_Layer: 0
-  m_Name: HealPortal
+  m_Name: ShopPortal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

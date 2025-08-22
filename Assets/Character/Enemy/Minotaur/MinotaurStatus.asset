@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MinotaurStatus
   m_EditorClassIdentifier: 
   baseHealth: 100
-  basePower: 40
+  basePower: 50
   baseDefense: 10

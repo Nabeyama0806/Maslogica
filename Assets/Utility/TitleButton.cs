@@ -3,14 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class TitleButton : MonoBehaviour
 {
-    [SerializeField] GameObject m_titleBgm;
-    [SerializeField] StatusData m_playerStatus;
     [SerializeField] AudioClip m_se;
 
     public void OnClick()
     {
-        //タイトルBGMを停止
-        m_titleBgm.SetActive(false);
+        //BGMの停止
+        BGM.Instance.Stop();
 
         //効果音を再生
         SoundManager.Play2D(m_se);
@@ -19,11 +17,14 @@ public class TitleButton : MonoBehaviour
         Fade.FadeOut(1.0f, () =>
         {
             //シーンの破棄
-            SceneController.UnLoad("Title");
+            SceneController.UnLoad(SceneController.Type.Title);
 
             //シーンの読み込み
-            SceneController.Load("Player");
-            SceneController.Load("Select");
+            SceneController.Load(SceneController.Type.Player);
+            SceneController.Load(SceneController.Type.Select);
+
+            //ステージ選択シーンのBGMを再生
+            BGM.Instance.Play(SceneController.Type.Select);
 
             //フェードイン
             Fade.FadeIn(1.0f);

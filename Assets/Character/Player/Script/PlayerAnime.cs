@@ -71,9 +71,10 @@ public class PlayerAnime : MonoBehaviour
         //プレイヤーの移動を停止
         m_player.GetComponent<PlayerController>().enabled = false;
     }
+
     public void DeathEnd()
     {
         //シーン遷移
-        SceneController.Transition(SceneManager.GetActiveScene().name, "Title");
+        SceneController.Transition(SceneController.Type.Battle, SceneController.Type.Title);
     }
 }

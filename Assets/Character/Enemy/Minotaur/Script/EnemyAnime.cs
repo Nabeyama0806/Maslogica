@@ -11,7 +11,6 @@ public class EnemyAnime : MonoBehaviour
 
     [SerializeField] EnemyController m_controller;
     [SerializeField] CharacterStatus m_status;
-    [SerializeField] GameObject m_player;
     [SerializeField] GameObject m_ui;
     [SerializeField] GameObject m_wall;
     [SerializeField] GameObject m_gatePortal;
@@ -20,6 +19,7 @@ public class EnemyAnime : MonoBehaviour
     [SerializeField] AudioClip m_slash;
 
     private Animator m_animator;
+    private GameObject m_player;
 
     private void Awake()
     {
@@ -27,6 +27,9 @@ public class EnemyAnime : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_gatePortal.SetActive(false);
         m_wall.SetActive(true);
+
+        //ÉvÉåÉCÉÑÅ[ÇÃéÊìæ
+        m_player = GetObject.Instance.Player;
     }
 
     public void Attack()

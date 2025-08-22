@@ -5065,24 +5065,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffdd1044ec58261429d1d1904056833b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gateType: 0
-  m_sceneName: 
+  m_scene: 0
+  m_nextScene: 0
   m_spawnProbability: 0
-  m_gateDataList:
-  - gateType: 0
-    playerSpawnPos: {x: 4, y: 0, z: 3}
-    effect: {fileID: 2642871762757505368}
-  - gateType: 1
-    playerSpawnPos: {x: 5, y: 0, z: 3}
-    effect: {fileID: 734402416354927677}
-  - gateType: 2
-    playerSpawnPos: {x: 2.5, y: 0, z: 3}
-    effect: {fileID: 3700235638775322700}
-  - gateType: 3
-    playerSpawnPos: {x: 5.5, y: 0, z: 3}
-    effect: {fileID: 1941275818125340243}
   m_gateInEffect: {fileID: 4744564756790646143}
   m_se: {fileID: 8300000, guid: 25012698e7f7ff944a80bfe6f98b51a9, type: 3}
+  m_gateEffectDataList:
+  - gateType: 2
+    effect: {fileID: 2642871762757505368}
+  - gateType: 3
+    effect: {fileID: 734402416354927677}
+  - gateType: 4
+    effect: {fileID: 3700235638775322700}
+  - gateType: 5
+    effect: {fileID: 1941275818125340243}
 --- !u!65 &4629108951068763777
 BoxCollider:
   m_ObjectHideFlags: 0
