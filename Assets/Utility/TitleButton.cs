@@ -1,9 +1,14 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TitleButton : MonoBehaviour
 {
     [SerializeField] AudioClip m_se;
+
+    private void Awake()
+    {
+        // タイトルシーンのBGMを再生
+        BGM.Instance.Play(SceneController.Type.Title);
+    }
 
     public void OnClick()
     {
