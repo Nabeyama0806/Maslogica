@@ -48,6 +48,9 @@ public class PortalGateController : MonoBehaviour
         //効果音
         SoundManager.Play2D(m_se, 0.5f);
 
+        //シーン遷移中はプレイヤーを非表示にする
+        PlayerAnime.Instance.Hidden();
+
         //シーン遷移
         SceneController.Transition(m_scene, m_nextScene);
     }

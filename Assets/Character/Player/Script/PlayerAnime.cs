@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerAnime : MonoBehaviour
@@ -12,7 +13,7 @@ public class PlayerAnime : MonoBehaviour
     [SerializeField] GameObject m_player;
     [SerializeField] AudioClip m_attack;
     [SerializeField] AudioClip m_death;
-    [SerializeField] GameObject m_gameBgm;
+    [SerializeField] GameObject m_model;
 
     private Animator m_animator;
     private PlayerController m_controller;
@@ -64,9 +65,6 @@ public class PlayerAnime : MonoBehaviour
         //効果音
         SoundManager.Play2D(m_death);
 
-        //ゲームBGMを停止
-        m_gameBgm.SetActive(false);
-
         //プレイヤーの移動を停止
         m_player.GetComponent<PlayerController>().enabled = false;
     }
@@ -76,4 +74,21 @@ public class PlayerAnime : MonoBehaviour
         //シーン遷移
         SceneController.Transition(SceneController.Type.Battle, SceneController.Type.Title);
     }
+
+    public void Hidden()
+    {
+        StartCoroutine(_Hidden());
+    }
+    private IEnumerator _Hidden()
+    {
+        //プレイヤーのモデルを非表示にする
+        m_model.SetActive(false);
+
+        //待機
+        yield return new WaitForSeconds(1.0f);
+
+        //プレイヤーのモデルを表示する
+        m_model.SetActive(true);
+    }
+
 }
