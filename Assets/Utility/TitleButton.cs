@@ -12,6 +12,9 @@ public class TitleButton : MonoBehaviour
 
     public void OnClick()
     {
+        //カメラを徐々に加速させるフラグを立てる
+        Camera.main.GetComponent<TitleCameraMove>().IsClick = true;
+
         //BGMの停止
         BGM.Instance.Stop();
 
