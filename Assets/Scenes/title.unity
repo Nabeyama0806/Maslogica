@@ -862,7 +862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 1150949634}
-  m_se: {fileID: 8300000, guid: 10dca0f5e7011a947b3d098674ed7067, type: 3}
+  m_se: {fileID: 0}
 --- !u!1 &1089383191
 GameObject:
   m_ObjectHideFlags: 0

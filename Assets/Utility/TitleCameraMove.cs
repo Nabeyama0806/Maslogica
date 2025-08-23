@@ -4,7 +4,7 @@ public class TitleCameraMove : MonoBehaviour
 {
     [SerializeField] float m_speed;
 
-    private const float AddSpeed = 0.003f; //カメラの移動速度を徐々に上げる値
+    private const float AddSpeed = 0.008f; //カメラの移動速度を徐々に上げる値
 
     private bool m_isClick;
 

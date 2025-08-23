@@ -7,7 +7,7 @@ public class ObjectDeactive : MonoBehaviour
 
     public void OnClick()
     {
-        SoundManager.Play2D(m_se);
+        if (m_se) SoundManager.Play2D(m_se);
         obj.SetActive(false);
     }
 }
