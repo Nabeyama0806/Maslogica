@@ -1,7 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class Heal : MonoBehaviour
 {
+    [SerializeField] GameObject m_effect;
+    [SerializeField] GameObject m_circle;
+    [SerializeField] GameObject m_text;
+    [SerializeField] AudioClip m_healSound;
+
     private float m_position;
     private float m_rotationY;
 
@@ -26,5 +32,31 @@ public class Heal : MonoBehaviour
             m_rotationY * Time.deltaTime,
             0.0f
         );
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            //プレイヤー体力を回復
+            other.GetComponent<CharacterStatus>().Value.FullRecovery();
+
+            //効果音の再生
+            SoundManager.Play2D(m_healSound);
+
+            //テキストの表示
+            m_text.SetActive(true);
+            Destroy(m_text, 2.0f);
+
+            //回復エフェクトの再生
+            m_effect.SetActive(true);
+            Destroy(m_effect, 0.8f);
+
+            //回復エリアの非表示
+            m_circle.SetActive(false);
+
+            //自身の非表示
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -48,7 +48,7 @@ public class TileDate : MonoBehaviour
             //エネミーの攻撃マスならダメージを与える
             if (m_isEnemyAttack)
             {
-                other.GetComponent<CharacterStatus>().Damage(15);
+                other.GetComponent<CharacterStatus>().Damage(40);
 
                 //効果音
                 SoundManager.Play2D(m_enemyAttack, 0.3f);

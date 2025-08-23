@@ -22,4 +22,9 @@ public class StatusData : ScriptableObject
         currentPower = basePower;
         currentDefense = baseDefense;
     }
+
+    public void FullRecovery()
+    {
+        currentHealth = baseHealth;
+    }
 }
