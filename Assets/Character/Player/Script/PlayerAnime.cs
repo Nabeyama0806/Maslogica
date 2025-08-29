@@ -58,7 +58,7 @@ public class PlayerAnime : MonoBehaviour
         m_animator.SetTrigger("Damage");
 
         //ダメージエフェクト
-       // StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
+        StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
     }
 
     public void Open()

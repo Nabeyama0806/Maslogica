@@ -69,6 +69,9 @@ public class GameSceneManager : MonoBehaviour
                     //プレイヤーの移動制限を解除
                     m_player.GetComponent<PlayerController>().IsBattle = false;
 
+                    //盤面のリセット
+                    TileGrid.AllReset();
+
                     m_phase = Phase.Finish;
                     break;
                 }
@@ -78,6 +81,9 @@ public class GameSceneManager : MonoBehaviour
                 {
                     //プレイヤーの移動を停止
                     m_player.GetComponent<PlayerController>().enabled = false;
+
+                    //盤面のリセット
+                    TileGrid.AllReset();
 
                     m_phase = Phase.Finish;
                     break;
@@ -98,8 +104,7 @@ public class GameSceneManager : MonoBehaviour
                 break;
 
         case Phase.Finish:
-                //盤面のリセット
-                TileGrid.AllReset();
+               //何もせずに待機
                 break;
         }
     }

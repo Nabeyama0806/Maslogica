@@ -43,12 +43,12 @@ public class TileDate : MonoBehaviour
             else m_effects.Stop(TileEffects.EffectType.Active);
 
             //効果音
-            SoundManager.Play2D(m_active, 0.6f);
+            SoundManager.Play2D(m_active, 0.5f);
 
             //エネミーの攻撃マスならダメージを与える
             if (m_isEnemyAttack)
             {
-                other.GetComponent<CharacterStatus>().Damage(40);
+                other.GetComponent<CharacterStatus>().Damage(30);
 
                 //効果音
                 SoundManager.Play2D(m_enemyAttack, 0.3f);

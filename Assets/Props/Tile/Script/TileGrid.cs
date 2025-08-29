@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TileGrid : MonoBehaviour
@@ -7,9 +8,17 @@ public class TileGrid : MonoBehaviour
     //盤面
     private static TileDate[,] m_tileGrid = new TileDate[GridSize, GridSize];
 
+    //エネミーの攻撃範囲のリスト
+    private static List<int> m_enemyAttackGrid = new List<int>();
+
     private void Start()
     {
         SetupTileGrid();
+
+        for (int i = 0; i < GridSize; ++i)
+        {
+            m_enemyAttackGrid.Add(i);
+        }
     }
 
     private void SetupTileGrid()
@@ -79,13 +88,25 @@ public class TileGrid : MonoBehaviour
         return new Vector3(posX, 0.0f, posZ);
     }
 
-    //ランダムで一マス選択
+    //ランダムで攻撃範囲を選択
     static public void RandomSelect()
     {
-        int randX = Random.Range(0, GridSize);
-        int randY = Random.Range(0, GridSize);
+        int rand = Random.Range(0, m_enemyAttackGrid.Count);
 
-        m_tileGrid[randX, randY].EnemyAttack();
+        //横の列
+        for (int i = 0; i < GridSize; ++i)
+        {
+            m_tileGrid[i, m_enemyAttackGrid[rand]].EnemyAttack();
+        }
+
+        //縦の列
+        for (int i = 0; i < GridSize; ++i)
+        {
+            m_tileGrid[m_enemyAttackGrid[rand], i].EnemyAttack();
+        }
+
+        //選択した攻撃範囲をリストから削除
+        m_enemyAttackGrid.Remove(rand);
     }
 
     //盤面を全て非アクティブ状態にする
