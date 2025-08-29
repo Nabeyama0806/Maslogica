@@ -71,8 +71,8 @@ public class PlayerAnime : MonoBehaviour
 
     public void DeathEnd()
     {
-        //シーン遷移
-        SceneController.Transition(SceneController.Type.Battle, SceneController.Type.Title);
+        //シーンの破棄
+        SceneController.Transition(SceneController.Type.Battle, SceneController.Type.Result);
     }
 
     public void Hidden()

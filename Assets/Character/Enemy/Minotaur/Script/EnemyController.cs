@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     public void Play()
     {
         //UŒ‚‚ÌŠJn
-        EnemyAnime.Instance.Attack();
+        StartCoroutine(EnemyAnime.Instance.Attack());
         m_isTurnEnd = false;
     }
 

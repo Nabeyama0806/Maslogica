@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyAnime : MonoBehaviour
@@ -9,6 +10,8 @@ public class EnemyAnime : MonoBehaviour
         get { return m_instance; }
     }
 
+
+    [SerializeField] GameObject m_enemyCamera;
     [SerializeField] EnemyController m_controller;
     [SerializeField] CharacterStatus m_status;
     [SerializeField] GameObject m_ui;
@@ -30,12 +33,16 @@ public class EnemyAnime : MonoBehaviour
 
         //プレイヤーの取得
         m_player = GetObject.Instance.Player;
+
+        //カメラの注視点をプレイヤーに設定
+        m_enemyCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().LookAt = m_player.transform;
     }
 
-    public void Attack()
+    public IEnumerator Attack()
     {
-        //攻撃アニメーション
-        m_animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.6f);
+
+        _Attack();
     }
     public void AttackEnd()
     {
@@ -58,6 +65,10 @@ public class EnemyAnime : MonoBehaviour
     {
         //ターン終了
         m_controller.IsTurnEndFlag = true;
+
+        //カメラをステージ視点に変更
+        m_ui.SetActive(true);
+        m_enemyCamera.SetActive(false);
     }
 
     public void Death()
@@ -86,5 +97,15 @@ public class EnemyAnime : MonoBehaviour
     public void Damage()
     {
         m_animator.SetTrigger("Damage");
+    }
+
+    private void _Attack()
+    {
+        //カメラを自分視点に変更
+        m_ui.SetActive(false);
+        m_enemyCamera.SetActive(true);
+
+        //攻撃アニメーション
+        m_animator.SetTrigger("Attack");
     }
 }

@@ -40,6 +40,9 @@ public class BGM : MonoBehaviour
 
     public void Play(SceneController.Type type)
     {
+        //BGM‚ª“o˜^‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
+        if (m_soundDataList[type] == null) return;
+
         //BGM‚Ì•t‚¯‘Ö‚¦
         m_audioSource.clip = m_soundDataList[type];
 

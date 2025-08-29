@@ -14,6 +14,17 @@ public class SceneController
         AddCard,
         Shop,
         Result,
+        System,
+    }
+
+    //シーンを初期状態で読み込む
+    static public void Redo(Type scene)
+    {
+        //既に遷移中なら受け付けない
+        if (m_isTransition) return;
+
+        //シーンの読み込み
+        SceneManager.LoadScene(SceneName(scene));
     }
 
     //シーンの追加
@@ -57,11 +68,11 @@ public class SceneController
         //フェードアウト
         Fade.FadeOut(1.0f, () =>
         {
-            //前のシーンを除外する
-            SceneManager.UnloadSceneAsync(SceneName(prevScene));
-
             //次のシーンを読み込む
             SceneManager.LoadScene(SceneName(nextScene), LoadSceneMode.Additive);
+
+            //前のシーンを除外する
+            SceneManager.UnloadSceneAsync(SceneName(prevScene));
 
             //シーン遷移完了
             m_isTransition = false;
@@ -98,6 +109,9 @@ public class SceneController
 
             case Type.Result:
                 return "Result";
+
+            case Type.System:
+                return "System";
 
             default:
                 Debug.Log("シーンが存在しません。");

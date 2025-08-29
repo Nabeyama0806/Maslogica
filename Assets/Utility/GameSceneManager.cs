@@ -27,7 +27,7 @@ public class GameSceneManager : MonoBehaviour
         m_nextPhase = Phase.PlayerTurn;
 
         //ヒエラルキー上のプレイヤーを取得
-        m_player = GameObject.FindGameObjectWithTag("Player");
+        m_player = GetObject.Instance.Player;
 
         //プレイヤーとエネミーのステータスを取得
         m_playerStatus = m_player.GetComponent<CharacterStatus>();
@@ -63,14 +63,21 @@ public class GameSceneManager : MonoBehaviour
                 break;
 
         case Phase.Check:
-                //勝敗の確認
+                //プレイヤーの勝利判定
                 if (m_enemyStatus.CurrentHealth <= 0)
                 {
                     //プレイヤーの移動制限を解除
                     m_player.GetComponent<PlayerController>().IsBattle = false;
 
-                    //盤面のリセット
-                    TileGrid.AllReset();
+                    m_phase = Phase.Finish;
+                    break;
+                }
+
+                //エネミーの勝利判定
+                if (m_playerStatus.CurrentHealth <= 0)
+                {
+                    //プレイヤーの移動を停止
+                    m_player.GetComponent<PlayerController>().enabled = false;
 
                     m_phase = Phase.Finish;
                     break;
@@ -91,6 +98,8 @@ public class GameSceneManager : MonoBehaviour
                 break;
 
         case Phase.Finish:
+                //盤面のリセット
+                TileGrid.AllReset();
                 break;
         }
     }
