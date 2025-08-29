@@ -53,6 +53,14 @@ public class PlayerAnime : MonoBehaviour
         m_controller.IsTurnEndFlag = true;
     }
 
+    public void Damage()
+    {
+        m_animator.SetTrigger("Damage");
+
+        //ダメージエフェクト
+       // StartCoroutine(PlayerEffects.Instance.AutoPlay(PlayerEffects.EffectType.Damage));
+    }
+
     public void Open()
     {
         m_animator.SetTrigger("Open");

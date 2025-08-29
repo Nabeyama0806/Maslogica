@@ -178,6 +178,12 @@ public class PlayerController : MonoBehaviour
         return m_isTurnEnd;
     }
 
+    public void OnDamage()
+    {
+        //ダメージアニメーション
+        PlayerAnime.Instance.Damage();
+    }
+
     public void OnDeath()
     {
         //死亡アニメーション
