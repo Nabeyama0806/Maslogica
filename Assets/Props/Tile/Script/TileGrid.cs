@@ -8,21 +8,9 @@ public class TileGrid : MonoBehaviour
     //盤面
     private static TileDate[,] m_tileGrid = new TileDate[GridSize, GridSize];
 
-    //エネミーの攻撃範囲のリスト
-    private static List<int> m_enemyAttackGrid = new List<int>();
-
     private void Start()
     {
-        SetupTileGrid();
-
-        for (int i = 0; i < GridSize; ++i)
-        {
-            m_enemyAttackGrid.Add(i);
-        }
-    }
-
-    private void SetupTileGrid()
-    {
+        //盤面のセットアップ
         int index = 0;
         for (int y = 0; y < GridSize; ++y)
         {
@@ -30,53 +18,10 @@ public class TileGrid : MonoBehaviour
             {
                 //自身の子オブジェクトを二次元配列に変換
                 m_tileGrid[x, y] = transform.GetChild(index).gameObject.GetComponent<TileDate>();
+                m_tileGrid[x, y].GetComponent<TileCondition>().SetCondition((TileState)Random.Range(0, (int)TileState.Poison));
                 index++;
             }
         }
-    }
-
-    static public bool Check()
-    {
-        for (int y = 0; y < GridSize; ++y)
-        {
-            for (int x = 0; x < GridSize; ++x)
-            {
-                //非アクティブの盤面はスキップ
-                if (!m_tileGrid[x, y].IsActive) continue;
-
-                //列の判定
-                if (IsLine(x, y)) return true;
-            }
-        }
-
-        return false;
-    }
-
-    static private bool IsLine(int x, int y)
-    {
-        int count = 0;
-
-        //横の列
-        for (int i = 0; i < GridSize; ++i)
-        {
-            if (!m_tileGrid[i, y].IsActive) break;
-            count++;
-        }
-
-        if (count == GridSize) return true;
-
-        count = 0;
-
-        //縦の列
-        for (int i = 0; i < GridSize; ++i)
-        {
-            if (!m_tileGrid[x, i].IsActive) break;
-            count++;
-        }
-
-        if (count == GridSize) return true;
-
-        return false;
     }
 
     //盤面座標に変換
@@ -88,25 +33,41 @@ public class TileGrid : MonoBehaviour
         return new Vector3(posX, 0.0f, posZ);
     }
 
-    //ランダムで攻撃範囲を選択
-    static public void RandomSelect()
+    static public int Check()
     {
-        int rand = Random.Range(0, m_enemyAttackGrid.Count);
+        int power = 0;
 
-        //横の列
-        for (int i = 0; i < GridSize; ++i)
+        //盤面の全探索
+        for (int y = 0; y < GridSize; ++y)
         {
-            m_tileGrid[i, m_enemyAttackGrid[rand]].EnemyAttack();
+            for (int x = 0; x < GridSize; ++x)
+            {
+                //非アクティブの盤面はスキップ
+                if (!m_tileGrid[x, y].IsActive) continue;
+
+                //攻撃力の加算
+                if (m_tileGrid[x, y].GetComponent<TileCondition>().State == TileState.Power) power++;
+            }
         }
 
-        //縦の列
-        for (int i = 0; i < GridSize; ++i)
-        {
-            m_tileGrid[m_enemyAttackGrid[rand], i].EnemyAttack();
-        }
+        return power;
+    }
 
-        //選択した攻撃範囲をリストから削除
-        m_enemyAttackGrid.Remove(rand);
+    //盤面を全て非アクティブ状態にする
+    static public void AllInactive()
+    {
+        for (int y = 0; y < GridSize; ++y)
+        {
+            for (int x = 0; x < GridSize; ++x)
+            {
+                if (m_tileGrid[x, y].IsActive)
+                {
+                    //ランダムで状態を変更
+                    m_tileGrid[x, y].GetComponent<TileCondition>().SetCondition((TileState)Random.Range(0, (int)TileState.Poison));
+                    m_tileGrid[x, y].Inactive();
+                }
+            }
+        }
     }
 
     //盤面を全て非アクティブ状態にする
@@ -127,27 +88,9 @@ public class TileGrid : MonoBehaviour
         {
             for (int x = 0; x < GridSize; ++x)
             {
-                //アクティブの盤面はエフェクトを表示
+                //アクティブの盤面は攻撃エフェクトを表示
                 if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].PlayerAttack();
-               
             }
         }
-    }
-
-    static public void AllInactive()
-    {
-        for (int y = 0; y < GridSize; ++y)
-        {
-            for (int x = 0; x < GridSize; ++x)
-            {
-                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].Inactive();
-            }
-        }
-    }
-
-    static public void DrawShape(int cardIndex)
-    {
-        //選択されたカードの形状を盤面に表示
-
     }
 }

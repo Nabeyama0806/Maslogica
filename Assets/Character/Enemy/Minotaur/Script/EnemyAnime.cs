@@ -49,8 +49,7 @@ public class EnemyAnime : MonoBehaviour
     }
     public void NextAttack()
     {
-        //次の攻撃マスをランダムで選択
-        TileGrid.RandomSelect();
+        //マスをランダムでさせる
 
         //効果音
         SoundManager.Play2D(m_tileAttack);

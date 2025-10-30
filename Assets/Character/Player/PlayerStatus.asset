@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96a2e60d5cdc72488d3aac621fdda68, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  baseHealth: 100
-  basePower: 60
-  baseDefense: 20
+  baseHealth: 200
+  basePower: 10
+  baseDefense: 30

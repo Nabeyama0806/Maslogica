@@ -46,7 +46,7 @@ public class GameSceneManager : MonoBehaviour
                 if (!m_player.GetComponent<PlayerController>().IsTurnEnd()) break;
 
                 //敵にダメージを与える
-                if (TileGrid.Check()) m_enemyStatus.Damage(m_playerStatus.Power);
+                m_enemyStatus.Damage(m_playerStatus.Power * TileGrid.Check());
 
                 //次のフェーズへ
                 m_nextPhase = Phase.EnemyTurn;
