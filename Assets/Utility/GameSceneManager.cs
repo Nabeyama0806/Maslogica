@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameSceneManager : MonoBehaviour
@@ -20,11 +21,22 @@ public class GameSceneManager : MonoBehaviour
     private CharacterStatus m_playerStatus;
     private CharacterStatus m_enemyStatus;
 
+    private Action[] m_phaseAction;
+
     private void Awake()
     {
         //フェースの初期化
         m_phase = Phase.Check;
         m_nextPhase = Phase.PlayerTurn;
+
+        //フェーズごとの関数登録
+        m_phaseAction = new Action[(int)Phase.Length]
+        {
+            PlayerTurn,
+            EnemyTurn,
+            Check,
+            null,   //Finishフェーズは特に処理なし
+        };
 
         //ヒエラルキー上のプレイヤーを取得
         m_player = GetObject.Instance.Player;
@@ -37,75 +49,81 @@ public class GameSceneManager : MonoBehaviour
         m_player.GetComponent<PlayerController>().IsBattle = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        switch (m_phase)
+        //現在のフェーズの処理を実行
+        m_phaseAction[(int)m_phase]?.Invoke();
+    }
+
+    private void PlayerTurn()
+    {
+        //プレイヤーのステータスを更新
+        m_playerStatus.Value.StatusReset();
+
+        //プレイヤーの操作が終了するまで待機
+        if (!m_player.GetComponent<PlayerController>().IsTurnEnd()) return;
+
+        //盤面の状態をチェック
+        TileGrid.Check();
+
+        //敵にダメージを与える
+        m_enemyStatus.Damage(m_playerStatus.Power);
+
+        //次のフェーズへ
+        m_nextPhase = Phase.EnemyTurn;
+        m_phase = Phase.Check;
+    }
+
+    private void EnemyTurn()
+    {
+        //エネミーの行動が終了するまで待機
+        if (!m_enemy.GetComponent<EnemyController>().IsTurnEnd()) return;
+
+        //次のフェーズへ
+        m_nextPhase = Phase.PlayerTurn;
+        m_phase = Phase.Check;
+    }
+
+    private void Check()
+    {
+        //プレイヤーの勝利判定
+        if (m_enemyStatus.CurrentHealth <= 0)
         {
-        case Phase.PlayerTurn:
-                //プレイヤーの操作が終了するまで待機
-                if (!m_player.GetComponent<PlayerController>().IsTurnEnd()) break;
+            //プレイヤーの移動制限を解除
+            m_player.GetComponent<PlayerController>().IsBattle = false;
 
-                //敵にダメージを与える
-                m_enemyStatus.Damage(m_playerStatus.Power * TileGrid.Check());
+            //盤面のリセット
+            TileGrid.AllReset();
 
-                //次のフェーズへ
-                m_nextPhase = Phase.EnemyTurn;
-                m_phase = Phase.Check;
-                break;
-
-        case Phase.EnemyTurn:
-                //エネミーの行動が終了するまで待機
-                if (!m_enemy.GetComponent<EnemyController>().IsTurnEnd()) break;
-
-                //次のフェーズへ
-                m_nextPhase = Phase.PlayerTurn;
-                m_phase = Phase.Check;
-                break;
-
-        case Phase.Check:
-                //プレイヤーの勝利判定
-                if (m_enemyStatus.CurrentHealth <= 0)
-                {
-                    //プレイヤーの移動制限を解除
-                    m_player.GetComponent<PlayerController>().IsBattle = false;
-
-                    //盤面のリセット
-                    TileGrid.AllReset();
-
-                    m_phase = Phase.Finish;
-                    break;
-                }
-
-                //エネミーの勝利判定
-                if (m_playerStatus.CurrentHealth <= 0)
-                {
-                    //プレイヤーの移動を停止
-                    m_player.GetComponent<PlayerController>().enabled = false;
-
-                    //盤面のリセット
-                    TileGrid.AllReset();
-
-                    m_phase = Phase.Finish;
-                    break;
-                }
-
-                //次のターンの準備
-                m_phase = m_nextPhase;
-                if (m_phase == Phase.PlayerTurn)
-                {
-                    m_player.GetComponent<PlayerController>().Play();
-                }
-                else 
-                {
-                    m_enemy.GetComponent<EnemyController>().Play();
-                }
-
-                TileGrid.AllInactive();
-                break;
-
-        case Phase.Finish:
-               //何もせずに待機
-                break;
+            m_phase = Phase.Finish;
+            return;
         }
+
+        //エネミーの勝利判定
+        if (m_playerStatus.CurrentHealth <= 0)
+        {
+            //プレイヤーの移動を停止
+            m_player.GetComponent<PlayerController>().enabled = false;
+
+            //盤面のリセット
+            TileGrid.AllReset();
+
+            m_phase = Phase.Finish;
+            return;
+        }
+
+        //次のターンの準備
+        m_phase = m_nextPhase;
+        if (m_phase == Phase.PlayerTurn)
+        {
+            m_player.GetComponent<PlayerController>().Play();
+        }
+        else
+        {
+            m_enemy.GetComponent<EnemyController>().Play();
+        }
+
+        TileGrid.AllInactive();
+
     }
 }

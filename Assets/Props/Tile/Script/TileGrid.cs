@@ -18,7 +18,7 @@ public class TileGrid : MonoBehaviour
             {
                 //自身の子オブジェクトを二次元配列に変換
                 m_tileGrid[x, y] = transform.GetChild(index).gameObject.GetComponent<TileDate>();
-                m_tileGrid[x, y].GetComponent<TileCondition>().SetCondition((TileState)Random.Range(0, (int)TileState.Poison));
+                m_tileGrid[x, y].GetComponent<TileCondition>().SetCondition((TileState)Random.Range(0, (int)TileState.Length));
                 index++;
             }
         }
@@ -33,10 +33,8 @@ public class TileGrid : MonoBehaviour
         return new Vector3(posX, 0.0f, posZ);
     }
 
-    static public int Check()
+    static public void Check()
     {
-        int power = 0;
-
         //盤面の全探索
         for (int y = 0; y < GridSize; ++y)
         {
@@ -45,12 +43,10 @@ public class TileGrid : MonoBehaviour
                 //非アクティブの盤面はスキップ
                 if (!m_tileGrid[x, y].IsActive) continue;
 
-                //攻撃力の加算
-                if (m_tileGrid[x, y].GetComponent<TileCondition>().State == TileState.Power) power++;
+                //状態ごとの処理を実行
+                m_tileGrid[x, y].GetComponent<TileCondition>().CheckCondition();
             }
         }
-
-        return power;
     }
 
     //盤面を全て非アクティブ状態にする
@@ -63,7 +59,7 @@ public class TileGrid : MonoBehaviour
                 if (m_tileGrid[x, y].IsActive)
                 {
                     //ランダムで状態を変更
-                    m_tileGrid[x, y].GetComponent<TileCondition>().SetCondition((TileState)Random.Range(0, (int)TileState.Poison));
+                    m_tileGrid[x, y].GetComponent<TileCondition>().SetCondition((TileState)Random.Range(0, (int)TileState.Length));
                     m_tileGrid[x, y].Inactive();
                 }
             }
@@ -82,6 +78,7 @@ public class TileGrid : MonoBehaviour
         }
     }
 
+    //攻撃エフェクト再生プレイヤーの攻撃エフェクトを再生
     static public void PlayEffect()
     {
         for (int y = 0; y < GridSize; ++y)

@@ -21,15 +21,32 @@ public class TileCondition : MonoBehaviour
     [SerializeField] AudioClip m_activeSound;
     [SerializeField] GameObject m_playerAttackEffect;
 
+    private CharacterStatus m_playerStatus;
     private TileState m_state;  //自身の状態
 
     public TileState State => m_state;
 
     public GameObject ActiveEffect => m_activeEffect;
 
+    private Action[] m_condition;
+
     private void Start()
     {
         m_state = TileState.Normal;
+
+        //プレイヤーの取得
+        m_playerStatus = GetObject.Instance.Player.GetComponent<CharacterStatus>();
+
+        //状態ごとの関数登録
+        m_condition = new Action[(int)TileState.Length]
+        {
+            NormalState,
+            PowerState,
+            DefenseState,
+            EnergyState,
+            HealState,
+            PoisonState,
+        };
     }
 
     //状態の変化
@@ -60,4 +77,22 @@ public class TileCondition : MonoBehaviour
         m_activeEffect.SetActive(active);
         SoundManager.Play2D(m_activeSound, 0.5f);
     }
+
+    public void CheckCondition()
+    {
+        //状態ごとの処理実行
+        m_condition[(int)m_state]?.Invoke();
+    }
+
+    private void NormalState() { /*仮置き*/}
+
+    private void PowerState() => m_playerStatus.Power += 10;
+
+    private void DefenseState() => m_playerStatus.Defense += 60;
+
+    private void EnergyState() { /*仮置き*/}
+
+    private void HealState() => m_playerStatus.CurrentHealth += 30;
+
+    private void PoisonState() => m_playerStatus.Damage(25, m_state);
 }

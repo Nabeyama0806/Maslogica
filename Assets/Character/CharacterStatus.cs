@@ -37,6 +37,12 @@ public class CharacterStatus : MonoBehaviour
         set => m_status.currentDefense = value;
     }
 
+    public float MoveTime
+    {
+        get => m_status.currentMoveTime;
+        set => m_status.currentMoveTime = value;
+    }
+
     public bool Invincible
     {
         get => m_invincible;
@@ -50,7 +56,7 @@ public class CharacterStatus : MonoBehaviour
         m_invincible = false;
     }
 
-    public void Damage(int power)
+    public void Damage(int power, TileState state = TileState.Normal)
     {
         //無敵状態ならダメージを受けない
         if (m_invincible)
@@ -60,7 +66,7 @@ public class CharacterStatus : MonoBehaviour
         }
 
         //ダメージ計算(乱数)
-        int damage = (power - m_status.currentDefense);
+        int damage = state == TileState.Poison ? power : (power * 2) - (m_status.currentDefense / 3);
 
         //マイナスのダメージは与えない
         if (damage <= 0) return;
