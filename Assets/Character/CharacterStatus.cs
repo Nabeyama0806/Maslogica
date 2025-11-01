@@ -7,6 +7,8 @@ public class CharacterStatus : MonoBehaviour
     [SerializeField] UnityEvent m_onDeath;
     [SerializeField] UnityEvent m_onDamage;
 
+    private bool m_invincible;
+
     public StatusData Value
     {
         get => m_status;
@@ -35,14 +37,28 @@ public class CharacterStatus : MonoBehaviour
         set => m_status.currentDefense = value;
     }
 
+    public bool Invincible
+    {
+        get => m_invincible;
+        set => m_invincible = value;
+    }
+
     private void Start()
     {
         //ステータスの初期化
         m_status.Init();
+        m_invincible = false;
     }
 
     public void Damage(int power)
     {
+        //無敵状態ならダメージを受けない
+        if (m_invincible)
+        {
+            m_invincible = false;
+            return;
+        }
+
         //ダメージ計算(乱数)
         int damage = (power - m_status.currentDefense);
 
