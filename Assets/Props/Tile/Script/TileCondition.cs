@@ -62,6 +62,15 @@ public class TileCondition : MonoBehaviour
         m_tileEffect[(int)m_state].SetActive(true);
     }
 
+    //全てのエフェクトを非表示
+    public void AllEffectOff()
+    {
+        for (int i = 0; i < m_tileEffect.Length; i++)
+        {
+            m_tileEffect[i].SetActive(false);
+        }
+    }
+
     //プレイヤーの攻撃エフェクト
     public IEnumerator PlayerAttackEffect()
     { 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TitleButton : MonoBehaviour
 {
@@ -8,6 +9,16 @@ public class TitleButton : MonoBehaviour
     {
         // タイトルシーンのBGMを再生
         BGM.Instance.Play(SceneController.Type.Title);
+    }
+
+    void Update()
+    {
+        // キーまたはゲームパッドのボタンが押されたらゲーム開始
+        if (Keyboard.current.anyKey.wasPressedThisFrame ||
+            Gamepad.current?.buttonSouth.wasPressedThisFrame == true)
+        {
+            OnClick();
+        }
     }
 
     public void OnClick()

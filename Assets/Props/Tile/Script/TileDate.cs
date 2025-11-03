@@ -40,6 +40,6 @@ public class TileDate : MonoBehaviour
         Inactive();
 
         //エフェクトの停止
-        m_condition.SetCondition(TileState.Normal);
+        m_condition.AllEffectOff();
     }
 }

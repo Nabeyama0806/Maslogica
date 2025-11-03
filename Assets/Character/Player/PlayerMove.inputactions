@@ -157,8 +157,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ae846606-84b9-4eca-8e4c-28611918eeb9",
-                    "path": "<XRController>/{Primary2DAxis}",
+                    "id": "c1bbaa7f-f228-4ed5-bda3-083397cf49b1",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
