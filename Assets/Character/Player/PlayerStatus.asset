@@ -15,4 +15,4 @@ MonoBehaviour:
   baseHealth: 800
   basePower: 100
   baseDefense: 60
-  baseMoveTime: 0
+  baseMoveTime: 4

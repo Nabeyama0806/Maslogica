@@ -7,8 +7,6 @@ public class TileDate : MonoBehaviour
 
     public bool IsActive => m_isActive;
 
-    public void PlayerAttack() => StartCoroutine(m_condition.PlayerAttackEffect());
-
     private void Start()
     {        
         //ó‘Ô‚ÌƒŠƒZƒbƒg

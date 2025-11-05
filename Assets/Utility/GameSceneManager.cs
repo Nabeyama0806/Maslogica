@@ -93,7 +93,7 @@ public class GameSceneManager : MonoBehaviour
             m_player.GetComponent<PlayerController>().IsBattle = false;
 
             //盤面のリセット
-            TileGrid.AllReset();
+            TileGrid.AllClose();
 
             m_phase = Phase.Finish;
             return;
@@ -106,7 +106,7 @@ public class GameSceneManager : MonoBehaviour
             m_player.GetComponent<PlayerController>().enabled = false;
 
             //盤面のリセット
-            TileGrid.AllReset();
+            TileGrid.AllClose();
 
             m_phase = Phase.Finish;
             return;
@@ -124,6 +124,5 @@ public class GameSceneManager : MonoBehaviour
         }
 
         TileGrid.AllInactive();
-
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum TileState
 {
-    Normal,     //通常
     Power,      //攻撃力UP
     Defense,    //ダメージ軽減
     Energy,     //エネルギーチャージ
@@ -32,15 +31,12 @@ public class TileCondition : MonoBehaviour
 
     private void Start()
     {
-        m_state = TileState.Normal;
-
         //プレイヤーの取得
         m_playerStatus = GetObject.Instance.Player.GetComponent<CharacterStatus>();
 
         //状態ごとの関数登録
         m_condition = new Action[(int)TileState.Length]
         {
-            NormalState,
             PowerState,
             DefenseState,
             EnergyState,
@@ -90,18 +86,16 @@ public class TileCondition : MonoBehaviour
     public void CheckCondition()
     {
         //状態ごとの処理実行
-        m_condition[(int)m_state]?.Invoke();
+        m_condition[(int)m_state]();
     }
 
-    private void NormalState() { /*仮置き*/}
+    private void PowerState() => m_playerStatus.Power += 12;
 
-    private void PowerState() => m_playerStatus.Power += 10;
-
-    private void DefenseState() => m_playerStatus.Defense += 60;
+    private void DefenseState() => m_playerStatus.Defense += 50;
 
     private void EnergyState() { /*仮置き*/}
 
-    private void HealState() => m_playerStatus.CurrentHealth += 30;
+    private void HealState() => m_playerStatus.CurrentHealth += 40;
 
-    private void PoisonState() => m_playerStatus.Damage(25, m_state);
+    private void PoisonState() => m_playerStatus.Damage(35, m_state);
 }

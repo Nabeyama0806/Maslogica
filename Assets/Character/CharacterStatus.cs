@@ -56,7 +56,7 @@ public class CharacterStatus : MonoBehaviour
         m_invincible = false;
     }
 
-    public void Damage(int power, TileState state = TileState.Normal)
+    public void Damage(int power, TileState state)
     {
         //無敵状態ならダメージを受けない
         if (m_invincible)
@@ -88,5 +88,10 @@ public class CharacterStatus : MonoBehaviour
             //被弾通知
             m_onDamage?.Invoke();
         }
+    }
+
+    public void Damage(int power)
+    {
+        Damage(power, TileState.Length);
     }
 }

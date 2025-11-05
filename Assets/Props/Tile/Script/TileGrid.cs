@@ -66,8 +66,8 @@ public class TileGrid : MonoBehaviour
         }
     }
 
-    //盤面を全て非アクティブ状態にする
-    public static void AllReset()
+    //盤面を閉じる
+    public static void AllClose()
     {
         for (int y = 0; y < GridSize; ++y)
         {
@@ -78,7 +78,7 @@ public class TileGrid : MonoBehaviour
         }
     }
 
-    //攻撃エフェクト再生プレイヤーの攻撃エフェクトを再生
+    //プレイヤーの攻撃エフェクトを再生
     static public void PlayEffect()
     {
         for (int y = 0; y < GridSize; ++y)
@@ -86,7 +86,7 @@ public class TileGrid : MonoBehaviour
             for (int x = 0; x < GridSize; ++x)
             {
                 //アクティブの盤面は攻撃エフェクトを表示
-                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].PlayerAttack();
+                if (m_tileGrid[x, y].IsActive) m_tileGrid[x, y].StartCoroutine(m_tileGrid[x, y].GetComponent<TileCondition>().PlayerAttackEffect());
             }
         }
     }

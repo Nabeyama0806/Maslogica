@@ -4237,7 +4237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_moveSpeed: 4
   m_jumpPower: 7
-  m_movingTime: 3
+  m_movingTime: 4
   m_turnEnd: {fileID: 8300000, guid: 2def099eece3ceb41955cfdc71b41026, type: 3}
 --- !u!114 &2107827136
 MonoBehaviour:
