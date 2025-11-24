@@ -7,8 +7,6 @@ public class CharacterStatus : MonoBehaviour
     [SerializeField] UnityEvent m_onDeath;
     [SerializeField] UnityEvent m_onDamage;
 
-    private bool m_invincible;
-
     public StatusData Value
     {
         get => m_status;
@@ -43,30 +41,16 @@ public class CharacterStatus : MonoBehaviour
         set => m_status.currentMoveTime = value;
     }
 
-    public bool Invincible
-    {
-        get => m_invincible;
-        set => m_invincible = value;
-    }
-
     private void Start()
     {
         //ステータスの初期化
         m_status.Init();
-        m_invincible = false;
     }
 
-    public void Damage(int power, TileState state)
+    public void Damage(int power, bool isPenetration = false)
     {
-        //無敵状態ならダメージを受けない
-        if (m_invincible)
-        {
-            m_invincible = false;
-            return;
-        }
-
-        //ダメージ計算(乱数)
-        int damage = state == TileState.Poison ? power : (power * 2) - (m_status.currentDefense / 3);
+        //ダメージ計算
+        int damage = isPenetration ? power : (power * 2) - (m_status.currentDefense / 4);
 
         //マイナスのダメージは与えない
         if (damage <= 0) return;
@@ -88,10 +72,5 @@ public class CharacterStatus : MonoBehaviour
             //被弾通知
             m_onDamage?.Invoke();
         }
-    }
-
-    public void Damage(int power)
-    {
-        Damage(power, TileState.Length);
     }
 }

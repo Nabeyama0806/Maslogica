@@ -97,5 +97,5 @@ public class TileCondition : MonoBehaviour
 
     private void HealState() => m_playerStatus.CurrentHealth += 40;
 
-    private void PoisonState() => m_playerStatus.Damage(35, m_state);
+    private void PoisonState() => m_playerStatus.Damage(35, true);
 }
