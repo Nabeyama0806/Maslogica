@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class TitleButton : MonoBehaviour
 {
+    [SerializeField] TitleCameraMove m_titleCamera;
     [SerializeField] AudioClip m_se;
 
     private void Awake()
@@ -24,7 +25,7 @@ public class TitleButton : MonoBehaviour
     public void OnClick()
     {
         //カメラを徐々に加速させるフラグを立てる
-        Camera.main.GetComponent<TitleCameraMove>().IsClick = true;
+        m_titleCamera.IsClick = true;
 
         //BGMの停止
         BGM.Instance.Stop();
