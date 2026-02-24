@@ -12,8 +12,6 @@ public class EnemyAnime : MonoBehaviour
 
     [SerializeField] EnemyController m_controller;
     [SerializeField] CharacterStatus m_status;
-    [SerializeField] GameObject m_ui;
-    [SerializeField] GameObject m_wall;
     [SerializeField] GameObject m_gatePortal;
     [SerializeField] GameObject m_deathEffect;
     [SerializeField] AudioClip m_tileAttack;
@@ -27,7 +25,6 @@ public class EnemyAnime : MonoBehaviour
         m_instance = this;
         m_animator = GetComponent<Animator>();
         m_gatePortal.SetActive(false);
-        m_wall.SetActive(true);
 
         //プレイヤーの取得
         m_player = GetObject.Instance.Player;
@@ -39,14 +36,16 @@ public class EnemyAnime : MonoBehaviour
 
         _Attack();
     }
+
     public void AttackEnd()
     {
         //効果音
         SoundManager.Play2D(m_slash);
 
         //プレイヤーにダメージを与える
-        m_player.GetComponent<CharacterStatus>().Damage(m_status.Power);
+        m_player.GetComponent<CharacterStatus>().Damage(m_status.Base.power);
     }
+
     public void NextAttack()
     {
         //マスをランダムでさせる
@@ -59,19 +58,14 @@ public class EnemyAnime : MonoBehaviour
     {
         //ターン終了
         m_controller.IsTurnEndFlag = true;
-
-        //カメラをステージ視点に変更
-        m_ui.SetActive(true);
     }
 
     public void Death()
     {
         //死亡アニメーション
         m_animator.SetBool("Death", true);
-
-        //UIを非表示にする
-        m_ui.SetActive(false);
     }
+
     public void DeathEnd()
     {
         //死亡エフェクトを生成
@@ -79,9 +73,6 @@ public class EnemyAnime : MonoBehaviour
 
         //シーン遷移用のゲートを表示
         m_gatePortal.SetActive(true);
-
-        //移動制限用の壁を非表示
-        m_wall.SetActive(false);
 
         //自身の削除
         Destroy(gameObject);
@@ -94,9 +85,6 @@ public class EnemyAnime : MonoBehaviour
 
     private void _Attack()
     {
-        //カメラを自分視点に変更
-        m_ui.SetActive(false);
-
         //攻撃アニメーション
         m_animator.SetTrigger("Attack");
     }

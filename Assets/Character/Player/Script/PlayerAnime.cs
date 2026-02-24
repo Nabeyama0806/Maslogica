@@ -38,6 +38,7 @@ public class PlayerAnime : MonoBehaviour
         //攻撃エフェクト
         PlayerEffects.Instance.Play(PlayerEffects.EffectType.Aura);
     }
+
     public void AttackEnd()
     {
         //盤面のエフェクトを表示
@@ -80,7 +81,7 @@ public class PlayerAnime : MonoBehaviour
     public void DeathEnd()
     {
         //シーンの破棄
-        SceneController.Transition(SceneController.Type.Battle, SceneController.Type.Result);
+        SceneController.Transition(SceneType.Battle, SceneType.Result);
     }
 
     public void Hidden()

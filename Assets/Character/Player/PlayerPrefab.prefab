@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3055138094453506499}
   - component: {fileID: 3055138094453506497}
   - component: {fileID: 3055138094453506496}
+  - component: {fileID: 3823371733548590292}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -39,6 +40,7 @@ Transform:
   - {fileID: 334876617083907433}
   - {fileID: 7817157129293968926}
   - {fileID: 8661061196421416279}
+  - {fileID: 3625911070388477514}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,6 +137,7 @@ MonoBehaviour:
   m_jumpPower: 7
   m_movingTime: 4
   m_turnEnd: {fileID: 8300000, guid: 2def099eece3ceb41955cfdc71b41026, type: 3}
+  m_effectData: {fileID: 11400000, guid: 31af5642701e5b74db5b3de94ee70a2c, type: 2}
 --- !u!114 &3055138094453506497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4b5ffb82d5b17419d2f97bdf171f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_status: {fileID: 11400000, guid: 0ff6d9b6026973e4ab21f73fefb166ed, type: 2}
+  m_statusData: {fileID: 0}
   m_onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -203,6 +206,97 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3823371733548590292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055138094453506503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7bf62bb31184a4c9e5e2fe4d80da97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_effects:
+  - {fileID: 3066578446470756691}
+--- !u!1 &5014240776907220742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7365610106720808125}
+  - component: {fileID: 3066578446470756691}
+  m_Layer: 0
+  m_Name: Effect1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7365610106720808125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014240776907220742}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3625911070388477514}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3066578446470756691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014240776907220742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e416d4ed8f2a54429422295a2dc4af6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_data: {fileID: 11400000, guid: 31af5642701e5b74db5b3de94ee70a2c, type: 2}
+--- !u!1 &5087297719840695589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3625911070388477514}
+  m_Layer: 0
+  m_Name: Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3625911070388477514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087297719840695589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7365610106720808125}
+  m_Father: {fileID: 3055138094453506495}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7452537705700513921
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,27 +7,27 @@ public class PortalGateController : MonoBehaviour
     [Serializable]
     public class GateEffectData
     {
-        public SceneController.Type gateType;     
+        public SceneType gateType;     
         public GameObject effect;       
     }
 
-    [SerializeField] SceneController.Type m_scene;
-    [SerializeField] SceneController.Type m_nextScene;
+    [SerializeField] SceneType m_scene;
+    [SerializeField] SceneType m_nextScene;
     [SerializeField] int m_spawnProbability;        
     [SerializeField] GameObject m_gateInEffect; 
     [SerializeField] AudioClip m_se;
     [SerializeField] List<GateEffectData> m_gateEffectDataList;
 
-    private Dictionary<SceneController.Type, GameObject> m_gateEffects;
+    private Dictionary<SceneType, GameObject> m_gateEffects;
 
     private void Start()
     {
         //ランダムでゲートの種類を決定
         int rand = UnityEngine.Random.Range(0, 100);
-        if (rand > m_spawnProbability) m_nextScene = SceneController.Type.Battle;
+        if (rand > m_spawnProbability) m_nextScene = SceneType.Battle;
 
         //ゲートエフェクトとステージを紐づけるための連想配列リストを作成
-        m_gateEffects = new Dictionary<SceneController.Type, GameObject>();
+        m_gateEffects = new Dictionary<SceneType, GameObject>();
         foreach (var effectDate in m_gateEffectDataList)
         {
             m_gateEffects.Add(effectDate.gateType, effectDate.effect);

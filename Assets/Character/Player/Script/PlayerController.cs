@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_movingTime;       //ˆÚ“®‰Â”\ŽžŠÔ
     [SerializeField] AudioClip m_turnEnd;
 
+    [SerializeField] EffectData m_effectData;
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
     private Vector3 m_inputValue;      //“ü—Í
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
     { 
         set {   m_isTurnEnd = value; }
     }
+
     public bool IsBattle
     {
         set { m_isBattle = value; }
@@ -113,9 +116,9 @@ public class PlayerController : MonoBehaviour
         m_isMove = false;
         m_isTurnEnd = false;
         m_canMove = true;
-        m_moveElapsedTime = m_movingTime;
 
         //ˆÚ“®‰Â”\ŽžŠÔ‚Ì•\Ž¦
+        m_moveElapsedTime = m_movingTime;
         PlayerMPSlider.SetMaxMP(m_movingTime);
     }
 

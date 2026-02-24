@@ -249,10 +249,9 @@ MonoBehaviour:
   m_tileEffect:
   - {fileID: 8153756580349120763}
   - {fileID: 1429692838123487962}
-  - {fileID: 8014438346977619222}
   - {fileID: 8662797686468104354}
-  - {fileID: 2695176003174312329}
   m_activeEffect: {fileID: 8858542144222850714}
+  m_effect: []
   m_activeSound: {fileID: 8300000, guid: 25012698e7f7ff944a80bfe6f98b51a9, type: 3}
   m_playerAttackEffect: {fileID: 7712231242343937300}
 --- !u!1001 &412807881237836263
@@ -332,12 +331,6 @@ PrefabInstance:
 --- !u!4 &7954897140303871139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7773193551394671940, guid: 1a092fd6f7f679c4cb174c1d0d6338a6,
-    type: 3}
-  m_PrefabInstance: {fileID: 412807881237836263}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8014438346977619222 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7675144913762589937, guid: 1a092fd6f7f679c4cb174c1d0d6338a6,
     type: 3}
   m_PrefabInstance: {fileID: 412807881237836263}
   m_PrefabAsset: {fileID: 0}
@@ -777,12 +770,6 @@ PrefabInstance:
 --- !u!4 &2610761430010902588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7773193551394671940, guid: 0c1088b2daf9a214fb5c9ba28a1ba0d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 5756910847086278008}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2695176003174312329 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7675144913762589937, guid: 0c1088b2daf9a214fb5c9ba28a1ba0d5,
     type: 3}
   m_PrefabInstance: {fileID: 5756910847086278008}
   m_PrefabAsset: {fileID: 0}

@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TileGrid : MonoBehaviour
 {
-    private const int GridSize = 7;     //盤面の大きさ(半径)
+    private const int GridSize = 5;     //盤面の大きさ
 
     //盤面
     private static TileDate[,] m_tileGrid = new TileDate[GridSize, GridSize];
@@ -22,6 +21,10 @@ public class TileGrid : MonoBehaviour
                 index++;
             }
         }
+
+        //プレイヤーの初期位置を盤面内のランダムな位置に設定
+        Vector3 playerPos = new Vector3(Random.Range(0, GridSize), 1, Random.Range(0, GridSize));
+        GetObject.Instance.Player.transform.position = playerPos;
     }
 
     //盤面座標に変換

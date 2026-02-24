@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96a2e60d5cdc72488d3aac621fdda68, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  baseHealth: 800
-  basePower: 100
-  baseDefense: 60
-  baseMoveTime: 4
+  maxHealth: 500
+  power: 40
+  defense: 50
+  moveTime: 3.5

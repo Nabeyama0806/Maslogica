@@ -1,75 +1,61 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterStatus : MonoBehaviour
 {
-    [SerializeField] StatusData m_status;
+    private const float MinDamageRate = 0.8f;
+    private const float MaxDamageRate = 1.2f;
+
+    [SerializeField] StatusParameter m_statusData;
     [SerializeField] UnityEvent m_onDeath;
     [SerializeField] UnityEvent m_onDamage;
+    
+    private int m_health;
 
-    public StatusData Value
-    {
-        get => m_status;
-    }
+    public StatusParameter Base => m_statusData;
 
-    public int MaxHealth
-    {
-        get => m_status.baseHealth;
-        set => m_status.baseHealth = value;
-    }
     public int CurrentHealth
     {
-        get => m_status.currentHealth;
-        set => m_status.currentHealth = value;
-    }
-
-    public int Power
-    {
-        get => m_status.currentPower;
-        set => m_status.currentPower = value;
-    }
-
-    public int Defense
-    {
-        get => m_status.currentDefense;
-        set => m_status.currentDefense = value;
-    }
-
-    public float MoveTime
-    {
-        get => m_status.currentMoveTime;
-        set => m_status.currentMoveTime = value;
+        get => m_health;
+        set => m_health = Mathf.Clamp(value, 0, m_statusData.maxHealth);
     }
 
     private void Start()
     {
-        //ƒXƒe[ƒ^ƒX‚Ì‰Šú‰»
-        m_status.Init();
+        //ä½“åŠ›ã®åˆæœŸåŒ–
+        m_health = m_statusData.maxHealth;
     }
 
-    public void Damage(int power, bool isPenetration = false)
+    public void Damage(int power)
     {
-        //ƒ_ƒ[ƒWŒvZ
-        int damage = isPenetration ? power : (power * 2) - (m_status.currentDefense / 4);
+        //åŸºæœ¬ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—
+        int baseDamage = (power * 2) - (m_statusData.defense / 4);
 
-        //ƒ}ƒCƒiƒX‚Ìƒ_ƒ[ƒW‚Í—^‚¦‚È‚¢
+        //ä¹±æ•°
+        float randomFactor = Random.Range(MinDamageRate, MaxDamageRate);
+
+        //ä¹±æ•°ã‚’è€ƒæ…®ã—ãŸãƒ€ãƒ¡ãƒ¼ã‚¸
+        int damage = Mathf.RoundToInt(baseDamage * randomFactor);
+        
+        //ãƒã‚¤ãƒŠã‚¹ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ã¯ä¸ãˆãªã„
         if (damage <= 0) return;
 
-        //‘Ì—Í‚ªƒ}ƒCƒiƒX‚È‚çƒ_ƒ[ƒW‚ğ—^‚¦‚È‚¢
-        if (m_status.currentHealth <= 0) return;
+        //ä½“åŠ›ãŒãƒã‚¤ãƒŠã‚¹ãªã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆãªã„
+        if (m_health <= 0) return;
 
-        //ƒ_ƒ[ƒW
-        m_status.currentHealth -= damage;
+        //ãƒ€ãƒ¡ãƒ¼ã‚¸
+        m_health -= damage;
+        Debug.Log("ãƒ€ãƒ¡ãƒ¼ã‚¸é‡ : " + damage);
 
-        //‘Ì—Í‚ÌŠm”F
-        if (m_status.currentHealth <= 0)
+        //ä½“åŠ›ã®ç¢ºèª
+        if (m_health <= 0)
         {
-            //€–S’Ê’m
+            //æ­»äº¡é€šçŸ¥
             m_onDeath?.Invoke();
         }
         else
         {
-            //”í’e’Ê’m
+            //è¢«å¼¾é€šçŸ¥
             m_onDamage?.Invoke();
         }
     }

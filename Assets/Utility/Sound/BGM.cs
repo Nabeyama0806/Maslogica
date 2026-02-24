@@ -11,25 +11,24 @@ public class BGM : MonoBehaviour
         get { return m_instance; }
     }
 
-
     [Serializable]
     public class SoundData
     {
-        public SceneController.Type type; 
+        public SceneType type; 
         public AudioClip sound;
         public float volume; 
     }
 
     [SerializeField] List<SoundData> m_soundList; 
 
-    private Dictionary<SceneController.Type, AudioClip> m_soundDataList;
+    private Dictionary<SceneType, AudioClip> m_soundDataList;
     private AudioSource m_audioSource;
 
     private void Awake()
     {
         m_instance = this;
         m_audioSource = GetComponent<AudioSource>();
-        m_soundDataList = new Dictionary<SceneController.Type, AudioClip>();
+        m_soundDataList = new Dictionary<SceneType, AudioClip>();
 
         //BGMとステージを紐づけるための連想配列リストを作成
         foreach (var sound in m_soundList)
@@ -38,7 +37,7 @@ public class BGM : MonoBehaviour
         }
     }
 
-    public void Play(SceneController.Type type)
+    public void Play(SceneType type)
     {
         //BGMが登録されていなければ何もしない
         if (m_soundDataList[type] == null) return;

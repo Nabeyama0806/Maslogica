@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Heal : MonoBehaviour
@@ -38,8 +37,9 @@ public class Heal : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //プレイヤー体力を回復
-            other.GetComponent<CharacterStatus>().Value.FullRecovery();
+            //プレイヤーの体力を回復
+            CharacterStatus status = other.GetComponent<CharacterStatus>();
+            status.CurrentHealth += status.Base.maxHealth;
 
             //効果音の再生
             SoundManager.Play2D(m_healSound);

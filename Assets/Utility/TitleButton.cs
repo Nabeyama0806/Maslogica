@@ -9,7 +9,7 @@ public class TitleButton : MonoBehaviour
     private void Awake()
     {
         // タイトルシーンのBGMを再生
-        BGM.Instance.Play(SceneController.Type.Title);
+        BGM.Instance.Play(SceneType.Title);
     }
 
     void Update()
@@ -37,14 +37,14 @@ public class TitleButton : MonoBehaviour
         Fade.FadeOut(1.0f, () =>
         {
             //シーンの破棄
-            SceneController.UnLoad(SceneController.Type.Title);
+            SceneController.UnLoad(SceneType.Title);
 
             //シーンの読み込み
-            SceneController.Load(SceneController.Type.Player);
-            SceneController.Load(SceneController.Type.Select);
+            SceneController.Load(SceneType.Player);
+            SceneController.Load(SceneType.Select);
 
             //ステージ選択シーンのBGMを再生
-            BGM.Instance.Play(SceneController.Type.Select);
+            BGM.Instance.Play(SceneType.Select);
 
             //フェードイン
             Fade.FadeIn(1.0f);

@@ -13,7 +13,9 @@ public class GameSceneManager : MonoBehaviour
         Length,
     }
 
+    [SerializeField] Vector3 m_playerPosition;
     [SerializeField] GameObject m_enemy;
+    [SerializeField] GameObject m_collider;
 
     private GameObject m_player;
     private Phase m_phase;
@@ -35,7 +37,7 @@ public class GameSceneManager : MonoBehaviour
             PlayerTurn,
             EnemyTurn,
             Check,
-            null,   //Finishフェーズは特に処理なし
+            Finish,   
         };
 
         //ヒエラルキー上のプレイヤーを取得
@@ -57,9 +59,6 @@ public class GameSceneManager : MonoBehaviour
 
     private void PlayerTurn()
     {
-        //プレイヤーのステータスを更新
-        m_playerStatus.Value.StatusReset();
-
         //プレイヤーの操作が終了するまで待機
         if (!m_player.GetComponent<PlayerController>().IsTurnEnd()) return;
 
@@ -67,7 +66,7 @@ public class GameSceneManager : MonoBehaviour
         TileGrid.Check();
 
         //敵にダメージを与える
-        m_enemyStatus.Damage(m_playerStatus.Power);
+        m_enemyStatus.Damage(m_playerStatus.Base.power);
 
         //次のフェーズへ
         m_nextPhase = Phase.EnemyTurn;
@@ -124,5 +123,10 @@ public class GameSceneManager : MonoBehaviour
         }
 
         TileGrid.AllInactive();
+    }
+
+    private void Finish()
+    {
+        m_collider.SetActive(false);
     }
 }

@@ -6,10 +6,15 @@ public enum TileState
 {
     Power,      //UŒ‚—ÍUP
     Defense,    //ƒ_ƒ[ƒWŒyŒ¸
-    Energy,     //ƒGƒlƒ‹ƒM[ƒ`ƒƒ[ƒW
     Heal,       //‰ñ•œ
-    Poison,     //“Å
 
+    Length,
+}
+
+public enum TileEffect
+{
+    Normal,     
+    Active,     
     Length,
 }
 
@@ -39,9 +44,7 @@ public class TileCondition : MonoBehaviour
         {
             PowerState,
             DefenseState,
-            EnergyState,
             HealState,
-            PoisonState,
         };
     }
 
@@ -89,13 +92,18 @@ public class TileCondition : MonoBehaviour
         m_condition[(int)m_state]();
     }
 
-    private void PowerState() => m_playerStatus.Power += 12;
+    private void PowerState()
+    {
+        Debug.Log("UŒ‚—ÍUP");
+    }
 
-    private void DefenseState() => m_playerStatus.Defense += 50;
+    private void DefenseState()
+    { 
+        Debug.Log("–hŒä—ÍUP");
+    }
 
-    private void EnergyState() { /*‰¼’u‚«*/}
-
-    private void HealState() => m_playerStatus.CurrentHealth += 40;
-
-    private void PoisonState() => m_playerStatus.Damage(35, true);
+    private void HealState()
+    { 
+        Debug.Log("HP‰ñ•œ");
+    }
 }
