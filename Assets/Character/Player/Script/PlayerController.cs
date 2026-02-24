@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] EffectData m_effectData;
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
+    private CharacterStatus m_status;
     private Vector3 m_inputValue;      //入力
     private bool m_canMove;            //移動可能か
     private bool m_isMove;             //移動したか
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         //コンポーネントの取得
         m_characterController = GetComponent<CharacterController>();
         m_playerInput = GetComponent<PlayerInput>();
+        m_status = GetComponent<CharacterStatus>();
 
         //入力値の初期化
         m_moveElapsedTime = m_movingTime;
@@ -120,6 +122,9 @@ public class PlayerController : MonoBehaviour
         //移動可能時間の表示
         m_moveElapsedTime = m_movingTime;
         PlayerMPSlider.SetMaxMP(m_movingTime);
+
+        //バフ効果のリセット
+        m_status.Buff.BuffReset();
     }
 
     private void Move()

@@ -66,7 +66,7 @@ public class GameSceneManager : MonoBehaviour
         TileGrid.Check();
 
         //敵にダメージを与える
-        m_enemyStatus.Damage(m_playerStatus.Base.power);
+        m_enemyStatus.Damage(m_playerStatus);
 
         //次のフェーズへ
         m_nextPhase = Phase.EnemyTurn;
@@ -86,7 +86,7 @@ public class GameSceneManager : MonoBehaviour
     private void Check()
     {
         //プレイヤーの勝利判定
-        if (m_enemyStatus.CurrentHealth <= 0)
+        if (m_enemyStatus.Current.health <= 0)
         {
             //プレイヤーの移動制限を解除
             m_player.GetComponent<PlayerController>().IsBattle = false;
@@ -99,7 +99,7 @@ public class GameSceneManager : MonoBehaviour
         }
 
         //エネミーの勝利判定
-        if (m_playerStatus.CurrentHealth <= 0)
+        if (m_playerStatus.Current.health <= 0)
         {
             //プレイヤーの移動を停止
             m_player.GetComponent<PlayerController>().enabled = false;

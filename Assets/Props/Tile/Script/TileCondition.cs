@@ -20,6 +20,10 @@ public enum TileEffect
 
 public class TileCondition : MonoBehaviour
 {
+    private const int PowerUpValue = 3;     //UŒ‚—ÍUP‚Ì’l
+    private const int DefenseUpValue = 2;   //–hŒä—ÍUP‚Ì’l
+    private const int HealValue = 2;        //‰ñ•œ‚Ì’l
+
     [SerializeField] GameObject[] m_tileEffect;
     [SerializeField] GameObject m_activeEffect;
     [SerializeField] AudioClip m_activeSound;
@@ -94,16 +98,19 @@ public class TileCondition : MonoBehaviour
 
     private void PowerState()
     {
-        Debug.Log("UŒ‚—ÍUP");
+        //UŒ‚—ÍUP
+        m_playerStatus.Buff.power += PowerUpValue;
     }
 
     private void DefenseState()
-    { 
-        Debug.Log("–hŒä—ÍUP");
+    {
+        //–hŒä—ÍUP
+        m_playerStatus.Buff.defense += DefenseUpValue;
     }
 
     private void HealState()
-    { 
-        Debug.Log("HP‰ñ•œ");
+    {
+        //‰ñ•œ
+        m_playerStatus.Heal(HealValue);
     }
 }

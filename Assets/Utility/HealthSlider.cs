@@ -11,12 +11,12 @@ public class HealthSlider : MonoBehaviour
         m_healthSlider = GetComponent<Slider>();
 
         //�̗͂̎擾
-        m_healthSlider.maxValue = m_status.Base.maxHealth;
+        m_healthSlider.maxValue = m_status.Base.health;
         m_healthSlider.value = m_healthSlider.maxValue;
     }
 
     private void FixedUpdate()
     {
-        m_healthSlider.value = m_status.CurrentHealth;
+        m_healthSlider.value = m_status.Current.health;
     }
 }

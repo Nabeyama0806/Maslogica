@@ -5,7 +5,7 @@ using UnityEditorInternal;
 [CreateAssetMenu(menuName = "StatusParameter")]
 public class StatusParameter : ScriptableObject
 {
-    public int maxHealth;
+    public int health;
     public int power;
     public int defense;
     public float moveTime;
@@ -15,10 +15,18 @@ public class StatusParameter : ScriptableObject
         return (StatusParameter)MemberwiseClone();
     }
 
+    public void BuffReset()
+    {
+        health = 0;
+        power = 0;
+        defense = 0;
+        moveTime = 0f;
+    }
+
     static public StatusParameter operator +(StatusParameter a, StatusParameter b)
     {
         StatusParameter result = a.Clone();
-        result.maxHealth += b.maxHealth;
+        result.health += b.health;
         result.power += b.power;
         result.defense += b.defense;
         result.moveTime += b.moveTime;
@@ -28,7 +36,7 @@ public class StatusParameter : ScriptableObject
     static public StatusParameter operator -(StatusParameter a, StatusParameter b)
     {
         StatusParameter result = a.Clone();
-        result.maxHealth -= b.maxHealth;
+        result.health -= b.health;
         result.power -= b.power;
         result.defense -= b.defense;
         result.moveTime -= b.moveTime;

@@ -43,7 +43,7 @@ public class EnemyAnime : MonoBehaviour
         SoundManager.Play2D(m_slash);
 
         //プレイヤーにダメージを与える
-        m_player.GetComponent<CharacterStatus>().Damage(m_status.Base.power);
+        m_player.GetComponent<CharacterStatus>().Damage(m_status);
     }
 
     public void NextAttack()

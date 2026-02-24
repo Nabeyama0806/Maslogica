@@ -25,6 +25,9 @@ public class TileGrid : MonoBehaviour
         //プレイヤーの初期位置を盤面内のランダムな位置に設定
         Vector3 playerPos = new Vector3(Random.Range(0, GridSize), 1, Random.Range(0, GridSize));
         GetObject.Instance.Player.transform.position = playerPos;
+
+        //プレイヤーを正面に向ける
+        GetObject.Instance.Player.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     //盤面座標に変換

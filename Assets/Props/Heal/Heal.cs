@@ -39,7 +39,7 @@ public class Heal : MonoBehaviour
         {
             //ƒvƒŒƒCƒ„[‚Ì‘Ì—Í‚ğ‰ñ•œ
             CharacterStatus status = other.GetComponent<CharacterStatus>();
-            status.CurrentHealth += status.Base.maxHealth;
+            status.Heal(status.Base.health);
 
             //Œø‰Ê‰¹‚ÌÄ¶
             SoundManager.Play2D(m_healSound);
