@@ -10,11 +10,6 @@ public class PlayerMPSlider : MonoBehaviour
         m_mpSlider = GetComponent<Slider>();
     }
 
-    static public void SetMaxMP(float maxMP)
-    {
-        m_mpSlider.maxValue = maxMP;
-        m_mpSlider.value = maxMP;
-    }
     static public void SetMP(float mp)
     {
         m_mpSlider.value = mp;

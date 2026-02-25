@@ -86,7 +86,7 @@ public class GameSceneManager : MonoBehaviour
     private void Check()
     {
         //プレイヤーの勝利判定
-        if (m_enemyStatus.Current.health <= 0)
+        if (m_enemyStatus.Health.CurrentValue <= 0)
         {
             //プレイヤーの移動制限を解除
             m_player.GetComponent<PlayerController>().IsBattle = false;
@@ -99,7 +99,7 @@ public class GameSceneManager : MonoBehaviour
         }
 
         //エネミーの勝利判定
-        if (m_playerStatus.Current.health <= 0)
+        if (m_playerStatus.Health.CurrentValue <= 0)
         {
             //プレイヤーの移動を停止
             m_player.GetComponent<PlayerController>().enabled = false;

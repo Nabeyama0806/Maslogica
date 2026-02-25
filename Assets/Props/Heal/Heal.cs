@@ -38,8 +38,8 @@ public class Heal : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             //ƒvƒŒƒCƒ„[‚Ì‘Ì—Í‚ğ‰ñ•œ
-            CharacterStatus status = other.GetComponent<CharacterStatus>();
-            status.Heal(status.Base.health);
+            PlayerStatus status = other.GetComponent<PlayerStatus>();
+            status.Heal(status.Health.MaxTotal);
 
             //Œø‰Ê‰¹‚ÌÄ¶
             SoundManager.Play2D(m_healSound);

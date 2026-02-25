@@ -1,24 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float m_moveSpeed;         //移動速度
     [SerializeField] float m_jumpPower;         //ジャンプ力
-    [SerializeField] float m_movingTime;       //移動可能時間
     [SerializeField] AudioClip m_turnEnd;
 
-    [SerializeField] EffectData m_effectData;
     private CharacterController m_characterController;
     private PlayerInput m_playerInput;
-    private CharacterStatus m_status;
+    private PlayerStatus m_status;
     private Vector3 m_inputValue;      //入力
     private bool m_canMove;            //移動可能か
     private bool m_isMove;             //移動したか
     private bool m_isTurnEnd;          //ターン終了か 
     private bool m_isBattle;           //戦闘中か   
-    private float m_moveElapsedTime;   //残りの移動可能時間
 
     public bool IsTurnEndFlag
     { 
@@ -35,14 +33,12 @@ public class PlayerController : MonoBehaviour
         //コンポーネントの取得
         m_characterController = GetComponent<CharacterController>();
         m_playerInput = GetComponent<PlayerInput>();
-        m_status = GetComponent<CharacterStatus>();
+        m_status = GetComponent<PlayerStatus>();
 
         //入力値の初期化
-        m_moveElapsedTime = m_movingTime;
         m_isMove = false;
         m_isTurnEnd = false;
         m_canMove = false;
-        m_isBattle = false;
     }
 
     private void OnEnable()
@@ -90,8 +86,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (m_moveElapsedTime <= 0 && m_isBattle) return;
-
         //接地していれば上方向に速度を与える
         if (!m_characterController.isGrounded) return;
         m_inputValue.y = m_jumpPower;
@@ -100,7 +94,7 @@ public class PlayerController : MonoBehaviour
     private void OnAttack(InputAction.CallbackContext context)
     {
         if (!m_isMove && m_isBattle) return;
-        m_moveElapsedTime = 0;
+        m_status.MoveTime.CurrentValue = 0;
     }
 
     private void FixedUpdate()
@@ -114,17 +108,20 @@ public class PlayerController : MonoBehaviour
 
     public void Play()
     {
-        //ターン開始の準備
         m_isMove = false;
         m_isTurnEnd = false;
         m_canMove = true;
+        m_status.MoveTime.CurrentValue = m_status.MoveTime.MaxTotal;
 
-        //移動可能時間の表示
-        m_moveElapsedTime = m_movingTime;
-        PlayerMPSlider.SetMaxMP(m_movingTime);
+        //ステータスの初期化
+        m_status.Clear();
+    }
 
-        //バフ効果のリセット
-        m_status.Buff.BuffReset();
+    public void SetMoveTime()
+    {
+        //移動可能時間の設定
+        m_status.MoveTime.CurrentValue = m_status.MoveTime.MaxTotal;
+        PlayerMPSlider.SetMP(m_status.MoveTime.Normalized);
     }
 
     private void Move()
@@ -157,18 +154,21 @@ public class PlayerController : MonoBehaviour
         if (!m_canMove) return m_isTurnEnd;
 
         //動いてから計測
-        if (m_isMove) m_moveElapsedTime -= Time.deltaTime;
+        if (m_isMove) m_status.MoveTime.Damage(Time.deltaTime);
 
         //移動可能時間の表示
-        PlayerMPSlider.SetMP(m_moveElapsedTime);
+        PlayerMPSlider.SetMP(m_status.MoveTime.Normalized);
 
         //移動
         Move();
 
         //移動可能時間が無くなれば終了
-        if (m_moveElapsedTime <= 0)
+        if (m_status.MoveTime.CurrentTotal <= 0)
         {
             m_canMove = false;
+            m_isMove = false;
+
+            Debug.Log("攻撃力 : " + m_status.Power.TotalValue);
 
             //盤面座標に調整
             transform.position = TileGrid.ToGridPos(transform.position);

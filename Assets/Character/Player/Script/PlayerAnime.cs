@@ -37,6 +37,9 @@ public class PlayerAnime : MonoBehaviour
 
         //攻撃エフェクト
         PlayerEffects.Instance.Play(PlayerEffects.EffectType.Aura);
+
+        //攻撃時は敵の方を向く
+        transform.root.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void AttackEnd()
@@ -49,6 +52,9 @@ public class PlayerAnime : MonoBehaviour
 
         //攻撃エフェクト
         PlayerEffects.Instance.Stop(PlayerEffects.EffectType.Aura);
+
+        //移動時間の更新
+        m_controller.SetMoveTime();
 
         //ターン終了
         m_controller.IsTurnEndFlag = true;

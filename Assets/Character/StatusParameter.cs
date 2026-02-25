@@ -1,6 +1,4 @@
 using UnityEngine;
-using System;
-using UnityEditorInternal;
 
 [CreateAssetMenu(menuName = "StatusParameter")]
 public class StatusParameter : ScriptableObject
@@ -15,7 +13,7 @@ public class StatusParameter : ScriptableObject
         return (StatusParameter)MemberwiseClone();
     }
 
-    public void BuffReset()
+    public void StatusReset()
     {
         health = 0;
         power = 0;

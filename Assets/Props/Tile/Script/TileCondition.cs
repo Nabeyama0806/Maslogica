@@ -29,7 +29,7 @@ public class TileCondition : MonoBehaviour
     [SerializeField] AudioClip m_activeSound;
     [SerializeField] GameObject m_playerAttackEffect;
 
-    private CharacterStatus m_playerStatus;
+    private PlayerStatus m_playerStatus;
     private TileState m_state;  //©g‚Ìó‘Ô
 
     public TileState State => m_state;
@@ -41,7 +41,7 @@ public class TileCondition : MonoBehaviour
     private void Start()
     {
         //ƒvƒŒƒCƒ„[‚Ìæ“¾
-        m_playerStatus = GetObject.Instance.Player.GetComponent<CharacterStatus>();
+        m_playerStatus = GetObject.Instance.Player.GetComponent<PlayerStatus>();
 
         //ó‘Ô‚²‚Æ‚ÌŠÖ”“o˜^
         m_condition = new Action[(int)TileState.Length]
@@ -99,13 +99,13 @@ public class TileCondition : MonoBehaviour
     private void PowerState()
     {
         //UŒ‚—ÍUP
-        m_playerStatus.Buff.power += PowerUpValue;
+        m_playerStatus.Power.Add(PowerUpValue);
     }
 
     private void DefenseState()
     {
         //–hŒä—ÍUP
-        m_playerStatus.Buff.defense += DefenseUpValue;
+        m_playerStatus.Power.Add(DefenseUpValue);
     }
 
     private void HealState()

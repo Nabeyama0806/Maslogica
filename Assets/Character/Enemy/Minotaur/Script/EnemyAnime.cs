@@ -11,19 +11,21 @@ public class EnemyAnime : MonoBehaviour
     }
 
     [SerializeField] EnemyController m_controller;
-    [SerializeField] CharacterStatus m_status;
     [SerializeField] GameObject m_gatePortal;
     [SerializeField] GameObject m_deathEffect;
+    [SerializeField] GameObject m_ui;
     [SerializeField] AudioClip m_tileAttack;
     [SerializeField] AudioClip m_slash;
 
     private Animator m_animator;
     private GameObject m_player;
+    private EnemyStatus m_status;
 
     private void Awake()
     {
         m_instance = this;
         m_animator = GetComponent<Animator>();
+        m_status = transform.root.GetComponent<EnemyStatus>();
         m_gatePortal.SetActive(false);
 
         //プレイヤーの取得
@@ -64,6 +66,9 @@ public class EnemyAnime : MonoBehaviour
     {
         //死亡アニメーション
         m_animator.SetBool("Death", true);
+
+        //UIを削除
+        Destroy(m_ui);
     }
 
     public void DeathEnd()
@@ -75,7 +80,7 @@ public class EnemyAnime : MonoBehaviour
         m_gatePortal.SetActive(true);
 
         //自身の削除
-        Destroy(gameObject);
+        Destroy(transform.root.gameObject);
     }
 
     public void Damage()
