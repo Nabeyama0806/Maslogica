@@ -11,6 +11,7 @@ public enum SceneType
     Shop,
     Result,
     System,
+    Tutorial,
 }
 
 public class SceneController
@@ -112,6 +113,9 @@ public class SceneController
 
             case SceneType.System:
                 return "System";
+
+            case SceneType.Tutorial:
+                return "Tutorial";
 
             default:
                 Debug.Log("ƒV[ƒ“‚ª‘¶İ‚µ‚Ü‚¹‚ñB");

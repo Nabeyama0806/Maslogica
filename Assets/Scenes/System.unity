@@ -358,7 +358,7 @@ MonoBehaviour:
     volume: 1
   - type: 3
     sound: {fileID: 8300000, guid: aaf1fe5b0b15cde4a83bf31edf067900, type: 3}
-    volume: 0.4
+    volume: 0.3
   - type: 4
     sound: {fileID: 8300000, guid: fbca8af6afdc3a34e95c344e24638e4d, type: 3}
     volume: 0.4
@@ -370,7 +370,10 @@ MonoBehaviour:
     volume: 1
   - type: 7
     sound: {fileID: 0}
-    volume: 1
+    volume: 0.5
+  - type: 8
+    sound: {fileID: 8300000, guid: 83b160a3b69e2484a8be2bc1a24142db, type: 3}
+    volume: 0.6
 --- !u!82 &1068141153
 AudioSource:
   m_ObjectHideFlags: 0

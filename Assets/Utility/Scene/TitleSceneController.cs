@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TitleButton : MonoBehaviour
+public class TitleSceneController : MonoBehaviour
 {
     [SerializeField] TitleCameraMove m_titleCamera;
     [SerializeField] AudioClip m_se;
@@ -34,20 +34,6 @@ public class TitleButton : MonoBehaviour
         SoundManager.Play2D(m_se);
 
         //シーン遷移
-        Fade.FadeOut(1.0f, () =>
-        {
-            //シーンの破棄
-            SceneController.UnLoad(SceneType.Title);
-
-            //シーンの読み込み
-            SceneController.Load(SceneType.Player);
-            SceneController.Load(SceneType.Select);
-
-            //ステージ選択シーンのBGMを再生
-            BGM.Instance.Play(SceneType.Select);
-
-            //フェードイン
-            Fade.FadeIn(1.0f);
-        });
+        SceneController.Transition(SceneType.Title, SceneType.Tutorial);
     }
 }
