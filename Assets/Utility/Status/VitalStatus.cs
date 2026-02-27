@@ -67,18 +67,6 @@ public class VitalStatus
         Clamp();
     }
 
-    public void SetZero()
-    {
-        currentValue = -currentAddValue;
-        Clamp();
-    }
-
-    public void FullRecover()
-    {
-        currentValue = MaxTotal - currentAddValue;
-        Clamp();
-    }
-
     private void Clamp()
     {
         if (CurrentTotal > MaxTotal) currentValue = MaxTotal - currentAddValue;

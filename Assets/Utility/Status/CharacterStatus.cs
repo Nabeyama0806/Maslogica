@@ -4,17 +4,23 @@ using UnityEngine.Events;
 
 public abstract class CharacterStatus : MonoBehaviour
 {
+    //ダメージ計算に必要な定数
     private const float MinDamageRate = 0.9f;
     private const float MaxDamageRate = 1.1f;
     private const int PowerRate = 2;
     private const int DefenseRate = 4;
 
-    [SerializeField] UnityEvent m_onDeath;
-    [SerializeField] UnityEvent m_onDamage;
-
+    //ステータスに必要なパラメーター
+    protected string m_characterName;
     protected VitalStatus m_health = new VitalStatus();
     protected CombatStatus m_power = new CombatStatus();
     protected CombatStatus m_defense = new CombatStatus();
+
+    //イベント
+    [SerializeField] UnityEvent m_onDeath;
+    [SerializeField] UnityEvent m_onDamage;
+
+    public string Name => m_characterName;
 
     public VitalStatus Health => m_health;
 
@@ -40,10 +46,10 @@ public abstract class CharacterStatus : MonoBehaviour
         if (baseDamage <= 0) baseDamage = 1;
 
         //乱数
-        float randomFactor = Random.Range(MinDamageRate, MaxDamageRate);
+        float randomRate = Random.Range(MinDamageRate, MaxDamageRate);
 
         //最終ダメージ
-        int damage = Mathf.RoundToInt(baseDamage * randomFactor);
+        int damage = Mathf.RoundToInt(baseDamage * randomRate);
 
         //ダメージ適用
         m_health.Damage(damage);

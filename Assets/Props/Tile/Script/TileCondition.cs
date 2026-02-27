@@ -105,7 +105,7 @@ public class TileCondition : MonoBehaviour
     private void DefenseState()
     {
         //–hŒä—ÍUP
-        m_playerStatus.Power.Add(DefenseUpValue);
+        m_playerStatus.Defense.Add(DefenseUpValue);
     }
 
     private void HealState()

@@ -11,6 +11,7 @@ public class PlayerStatus : CharacterStatus
     protected override void Init()
     {
         // Šî‘b’lİ’è
+        m_characterName = m_data.characterName;
         m_moveTime.MaxValue = m_data.moveTime;
         m_health.MaxValue = m_data.health;
         m_power.Value = m_data.power;
