@@ -1,65 +1,61 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TutorialSceneController : MonoBehaviour
 {
-    [SerializeField] TextAnimation m_textAnimation;
-    [SerializeField] TextMeshProUGUI m_textObject;
+    [SerializeField] InputAction m_clickAction;
     [SerializeField] List<string> m_texts;
+    [SerializeField] TextController m_textController;
+    [SerializeField] TextMesh m_textMesh;
     [SerializeField] AudioClip m_se;
 
-    private int m_textIndex;
+    private string m_playerName;
+
+    public string PlayerName
+    {
+        get { return m_playerName; }
+        set { m_playerName = value; }
+    }
+
+    private void Start()
+    {
+        m_textController.Initialize(m_texts);
+    }
 
     private void Awake()
     {
-        m_textIndex = 0;
-        m_textAnimation.PlayText(m_texts[m_textIndex]);
+        m_clickAction.performed += ctx => OnClick();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        // キーまたはゲームパッドのボタンが押されたら次のテキストへ
-        if (Keyboard.current.anyKey.wasPressedThisFrame ||
-            Gamepad.current?.buttonSouth.wasPressedThisFrame == true)
-        {
-            OnClick();
-        }
+        m_clickAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        m_clickAction.Disable();
     }
 
     public void OnClick()
     {
-        //効果音を再生
         SoundManager.Play2D(m_se);
 
-        m_textIndex++;
-        if (m_textIndex >= m_texts.Count)
+        //テキスト表示が完了したらシーン遷移
+        if (!m_textController.Advance())
         {
-            //BGMの停止
             BGM.Instance.Stop();
 
-            //シーン遷移
             Fade.FadeOut(1.0f, () =>
             {
-                //シーンの破棄
                 SceneController.UnLoad(SceneType.Tutorial);
-
-                //シーンの読み込み
                 SceneController.Load(SceneType.Player);
                 SceneController.Load(SceneType.Select);
 
-                //ステージ選択シーンのBGMを再生
                 BGM.Instance.Play(SceneType.Select);
-
-                //フェードイン
                 Fade.FadeIn(1.0f);
             });
         }
-        else
-        {
-            m_textAnimation.PlayText(m_texts[m_textIndex]);
-        }
-
     }
 }

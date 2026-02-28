@@ -21,7 +21,7 @@ public enum TileEffect
 public class TileCondition : MonoBehaviour
 {
     private const int PowerUpValue = 3;     //UŒ‚—ÍUP‚Ì’l
-    private const int DefenseUpValue = 2;   //–hŒä—ÍUP‚Ì’l
+    private const int DefenseUpValue = 6;   //–hŒä—ÍUP‚Ì’l
     private const int HealValue = 2;        //‰ñ•œ‚Ì’l
 
     [SerializeField] GameObject[] m_tileEffect;
